@@ -1,3 +1,29 @@
+.w-controller {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
 .w-setup {
 	margin-top: 10px;
+	border-radius: 50%;
+	position: relative;
+	padding: 0;
+}
+
+.w-setup:before{
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+.w-setup--content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	margin-top: 50%;
+    transform: translateY(-50%);
 }

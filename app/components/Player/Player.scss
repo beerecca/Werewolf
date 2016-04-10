@@ -1,7 +1,10 @@
 .w-player--image {
 	width: 100px;
+	border-radius: 50%;
 }
 
 .w-player {
     position: fixed;
+    text-align: center;
+    transform: translate(-50%, -50%);
 }

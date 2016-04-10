@@ -28,13 +28,19 @@ export class AppController extends Component {
 			return <Player key={player.order} name={player.name} image={playerRole[0].image} x={pos.x} y={pos.y} />
 		});
 		const order = (players.length > 0) ? Math.max.apply(null, players.map(player => player.order)) + 1 : 0;
+		const content = (true) 
+		? <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} order={order} /> 
+		: <Setup createGame={(name)=>{dispatch(createGame(name))}} />
 
 		return (
 			<div className="container">
 				{playerPanels}
-				<div className="row">
-					<Setup createGame={(name)=>{dispatch(createGame(name))}} />
-					<PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} order={order} />
+				<div className="w-controller">
+					<div className="w-setup col-sm-6 panel panel-default">
+						<div className="w-setup--content col-sm-10 col-sm-offset-1">
+							{content}
+						</div>
+					</div>
 				</div>
 			</div>
 		);

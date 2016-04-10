@@ -36,7 +36,7 @@ export default class PlayerEdit extends Component {
 		const { roles } = this.props;
 
 		return (
-			<div className="w-playerEdit col-sm-6 col-sm-offset-3 panel panel-default">
+			<span>
 				<h3>Player</h3>
 
 				<form onSubmit={this.handleSubmit.bind(this)}>
@@ -56,7 +56,7 @@ export default class PlayerEdit extends Component {
 					</div>
 					<button type="submit" className="btn btn-default">Submit</button>
 				</form>
-			</div>
+			</span>
 		);
 	}
 }

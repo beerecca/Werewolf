@@ -17,9 +17,9 @@ export default class Player extends Component {
         };
 		
         return (
-			<div className="w-player col-sm-3 panel panel-default" style={style}>
+			<div className="w-player" style={style}>
 				<img className="w-player--image" src={image} />
-				<h3>{name}</h3>
+				<p>{name}</p>
 			</div>
 		);
 	}

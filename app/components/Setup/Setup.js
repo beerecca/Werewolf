@@ -14,17 +14,17 @@ export default class Setup extends Component {
 
 	render() {
 		return (
-			<div className="w-setup col-sm-6 col-sm-offset-3 panel panel-default">
+			<span>
 				<h1>Werewolf</h1>
-				<p>This is an awesome game blah blah</p>
+				<p>The Village is your mission: You will attempt to save it or destroy it.</p>
 				<form onSubmit={this.handleSubmit.bind(this)}>
 					<div className="form-group">
 						<label htmlFor="gameName">Game Name</label>
 						<input type="text" ref="gameName" className="form-control" ref="gameName" />
 					</div>
-					<button type="submit" className="btn btn-default">Submit</button>
-				</form>	
-			</div>
+					<button type="submit" className="btn btn-default">Start</button>
+				</form>
+			</span>
 		);
 	}
 }
