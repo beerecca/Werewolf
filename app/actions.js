@@ -7,11 +7,14 @@ export const actionType = {
 	SET_ROLES: 'SET_ROLES',
 	SET_ERROR: 'SET_ERROR',
 	CREATE_PLAYER: 'CREATE_PLAYER',
-	CREATE_GAME: 'CREATE_GAME'
+	CREATE_GAME: 'CREATE_GAME',
+    WINDOW_RESIZE: 'WINDOW_RESIZE'
 };
 
 export function getRoles() {
-	return { type: actionType.GET_ROLES }
+	return {
+        type: actionType.GET_ROLES
+    }
 }
 
 export function setRoles(roles) {
@@ -39,4 +42,11 @@ export function setError() {
 	return {
 		type: actionType.SET_ERROR
 	}
+}
+
+export function windowResize(windowSize) {
+    return {
+        type: actionType.WINDOW_RESIZE,
+        windowSize
+    }
 }

@@ -9,10 +9,15 @@ export default class Player extends Component {
 	};
 
 	render() {
-		const { name, image } = this.props;
-
-		return (
-			<div className="w-player col-sm-3 panel panel-default">
+		const { name, image, x, y } = this.props;
+        
+        const style = {
+            top : y + 'px',
+            left: x + 'px'
+        };
+		
+        return (
+			<div className="w-player col-sm-3 panel panel-default" style={style}>
 				<img className="w-player--image" src={image} />
 				<h3>{name}</h3>
 			</div>

@@ -7,8 +7,9 @@ import { createReduxReducer } from './util/react-helpers';
 export const initialState = {
 	roles : [],
 	players : [],
-	game: null,
-	error : null
+	game : null,
+	error : null,
+    windowSize : { w: null, h: null }
 };
 
 export const WerewolfApp = {
@@ -40,7 +41,14 @@ export const WerewolfApp = {
 			...state,
 			error: true
 		};
-	}
+	},
+
+    WINDOW_RESIZE : (state, action) => {
+        return {
+            ...state,
+            windowSize: action.windowSize
+        }
+    }
 };
 
 export const appStateReducer = (state = initialState, action) => createReduxReducer(state, action, WerewolfApp, initialState);

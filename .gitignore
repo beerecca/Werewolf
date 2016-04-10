@@ -29,3 +29,5 @@ test/*.svg
 
 #json
 jsconfig.json
+
+*.swp
