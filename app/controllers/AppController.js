@@ -24,7 +24,7 @@ export class AppController extends Component {
 			const playerRole = roles.filter(role => {
 				return role.name === player.role;
 			});
-            let pos = ellipsePosition(player.order + 1, players.length + 1, windowSize.w*0.8, windowSize.h*0.8);
+            let pos = ellipsePosition(player.order + 1, players.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 			return <Player key={player.order} name={player.name} image={playerRole[0].image} x={pos.x} y={pos.y} />
 		});
 		const order = (players.length > 0) ? Math.max.apply(null, players.map(player => player.order)) + 1 : 0;
