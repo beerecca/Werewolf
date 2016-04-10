@@ -1,0 +1,34 @@
+{
+  "name": "Werewolf",
+  "version": "0.0.1",
+  "description": "An app to help you play Werewolf",
+  "main": "app.js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "browserslist",
+    "index.html",
+    "package.json",
+    "server.js",
+    "style.scss"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "es6"
+  ],
+  "dependencies": {
+    "classnames": "^2.2.0",
+    "es6-promise-polyfill": "https://github.com/lahmatiy/es6-promise-polyfill.git",
+    "fetch": "https://github.com/github/fetch.git",
+    "String.prototype.at": "https://github.com/mathiasbynens/String.prototype.at.git"
+  },
+  "devDependencies": {
+    "mocha": "https://github.com/mochajs/mocha.git",
+    "chai": "https://github.com/chaijs/chai.git",
+    "bind-polyfill": "https://github.com/kdimatteo/bind-polyfill.git",
+    "sinon-1.17.2": "http://sinonjs.org/releases/sinon-1.17.2.js"
+  }
+}

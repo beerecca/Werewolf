@@ -1,0 +1,5 @@
+node_modules/*
+bower_components/*
+**/loader-config.js
+**/loader-config.json
+dist/*

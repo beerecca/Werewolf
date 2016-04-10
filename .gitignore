@@ -1,0 +1,31 @@
+#project
+dist
+tmp
+bin
+
+#node
+node_modules
+npm-debug.log
+
+#bower
+bower_components
+
+#generated files
+mocha.json
+test/tests.compiled.js
+test/*.css
+test/*.svg
+
+#IDEs
+.idea
+*.iml
+
+#Mac OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+#json
+jsconfig.json
