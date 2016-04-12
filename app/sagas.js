@@ -31,8 +31,9 @@ export function* saveGameSaga() {
 	while (true) {
 
 		yield take(actions.actionType.SAVE_GAME);
-
 		try {
+            yield put(actions.setGameState('night'));
+
 			const gameName = yield select(selectors.getGameName);
 			const players = yield select(selectors.getPlayers);
 			const postData = {
@@ -45,4 +46,28 @@ export function* saveGameSaga() {
 			yield put(actions.setError());
 		}
 	}
+}
+
+export function* saveActionsSaga() {
+    while (true) {
+    
+        yield take(actions.actionType.SAVE_ACTIONS);
+        
+        try {
+            const gameId = yield select(selectors.getGameId);
+            const phase = yield select(selectors.getPhase);
+            const actions = yield select(selectors.getActions);
+            const data = { gameId, phase, actions };
+
+            const game = yield call(api.saveActions, data);
+            
+            yield call(actions.setGameState('day-review'));
+
+        } catch(error) {
+            yield put(actions.setError());
+        }
+    
+    }
+
+
 }

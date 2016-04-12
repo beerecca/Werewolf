@@ -9,7 +9,10 @@ export const actionType = {
 	CREATE_PLAYER: 'CREATE_PLAYER',
 	CREATE_GAME: 'CREATE_GAME',
 	SAVE_GAME: 'SAVE_GAME',
-    WINDOW_RESIZE: 'WINDOW_RESIZE'
+    WINDOW_RESIZE: 'WINDOW_RESIZE',
+    CHANGE_ROLE: 'CHANGE_ROLE',
+    SAVE_ACTIONS: 'SAVE_ACTIONS',
+    SET_GAME_STATE: 'SET_GAME_STATE'
 };
 
 export function getRoles() {
@@ -40,6 +43,7 @@ export function createGame(game) {
 }
 
 export function saveGame() {
+
 	return { 
 		type: actionType.SAVE_GAME
 	}
@@ -55,5 +59,25 @@ export function windowResize(windowSize) {
     return {
         type: actionType.WINDOW_RESIZE,
         windowSize
+    }
+}
+
+export function changeRole(direction) {
+    return {
+        type: actionType.CHANGE_ROLE,
+        direction
+    }
+}
+
+export function saveActions() {
+    return {
+        type: actionType.SAVE_ACTIONS
+    }
+}
+
+export function setGameState(gameState) {
+    return {
+        type: actionType.SET_GAME_STATE,
+        gameState
     }
 }
