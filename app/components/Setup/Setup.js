@@ -18,11 +18,11 @@ export default class Setup extends Component {
 				<h1>Werewolf</h1>
 				<p>The Village is your mission: You will attempt to save it or destroy it.</p>
 				<form onSubmit={this.handleSubmit.bind(this)}>
-					<div className="form-group">
-						<label htmlFor="gameName">Game Name</label>
+					<div className="form-group form-inline">
+						<label className="w-setup--name" htmlFor="gameName">Name Your Game:</label>
 						<input type="text" ref="gameName" className="form-control" ref="gameName" />
 					</div>
-					<button type="submit" className="btn btn-default">Start</button>
+					<button type="submit" className="btn btn-default">Add Players</button>
 				</form>
 			</span>
 		);

@@ -8,6 +8,7 @@ export const actionType = {
 	SET_ERROR: 'SET_ERROR',
 	CREATE_PLAYER: 'CREATE_PLAYER',
 	CREATE_GAME: 'CREATE_GAME',
+	SAVE_GAME: 'SAVE_GAME',
     WINDOW_RESIZE: 'WINDOW_RESIZE'
 };
 
@@ -35,6 +36,12 @@ export function createGame(game) {
 	return { 
 		type: actionType.CREATE_GAME,
 		game
+	}
+}
+
+export function saveGame() {
+	return { 
+		type: actionType.SAVE_GAME
 	}
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRoles, createPlayer, createGame, windowResize } from '../actions';
+import { getRoles, createPlayer, createGame, windowResize, saveGame } from '../actions';
 import PlayerEdit from '../components/PlayerEdit/PlayerEdit';
 import Player from '../components/Player/Player';
 import Setup from '../components/Setup/Setup';
@@ -17,19 +17,17 @@ export class AppController extends Component {
 	}
     
 	render() {
-		const { roles, players, windowSize } = this.props.app;
+		const { roles, players, windowSize, isEditing } = this.props.app;
 		const { dispatch } = this.props;
-		
 		const playerPanels = players.map((player) => {
+			const pos = ellipsePosition(player.order, players.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 			const playerRole = roles.filter(role => {
-				return role.name === player.role;
+				return role.id === player.role;
 			});
-            let pos = ellipsePosition(player.order + 1, players.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
-			return <Player key={player.order} name={player.name} image={playerRole[0].image} x={pos.x} y={pos.y} />
+			return <Player key={player.order} order={player.order} name={player.name} image={(playerRole[0]) ? playerRole[0].image : null} x={pos.x} y={pos.y} />
 		});
-		const order = (players.length > 0) ? Math.max.apply(null, players.map(player => player.order)) + 1 : 0;
-		const content = (true) 
-		? <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} order={order} /> 
+		const content = (isEditing) 
+		? <PlayerEdit roles={roles} startGame={()=>{dispatch(saveGame())}} createPlayer={(player)=>{dispatch(createPlayer(player))}} /> 
 		: <Setup createGame={(name)=>{dispatch(createGame(name))}} />
 
 		return (

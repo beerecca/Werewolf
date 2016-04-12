@@ -30,7 +30,7 @@ export function* getRolesSaga() {
 export function* saveGameSaga() {
 	while (true) {
 
-		yield take(actions.actionType.CREATE_GAME);
+		yield take(actions.actionType.SAVE_GAME);
 
 		try {
 			const gameName = yield select(selectors.getGameName);

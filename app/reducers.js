@@ -5,11 +5,12 @@
 import { createReduxReducer } from './util/react-helpers';
 
 export const initialState = {
-	roles : [],
-	players : [],
-	game : null,
-	error : null,
-    windowSize : { w: null, h: null }
+	roles: [],
+	players: [],
+	isEditing: false,
+	game: null,
+	error: null,
+    windowSize: { w: null, h: null }
 };
 
 export const WerewolfApp = {
@@ -23,16 +24,25 @@ export const WerewolfApp = {
 	},
 
 	CREATE_PLAYER : (state, action) => {
+		const order = state.players.length + 1;
 		return {
 			...state,
-			players: [...state.players, action.player]
+			players: [...state.players, {...action.player, order: order}]
 		};
 	},
 
 	CREATE_GAME : (state, action) => {
 		return {
 			...state,
-			game: action.game
+			game: action.game,
+			isEditing: true
+		};
+	},
+
+	SAVE_GAME : (state, action) => {
+		return {
+			...state,
+			isEditing: false
 		};
 	},
 
