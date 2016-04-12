@@ -28,7 +28,7 @@ export class AppController extends Component {
 		});
 		const content = (isEditing) 
 		? <PlayerEdit roles={roles} startGame={()=>{dispatch(saveGame())}} createPlayer={(player)=>{dispatch(createPlayer(player))}} /> 
-		: <Setup createGame={(name)=>{dispatch(createGame(name))}} />
+		: <Setup createGame={(name, moderator)=>{dispatch(createGame(name, moderator))}} />
 
 		return (
 			<div className="container">

@@ -33,11 +33,13 @@ export function* saveGameSaga() {
 		yield take(actions.actionType.SAVE_GAME);
 
 		try {
-			const gameName = yield select(selectors.getGameName);
+			const name = yield select(selectors.getGameName);
+			const moderator = yield select(selectors.getGameModerator);
 			const players = yield select(selectors.getPlayers);
 			const postData = {
-				name: gameName,
-				players: players
+				name,
+				moderator,
+				players
 			};
 			yield call(api.saveGame, postData);
 

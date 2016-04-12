@@ -2,5 +2,6 @@
  * Prevents sagas from having to know about the shape of the redux state
  */
 
-export const getGameName = state => state.app.game;
+export const getGameName = state => state.app.name;
+export const getGameModerator = state => state.app.moderator;
 export const getPlayers = state => state.app.players;

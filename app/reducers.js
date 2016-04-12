@@ -8,7 +8,8 @@ export const initialState = {
 	roles: [],
 	players: [],
 	isEditing: false,
-	game: null,
+	name: null,
+	moderator: null,
 	error: null,
     windowSize: { w: null, h: null }
 };
@@ -34,7 +35,8 @@ export const WerewolfApp = {
 	CREATE_GAME : (state, action) => {
 		return {
 			...state,
-			game: action.game,
+			name: action.name,
+			moderator: action.moderator,
 			isEditing: true
 		};
 	},
