@@ -4,9 +4,9 @@ import './Player.scss';
 export default class Player extends Component {
 
 	static propTypes = {
-		order: PropTypes.number.isRequired,
+		order: PropTypes.number,
+		image: PropTypes.string,
 		name: PropTypes.string.isRequired,
-		image: PropTypes.string.isRequired,
 		x: PropTypes.number.isRequired,
 		y: PropTypes.number.isRequired
 	};

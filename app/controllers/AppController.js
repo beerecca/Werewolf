@@ -17,7 +17,7 @@ export class AppController extends Component {
 	}
     
 	render() {
-		const { roles, players, windowSize, isEditing } = this.props.app;
+		const { roles, players, moderator, windowSize, isEditing } = this.props.app;
 		const { dispatch } = this.props;
 		const playerPanels = players.map((player) => {
 			const pos = ellipsePosition(player.order, players.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
@@ -29,7 +29,9 @@ export class AppController extends Component {
 		const content = (isEditing) 
 		? <PlayerEdit roles={roles} startGame={()=>{dispatch(saveGame())}} createPlayer={(player)=>{dispatch(createPlayer(player))}} /> 
 		: <Setup createGame={(name, moderator)=>{dispatch(createGame(name, moderator))}} />
-
+		const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
+		const moderatorPanel = (moderator) ? <Player name={moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
+		
 		return (
 			<div className="container">
 				{playerPanels}
@@ -40,6 +42,7 @@ export class AppController extends Component {
 						</div>
 					</div>
 				</div>
+				{moderatorPanel}
 			</div>
 		);
 	}
