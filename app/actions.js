@@ -35,10 +35,11 @@ export function createPlayer(player) {
 	}
 }
 
-export function createGame(game) {
+export function createGame(name, moderator) {
 	return { 
 		type: actionType.CREATE_GAME,
-		game
+		name,
+		moderator
 	}
 }
 

@@ -8,12 +8,13 @@ export const initialState = {
 	roles: [],
 	players: [],
 	isEditing: false,
-	game: null,
+	name: null,
+	moderator: null,
 	error: null,
     windowSize: { w: null, h: null },
     gameState : 'setup-game',
     nightRoles : [],
-    activeRole : { id : null, name: null, instruction: null },
+    activeRole : null,
     actions: [],
     phase: 0
 };
@@ -40,8 +41,9 @@ export const WerewolfApp = {
 	CREATE_GAME : (state, action) => {
 		return {
 			...state,
-			game: action.game,
-            gameState: 'setup-player'
+            gameState: 'setup-player',
+			name: action.name,
+			moderator: action.moderator
 		};
 	},
 
@@ -66,7 +68,7 @@ export const WerewolfApp = {
     },
 
     CHANGE_ROLE : (state, action) => {
-        const rolePosition = state.nightRoles.findIndex(r => r.id == state.activeRole);
+        const rolePosition = state.nightRoles.findIndex(r => r.id == state.activeRole.id);
         const newPosition = rolePosition + ( action.direction == 'next' ? 1 : -1 );
         return {
             ...state,
@@ -95,11 +97,13 @@ export const WerewolfApp = {
                 return map;
             }, {});
 
-            let nightRoles = state.players.reduce((roles, player) => {
-                if (player.alive) roles.push(roleMap[player.role]);
+            let playerRoles = state.players.reduce((roles, player) => {
+                roles[player.role] = roleMap[player.role];
                 return roles;
-            }, []);
-        
+            }, {});
+
+            let nightRoles = Object.values(playerRoles);
+
             return {
                 ...state,
                 gameState: action.gameState,

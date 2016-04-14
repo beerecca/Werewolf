@@ -18,7 +18,7 @@ export class AppController extends Component {
 	}
     
 	render() {
-		const { activeRole, nightRoles, roles, players, windowSize, gameState } = this.props.app;
+		const { activeRole, nightRoles, roles, moderator, players, windowSize, gameState } = this.props.app;
 		const { dispatch } = this.props;
 		const playerPanels = players.map((player) => {
 			const pos = ellipsePosition(player.order, players.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
@@ -27,11 +27,14 @@ export class AppController extends Component {
 			});
 			return <Player key={player.order} order={player.order} name={player.name} image={(playerRole[0]) ? playerRole[0].image : null} x={pos.x} y={pos.y} />
 		});
+		
+        const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
+		const moderatorPanel = (moderator) ? <Player name={moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
         
         let content;
         switch (gameState) {
             case 'setup-game':
-                content = <Setup createGame={(name)=>{dispatch(createGame(name))}} />
+                content = <Setup createGame={(name, moderator)=>{dispatch(createGame(name, moderator))}} />
                 break;
             case 'setup-player':
                 content = <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} startGame={()=>{dispatch(saveGame())}} /> 
@@ -53,6 +56,7 @@ export class AppController extends Component {
 						</div>
 					</div>
 				</div>
+				{moderatorPanel}
 			</div>
 		);
 	}

@@ -34,11 +34,13 @@ export function* saveGameSaga() {
 		try {
             yield put(actions.setGameState('night'));
 
-			const gameName = yield select(selectors.getGameName);
+			const name = yield select(selectors.getGameName);
+			const moderator = yield select(selectors.getGameModerator);
 			const players = yield select(selectors.getPlayers);
 			const postData = {
-				name: gameName,
-				players: players
+				name,
+				moderator,
+				players
 			};
 			yield call(api.saveGame, postData);
 
@@ -59,7 +61,7 @@ export function* saveActionsSaga() {
             const actions = yield select(selectors.getActions);
             const data = { gameId, phase, actions };
 
-            const game = yield call(api.saveActions, data);
+            yield call(api.saveActions, data);
             
             yield call(actions.setGameState('day-review'));
 
