@@ -20,9 +20,9 @@ export default class Action extends Component {
 
         const rolePosition = nightRoles.findIndex(r => r.id == activeRole.id);
         const actionsDone = false;
-        const previousClass = cn('btn', { 'disabled' : rolePosition == 0 });
-        const nextClass = cn('btn', { 'disabled' : rolePosition == nightRoles.length - 1});
-        const saveClass = cn('btn', 'btn-primary', { 'disabled' : !actionsDone });
+        const previousClass = cn('btn', 'w-btn', { 'disabled' : rolePosition == 0 });
+        const nextClass = cn('btn', 'w-btn', { 'disabled' : rolePosition == nightRoles.length - 1});
+        const saveClass = cn('btn', 'w-btn', 'btn-primary', { 'disabled' : !actionsDone });
         
         const { name, instruction } = activeRole;
 
