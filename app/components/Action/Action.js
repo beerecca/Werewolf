@@ -5,33 +5,32 @@ import './Action.scss';
 export default class Action extends Component {
 
 	static propTypes = {
-		changeRole : PropTypes.func.isRequired,
+		changeAction : PropTypes.func.isRequired,
 		saveActions : PropTypes.func.isRequired,
-        nightRoles : PropTypes.array.isRequired,
-        activeRole : PropTypes.object.isRequired
+        nightActions : PropTypes.array.isRequired,
+        activeAction : PropTypes.object.isRequired
 	};
 
-    changeRole(direction, e) {
-        this.props.changeRole(direction);
+    changeAction(direction) {
+        this.props.changeAction(direction);
     }
 
 	render() {
-        const { activeRole, nightRoles, saveActions } = this.props;
-
-        const rolePosition = nightRoles.findIndex(r => r.id == activeRole.id);
-        const actionsDone = false;
-        const previousClass = cn('btn', 'w-btn', { 'disabled' : rolePosition == 0 });
-        const nextClass = cn('btn', 'w-btn', { 'disabled' : rolePosition == nightRoles.length - 1});
-        const saveClass = cn('btn', 'w-btn', 'btn-primary', { 'disabled' : !actionsDone });
+        const { activeAction, nightActions, saveActions } = this.props;
+        const { name, instruction } = activeAction;
         
-        const { name, instruction } = activeRole;
-
+        const actionPosition = nightActions.findIndex(r => r.id == activeAction.id);
+        const actionsDone = false;
+        const previousClass = cn('btn', 'w-btn', { 'disabled' : actionPosition == 0 });
+        const nextClass = cn('btn', 'w-btn', { 'disabled' : actionPosition === nightActions.length - 1});
+        const saveClass = cn('btn', 'w-btn', 'btn-primary', { 'disabled' : !actionsDone }); //TODO: this isn't complete yet, actionsDone is hardcoded
+        
 		return (
 			<span>
 				<h1>{name}</h1>
 				<p>{instruction}</p>
-                <button className={previousClass} onClick={this.changeRole.bind(this, 'previous')}>Previous Role</button>
-                <button className={nextClass} onClick={this.changeRole.bind(this, 'next')}>Next Role</button>
+                <button className={previousClass} onClick={this.changeAction.bind(this, 'previous')}>Previous Role</button>
+                <button className={nextClass} onClick={this.changeAction.bind(this, 'next')}>Next Role</button>
                 <button className={saveClass} onClick={saveActions}>Save Actions</button>
 			</span>
 		);

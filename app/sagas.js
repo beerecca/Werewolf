@@ -9,7 +9,8 @@ import * as selectors from './selectors';
 
 export default function* rootSaga() {
 	yield fork(getRolesSaga);
-	yield fork(saveGameSaga);
+	yield fork(startGameSaga);
+	yield fork(saveActionsSaga);
 }
 
 export function* getRolesSaga() {
@@ -27,13 +28,12 @@ export function* getRolesSaga() {
 	}
 }
 
-export function* saveGameSaga() {
+export function* startGameSaga() {
 	while (true) {
 
-		yield take(actions.actionType.SAVE_GAME);
-		try {
-            yield put(actions.setGameState('night'));
+		yield take(actions.actionType.START_GAME);
 
+		try {
 			const name = yield select(selectors.getGameName);
 			const moderator = yield select(selectors.getGameModerator);
 			const players = yield select(selectors.getPlayers);
@@ -42,6 +42,7 @@ export function* saveGameSaga() {
 				moderator,
 				players
 			};
+			
 			yield call(api.saveGame, postData);
 
 		} catch(error) {
@@ -62,14 +63,10 @@ export function* saveActionsSaga() {
             const data = { gameId, phase, actions };
 
             yield call(api.saveActions, data);
-            
-            yield call(actions.setGameState('day-review'));
 
         } catch(error) {
             yield put(actions.setError());
         }
     
     }
-
-
 }

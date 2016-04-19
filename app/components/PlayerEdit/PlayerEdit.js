@@ -53,8 +53,8 @@ export default class PlayerEdit extends Component {
 						)
 					})}
 				</div>
-				<button onClick={this.addAnother.bind(this)} className="btn btn-default w-playerEdit--btn">Add Another</button>
-				<button onClick={startGame} className="btn btn-default w-playerEdit--btn">Start Game</button>
+				<button onClick={this.addAnother.bind(this)} className="btn btn-default w-btn">Add Another</button>
+				<button onClick={startGame} className="btn btn-default w-btn">Start Game</button>
 			</span>
 		);
 	}

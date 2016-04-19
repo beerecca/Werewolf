@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRoles, createPlayer, createGame, windowResize, saveGame, changeRole, saveActions } from '../actions';
+import { getRoles, createPlayer, createGame, windowResize, startGame, changeAction, saveActions } from '../actions';
 import PlayerEdit from '../components/PlayerEdit/PlayerEdit';
 import Player from '../components/Player/Player';
 import Setup from '../components/Setup/Setup';
@@ -14,12 +14,14 @@ export class AppController extends Component {
 	componentDidMount() {
 		this.props.dispatch(getRoles());
         this.props.dispatch(windowResize({ w: window.innerWidth, h: window.innerHeight}));
-        window.addEventListener('resize', () => this.props.dispatch(windowResize({ w: window.innerWidth, h: window.innerHeight})));
+        window.addEventListener('resize', () => this.props.dispatch(windowResize({ w: window.innerWidth, h: window.innerHeight}))); //TODO: put a timeout here 
 	}
-    
+
 	render() {
-		const { activeRole, nightRoles, roles, moderator, players, windowSize, gameState } = this.props.app;
+		let content;
+		const { roles, gameState, players, windowSize, activeAction, nightActions, moderator } = this.props.app;
 		const { dispatch } = this.props;
+
 		const playerPanels = players.map((player) => {
 			const pos = ellipsePosition(player.order, players.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 			const playerRole = roles.filter(role => {
@@ -30,21 +32,24 @@ export class AppController extends Component {
 		
         const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 		const moderatorPanel = (moderator) ? <Player name={moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
-        
-        let content;
-        switch (gameState) {
-            case 'setup-game':
-                content = <Setup createGame={(name, moderator)=>{dispatch(createGame(name, moderator))}} />
-                break;
-            case 'setup-player':
-                content = <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} startGame={()=>{dispatch(saveGame())}} /> 
-                break;
-            case 'night':
-                content = <Action activeRole={activeRole} nightRoles={nightRoles} changeRole={direction=>{dispatch(changeRole(direction))}} saveActions={()=>{dispatch(saveActions())}} />
-                break;
-            default:
-                break; 
-        }
+		const filteredRoles = createFilteredRoles(players, roles); //TODO: these aren't being saved/rendered in the correct order
+		
+		switch (gameState) {
+			case 'setup-game':
+				content = <Setup createGame={(name, moderator)=>{dispatch(createGame(name, moderator))}} />
+				break;
+			case 'setup-player':
+				content = <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} startGame={()=>{dispatch(startGame(filteredRoles))}} /> 
+				break;
+			case 'night':
+				content = <Action activeAction={activeAction} nightActions={nightActions} changeAction={direction=>{dispatch(changeAction(direction))}} saveActions={()=>{dispatch(saveActions())}} />
+				break;
+			case 'day-review':
+			case 'day-accuse':
+			case 'end-game':
+			default:
+				break; 
+		}
         
         return (
             <div className="container">
@@ -62,4 +67,30 @@ export class AppController extends Component {
 	}
 }
 
-export default connect((state) => {return {...state}})(AppController);
+export default connect((state) => {
+	return {
+		app: {
+			players: state.app.players,
+			windowSize: state.app.windowSize,
+			roles: state.app.roles,
+			gameState: state.app.gameState,
+			error: state.app.error,
+			...state.app.night,
+			...state.app.gameSetup
+		} 
+	}
+})(AppController);
+
+function createFilteredRoles(players, roles) {
+	const roleMap = roles.reduce((map, role) => {
+		map[role.id] = role;
+		return map;
+	}, {});
+
+	const playerRoles = players.reduce((roles, player) => {
+		roles[player.role] = roleMap[player.role];
+		return roles;
+	}, {});
+
+	return Object.values(playerRoles);
+}
