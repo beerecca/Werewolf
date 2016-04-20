@@ -10,6 +10,7 @@
 	border-radius: 50%;
 	position: relative;
 	padding: 0;
+	max-width: 60vh;
 }
 
 .w-setup:before{
@@ -28,11 +29,8 @@
     transform: translateY(-50%);
 }
 
-.w-setup--label {
-	margin-right: 5px;
-}
-
 .w-setup--logo {
-	width: 250px;
+    width: 80%;
+    max-width: 250px;
 	margin-bottom: 30px;
 }

@@ -39,8 +39,8 @@ export default class PlayerEdit extends Component {
 		return (
 			<span>
 				<h3>Player</h3>
-				<div className="form-group">
-					<label htmlFor="playerName">Name</label>
+				<div className="form-group form-inline">
+					<label className="w-label" htmlFor="playerName">Name</label>
 					<input type="text" className="form-control" ref="playerName" onChange={this.handleNameChange.bind(this)} />
 				</div>
 				<div className="w-playerEdit--role form-group">

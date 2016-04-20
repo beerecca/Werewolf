@@ -52,11 +52,11 @@ export class AppController extends Component {
 		}
         
         return (
-            <div className="container">
+            <div className="container-fluid">
 				{playerPanels}
 				<div className="w-controller">
-					<div className="w-setup col-sm-6 panel panel-default">
-						<div className="w-setup--content col-sm-10 col-sm-offset-1">
+					<div className="w-setup col-xs-6 panel panel-default">
+						<div className="w-setup--content col-xs-10 col-xs-offset-1">
 							{content}
 						</div>
 					</div>

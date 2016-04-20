@@ -1,5 +1,7 @@
+$color-primary: #A7352D;
+
 .w-playerEdit--role input[type="radio"]:checked + img {
-    outline: 3px solid #F00;
+    outline: 3px solid $color-primary;
 }
 
 .w-playerEdit--role label {
@@ -17,4 +19,8 @@
 
 .w-btn {
 	margin-right: 10px;
+}
+
+.w-label {
+	margin-right: 5px;
 }
