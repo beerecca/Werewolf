@@ -9,15 +9,22 @@ import { ellipsePosition } from '../util/dom';
 //import Loading from '../components/Loading/Loading';
 //import Error from '../components/Error/Error';
 
+let resizeTimer;
+
 export class AppController extends Component {
 
 	componentDidMount() {
 		this.props.dispatch(getRoles());
         this.props.dispatch(windowResize({ w: window.innerWidth, h: window.innerHeight}));
-        window.addEventListener('resize', () => this.props.dispatch(windowResize({ w: window.innerWidth, h: window.innerHeight}))); //TODO: put a timeout here 
+        window.addEventListener('resize', () => { this.resizeWindow() }); 
 	}
 
-	render() {
+    resizeWindow() {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => { this.props.dispatch(windowResize({ w: window.innerWidth, h: window.innerHeight})); }, 250);
+    }
+
+    render() {
 		let content;
 		const { roles, gameState, players, windowSize, activeAction, nightActions, moderator } = this.props.app;
 		const { dispatch } = this.props;
@@ -81,8 +88,9 @@ export default connect((state) => {
 	}
 })(AppController);
 
+
 function createFilteredRoles(players, roles) {
-	const roleMap = roles.reduce((map, role) => {
+    const roleMap = roles.reduce((map, role) => {
 		map[role.id] = role;
 		return map;
 	}, {});
