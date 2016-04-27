@@ -26,7 +26,7 @@ export class AppController extends Component {
 
     render() {
 		let content;
-		const { roles, gameState, players, windowSize, activeAction, nightActions, moderator } = this.props.app;
+		const { roles, game, players, windowSize, night } = this.props.app;
 		const { dispatch } = this.props;
 
 		const playerPanels = players.map((player) => {
@@ -36,20 +36,18 @@ export class AppController extends Component {
 			});
 			return <Player key={player.order} order={player.order} name={player.name} image={(playerRole[0]) ? playerRole[0].image : null} x={pos.x} y={pos.y} />
 		});
-		
         const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
-		const moderatorPanel = (moderator) ? <Player name={moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
-		const filteredRoles = createFilteredRoles(players, roles); //TODO: these aren't being saved/rendered in the correct order
+		const moderatorPanel = game.moderator ? <Player name={game.moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
 		
-		switch (gameState) {
+        switch (game.state) {
 			case 'setup-game':
 				content = <Setup createGame={(name, moderator)=>{dispatch(createGame(name, moderator))}} />
 				break;
 			case 'setup-player':
-				content = <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} startGame={()=>{dispatch(startGame(filteredRoles))}} /> 
+				content = <PlayerEdit roles={roles} createPlayer={(player)=>{dispatch(createPlayer(player))}} startGame={()=>{dispatch(startGame())}} /> 
 				break;
 			case 'night':
-				content = <Action activeAction={activeAction} nightActions={nightActions} changeAction={direction=>{dispatch(changeAction(direction))}} saveActions={()=>{dispatch(saveActions())}} />
+				content = <Action activeAction={night.activeAction} nightActions={night.nightActions} changeAction={direction=>{dispatch(changeAction(direction))}} saveActions={()=>{dispatch(saveActions())}} />
 				break;
 			case 'day-review':
 			case 'day-accuse':
@@ -80,25 +78,10 @@ export default connect((state) => {
 			players: state.app.players,
 			windowSize: state.app.windowSize,
 			roles: state.app.roles,
-			gameState: state.app.gameState,
 			error: state.app.error,
-			...state.app.night,
-			...state.app.gameSetup
+            game: state.app.game,
+            night: state.app.night
 		} 
 	}
 })(AppController);
 
-
-function createFilteredRoles(players, roles) {
-    const roleMap = roles.reduce((map, role) => {
-		map[role.id] = role;
-		return map;
-	}, {});
-
-	const playerRoles = players.reduce((roles, player) => {
-		roles[player.role] = roleMap[player.role];
-		return roles;
-	}, {});
-
-	return Object.values(playerRoles);
-}
