@@ -1,7 +1,10 @@
 export const initialState = {
-	gameSetup: {
+	game: {
 		name: null,
-		moderator: null
+		moderator: null,
+        phase: 0,
+        id: null,
+        state: 'setup-game'
 	},
 	players: [],
 	windowSize: { w: null, h: null },
@@ -10,7 +13,5 @@ export const initialState = {
 		activeAction : null
 	},
 	roles: [],
-	gameState : 'setup-game',
-	phase: 0,
 	error: null
 };

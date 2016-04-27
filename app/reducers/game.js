@@ -17,7 +17,8 @@ export default function gameSetup(state = initialState.game, action) {
                 ...state,
                 state: 'day-accuse'
             };
-
+        
+        //remove this, change of state will have a specific action
 		case actionType.CHANGE_STATE:
             return {
                 ...state,
