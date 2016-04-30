@@ -7,9 +7,11 @@ export function createPlayer(player) {
 	}
 }
 
-export function editPlayer(id) {
+export function selectPlayer(id, state, phase) {
 	return { 
-		type: actionType.EDIT_PLAYER,
+		type: actionType.SELECT_PLAYER,
+        state,
+        phase,
 		id
 	}
 }

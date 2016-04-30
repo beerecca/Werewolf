@@ -79,10 +79,11 @@ export function* startGameSaga() {
             yield put(actions.setGameId(gameData.id));
             
             const roles = yield select(selectors.getRoles);
-            const filteredPlayers = filters.filterRoles(gameData.players, roles);
+            const filteredPlayers = filters.filterNightRoles(gameData.players, roles);
             yield put(actions.setNight(filteredPlayers));
 
 		} catch(error) {
+            console.log(error);
 			yield put(actions.setError());
 		}
 	}

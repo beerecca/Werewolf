@@ -7,21 +7,22 @@ export default class Player extends Component {
 		order: PropTypes.number,
 		id: PropTypes.string,
 		image: PropTypes.string,
+        game: PropTypes.object,
 		name: PropTypes.string.isRequired,
 		x: PropTypes.number.isRequired,
 		y: PropTypes.number.isRequired,
-		editPlayer: PropTypes.func
+		selectPlayer: PropTypes.func
 	};
 
 	render() {
-		const { name, id, image, x, y, editPlayer } = this.props;
+		const { name, id, game, image, x, y, selectPlayer } = this.props;
         const style = {
             top : y + 'px',
             left: x + 'px'
         };
 		
         return (
-			<div className="w-player" style={style} onClick={()=>{editPlayer(id)}}>
+			<div className="w-player" style={style} onClick={()=>{selectPlayer(id, game)}}>
 				<img className="w-player--image" src={image} />
 				<p>{name}</p>
 			</div>

@@ -1,5 +1,5 @@
 {
-  "name": "Werewolf",
+  "name": "werewolf",
   "version": "0.0.1",
   "description": "An app to help you play Werewolf",
   "main": "app.js",
