@@ -34,7 +34,7 @@ export default function gameSetup(state = initialState.game, action) {
         case actionType.SET_GAMEID:
             return {
                 ...state,
-                gameId : action.gameId
+                id : action.id
             };
 
 		default: return state;
