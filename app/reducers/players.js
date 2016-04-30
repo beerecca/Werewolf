@@ -16,10 +16,11 @@ export default function players(state = initialState.players, action) {
 				]
 			};
 
-		case actionType.EDIT_PLAYER:
+		case actionType.SELECT_PLAYER:            
+            let editingPlayer = (action.state === 'setup-player' || (action.state === 'night' && action.phase === 0)) ? action.id : null; 
 			return {
 				...state,
-				editingPlayer: action.id
+				editingPlayer
 			};
 
 		case actionType.UPDATE_PLAYER:

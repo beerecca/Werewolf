@@ -34,18 +34,17 @@ export class AppController extends Component {
 			const pos = ellipsePosition(player.order, players.playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 			const playerRole = roles.find(role => role.id === player.role);
 
-			//TODO: only run editPlayer if phase is 0
 			return <Player 
 				key={player.order} 
 				order={player.order} 
-				id={player.id} 
+				id={player.id}
+                game={game} 
 				name={player.name} 
 				image={(playerRole) ? playerRole.image : null} 
 				x={pos.x} 
 				y={pos.y} 
-				editPlayer={(id)=>{ dispatch(action.editPlayer(id))}} />
+				selectPlayer={(id, game)=>{ dispatch(action.selectPlayer(id, game.state, game.phase))}} />
 		});
-		//TODO: night actions aren't being saved/rendered in the correct order
         const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 		const moderatorPanel = game.moderator ? <Player name={game.moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
 		
