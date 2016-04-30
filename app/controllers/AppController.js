@@ -69,9 +69,9 @@ export class AppController extends Component {
 		const playerToEdit = players.playerList.find((player)=>{
 			return player.id === players.editingPlayer;
 		});
-		const editModal = (players.editingPlayer) 
-			? <PlayerEdit player={playerToEdit} roles={roles} updatePlayer={(id, name, role)=>{dispatch(action.updatePlayer(id, name, role))}} />
-			: null;
+		if (players.editingPlayer) {
+			content = <PlayerEdit player={playerToEdit} roles={roles} updatePlayer={(id, name, role)=>{dispatch(action.updatePlayer(id, name, role))}} />
+		}
         
         return (
             <div className="container-fluid">
@@ -80,7 +80,6 @@ export class AppController extends Component {
 					<div className="w-setup col-xs-6 panel panel-default">
 						<div className="w-setup--content col-xs-10 col-xs-offset-1">
 							{content}
-							{editModal}
 						</div>
 					</div>
 				</div>
