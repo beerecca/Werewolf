@@ -4,8 +4,9 @@
 
 export const getGameName = state => state.app.gameSetup.name;
 export const getGameModerator = state => state.app.gameSetup.moderator;
-export const getPlayers = state => state.app.players;
-//export const getGameId = state => state.app.game.id; TODO: not currently being saved from the api
-export const getPhase = state => state.app.phase;
+export const getPlayers = state => state.app.players.playerList;
+export const getGameId = state => state.app.gameSetup.id;
+export const getPhase = state => state.app.gameSetup.phase;
+export const getState = state => state.app.gameState;
 export const getActions = state => state.app.night.actions;
 export const getRoles = state => state.app.roles;

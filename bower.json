@@ -23,7 +23,8 @@
     "classnames": "^2.2.0",
     "es6-promise-polyfill": "https://github.com/lahmatiy/es6-promise-polyfill.git",
     "fetch": "https://github.com/github/fetch.git",
-    "String.prototype.at": "https://github.com/mathiasbynens/String.prototype.at.git"
+    "String.prototype.at": "https://github.com/mathiasbynens/String.prototype.at.git",
+    "uuid": "~2.0.2"
   },
   "devDependencies": {
     "mocha": "https://github.com/mochajs/mocha.git",

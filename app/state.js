@@ -1,9 +1,14 @@
 export const initialState = {
 	gameSetup: {
+		id: null,
 		name: null,
-		moderator: null
+		moderator: null,
+		phase: 0
 	},
-	players: [],
+	players: {
+		playerList: [],
+		editingPlayer: null
+	},
 	windowSize: { w: null, h: null },
 	night: {
 		nightActions : [],
@@ -11,6 +16,5 @@ export const initialState = {
 	},
 	roles: [],
 	gameState : 'setup-game',
-	phase: 0,
 	error: null
 };

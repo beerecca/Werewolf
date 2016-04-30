@@ -6,3 +6,19 @@ export function createPlayer(player) {
 		player
 	}
 }
+
+export function editPlayer(id) {
+	return { 
+		type: actionType.EDIT_PLAYER,
+		id
+	}
+}
+
+export function updatePlayer(id, name, role) {
+	return { 
+		type: actionType.UPDATE_PLAYER,
+		id,
+		name,
+		role
+	}
+}
