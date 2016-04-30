@@ -10,24 +10,29 @@ import { ellipsePosition } from '../util/dom';
 //import Loading from '../components/Loading/Loading';
 //import Error from '../components/Error/Error';
 
+let resizeTimer;
+
 export class AppController extends Component {
 
 	componentDidMount() {
 		this.props.dispatch(action.getRoles());
         this.props.dispatch(action.windowResize({ w: window.innerWidth, h: window.innerHeight}));
-        window.addEventListener('resize', () => this.props.dispatch(action.windowResize({ w: window.innerWidth, h: window.innerHeight}))); //TODO: put a timeout here 
+        window.addEventListener('resize', () => { this.resizeWindow() }); 
 	}
 
-	render() {
+    resizeWindow() {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => { this.props.dispatch(action.windowResize({ w: window.innerWidth, h: window.innerHeight }))}, 250);
+    }
+
+    render() {
 		let content;
-		const { roles, gameState, playerList, windowSize, activeAction, nightActions, moderator, editingPlayer } = this.props.app;
+		const { roles, game, players, windowSize, night } = this.props.app;
 		const { dispatch } = this.props;
 
-		const playerPanels = playerList.map((player) => {
-			const pos = ellipsePosition(player.order, playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
-			const playerRole = roles.filter(role => {
-				return role.id === player.role;
-			});
+		const playerPanels = players.playerList.map(player => {
+			const pos = ellipsePosition(player.order, players.playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
+			const playerRole = roles.find(role => role.id === player.role);
 
 			//TODO: only run editPlayer if phase is 0
 			return <Player 
@@ -35,25 +40,24 @@ export class AppController extends Component {
 				order={player.order} 
 				id={player.id} 
 				name={player.name} 
-				image={(playerRole[0]) ? playerRole[0].image : null} 
+				image={(playerRole) ? playerRole.image : null} 
 				x={pos.x} 
 				y={pos.y} 
 				editPlayer={(id)=>{ dispatch(action.editPlayer(id))}} />
 		});
-		
+		//TODO: night actions aren't being saved/rendered in the correct order
         const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
-		const moderatorPanel = (moderator) ? <Player name={moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
-		const filteredRoles = createFilteredRoles(playerList, roles); //TODO: these aren't being saved/rendered in the correct order
+		const moderatorPanel = game.moderator ? <Player name={game.moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
 		
-		switch (gameState) {
+        switch (game.state) {
 			case 'setup-game':
 				content = <Setup createGame={(name, moderator)=>{dispatch(action.createGame(name, moderator))}} />
 				break;
 			case 'setup-player':
-				content = <PlayerAdd roles={roles} createPlayer={(player)=>{dispatch(action.createPlayer(player))}} startGame={()=>{dispatch(action.startGame(filteredRoles))}} /> 
+				content = <PlayerAdd roles={roles} createPlayer={(player)=>{dispatch(action.createPlayer(player))}} startGame={()=>{dispatch(action.startGame())}} /> 
 				break;
 			case 'night':
-				content = <Action activeAction={activeAction} nightActions={nightActions} changeAction={direction=>{dispatch(action.changeAction(direction))}} saveActions={()=>{dispatch(action.saveActions())}} />
+				content = <Action activeAction={night.activeAction} nightActions={night.nightActions} changeAction={direction=>{dispatch(action.changeAction(direction))}} saveActions={()=>{dispatch(action.saveActions())}} />
 				break;
 			case 'day-review':
 			case 'day-accuse':
@@ -62,10 +66,10 @@ export class AppController extends Component {
 				break; 
 		}
 
-		const playerToEdit = playerList.find((player)=>{
-			return player.id === editingPlayer;
+		const playerToEdit = players.playerList.find((player)=>{
+			return player.id === players.editingPlayer;
 		});
-		const editModal = (editingPlayer) 
+		const editModal = (players.editingPlayer) 
 			? <PlayerEdit player={playerToEdit} roles={roles} updatePlayer={(id, name, role)=>{dispatch(action.updatePlayer(id, name, role))}} />
 			: null;
         
@@ -89,28 +93,12 @@ export class AppController extends Component {
 export default connect((state) => {
 	return {
 		app: {
-			...state.app.players,
+			players: state.app.players,
 			windowSize: state.app.windowSize,
 			roles: state.app.roles,
-			gameState: state.app.gameState,
-			phase: state.app.phase,
 			error: state.app.error,
-			...state.app.night,
-			...state.app.gameSetup
+            game: state.app.game,
+            night: state.app.night
 		} 
 	}
 })(AppController);
-
-function createFilteredRoles(playerList, roles) {
-	const roleMap = roles.reduce((map, role) => {
-		map[role.id] = role;
-		return map;
-	}, {});
-
-	const playerRoles = playerList.reduce((roles, player) => {
-		roles[player.role] = roleMap[player.role];
-		return roles;
-	}, {});
-
-	return Object.values(playerRoles);
-}

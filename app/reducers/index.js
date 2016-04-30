@@ -1,21 +1,19 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import gameSetup from './gameSetup';
+import game from './game';
 import players from './players';
 import windowSize from './windowSize';
 import night from './night';
 import roles from './roles';
-import gameState from './gameState';
 import error from './error';
 
 const appReducer = combineReducers({
-	gameSetup,
+	game,
 	players,
 	windowSize,
 	night,
 	roles,
-	gameState,
 	error
 });
 

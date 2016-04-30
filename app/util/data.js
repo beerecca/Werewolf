@@ -2,7 +2,7 @@ const rolesServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws
 const gamesServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/games';
 const playersServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/players';
 const actionServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/actions';
-//const rolesServiceEndpoint = '/roles';
+const accusationServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/accusations';
 
 //Data util. Responsible for getting/posting data to and from endpoints.
 
@@ -51,6 +51,19 @@ export function saveActions(data) {
 			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
 		},
         body: JSON.stringify(data.actions)
+    })
+        .then(checkStatus)
+        .then(response => response.json());
+}
+
+export function saveAccusations(data) {
+    return fetch(accusationServiceEndpoint + '/' + data.gameId + '/' + data.phase, {
+        method: 'POST',
+		headers: {
+			'content-type': 'application/json',
+			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
+		},
+        body: JSON.stringify(data.accusations)
     })
         .then(checkStatus)
         .then(response => response.json());
