@@ -27,7 +27,7 @@ export default class Action extends Component {
         
 		return (
 			<span>
-				<h1>{name}</h1>
+				<h3>{name}</h3>
 				<p>{instruction}</p>
                 <button className={previousClass} onClick={this.changeAction.bind(this, 'previous')}>Previous Role</button>
                 <button className={nextClass} onClick={this.changeAction.bind(this, 'next')}>Next Role</button>

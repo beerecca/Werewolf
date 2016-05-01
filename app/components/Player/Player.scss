@@ -1,6 +1,14 @@
 .w-player--image {
 	width: 100px;
 	border-radius: 50%;
+    border: 5px solid #FFF;
+    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.5);
+    margin-bottom: 8px;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
 }
 
 .w-player {
@@ -9,9 +17,4 @@
     transform: translate(-50%, -50%);
     transition-property: top, left;
     transition-duration: 0.5s;
-
-    &:hover {
-    	cursor: pointer;
-    	opacity: 0.6;
-    }
 }

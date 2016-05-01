@@ -15,7 +15,7 @@ export default class Setup extends Component {
 	render() {
 		return (
 			<span>
-				<img className="w-setup--logo" src="https://s3-us-west-2.amazonaws.com/werewolfbucket/logo.png"/>
+				<h1>Werewolf</h1>
 				<p>The Village is your mission: You will attempt to save it or destroy it.</p>
 				<form onSubmit={this.handleSubmit.bind(this)}>
 					<div className="form-group form-inline">

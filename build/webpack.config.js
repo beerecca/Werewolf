@@ -38,7 +38,7 @@ var config = {
 				]
 			},
 			{
-				test: /\.svg$/, loader: 'raw-loader'
+				test: /\.svg$/, loader: 'file-loader'
 			},
 			{
 				test: /\.(gif|png|jpg|jpeg)$/,
