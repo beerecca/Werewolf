@@ -1,16 +1,16 @@
 /* global require */
-var Hapi = require('hapi');
-var routes = require('./routes');
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
+var config = require('../build/webpack.config');
 
-var server = new Hapi.Server();
+new WebpackDevServer(webpack(config), {
+	publicPath: config.output.publicPath,
+	hot: true,
+	historyApiFallback: true
+}).listen(3003, 'localhost', function (err, result) {
+  if (err) {
+    return console.log(err);
+  }
 
-server.connection({
-	host: 'localhost',
-	port: 3003
-});
-
-server.route(routes);
-
-server.start(function(err) {
-	console.log(err || 'Started Hapi server at http://localhost:3003/');
+  console.log('Listening at http://localhost:3003/');
 });

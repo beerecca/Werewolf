@@ -7,14 +7,19 @@ var prod = process.argv.indexOf('--prod') !== -1;
 var includeSourceMap = process.argv.indexOf('--sourceMap') !== -1;
 var rootDir = path.join(__dirname, '..');
 
+//TODO: make a prod config file
 var config = {
 	context: rootDir,
-	entry: {
-		app: './app.js'
-	},
+	devtool: 'eval',
+	entry: [
+		'webpack-dev-server/client?http://localhost:3003',
+    	'webpack/hot/only-dev-server',
+		'./app.js'
+	],
 	output: {
 		path: path.join(rootDir, 'dist'),
-		filename: prod ? '[name].min.js' : '[name].js'
+		filename: 'app.js',
+		publicPath: '/dist/'
 	},
 	module: {
 		preLoaders: [
@@ -46,8 +51,8 @@ var config = {
 			},
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
-				query: {stage:0}
+				loaders: ['react-hot', 'babel'],
+				include: path.join(rootDir, 'app')
 			}
 		]
 	},
@@ -58,7 +63,8 @@ var config = {
 		new Webpack.ResolverPlugin([
 			new Webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
 		], ["normal", "loader"]),
-		new ExtractTextPlugin('[name].css')
+		new ExtractTextPlugin('app.css'),
+		new Webpack.HotModuleReplacementPlugin()
 	],
 	resolve: {
 		modulesDirectories: ['node_modules'],

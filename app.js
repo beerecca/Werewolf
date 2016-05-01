@@ -4,8 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { Router, Route, browserHistory } from 'react-router';
 import createSagaMiddleware from 'redux-saga';
 //App Setup
 import { rootReducer } from './app/reducers';
@@ -24,18 +22,13 @@ const createStoreWithMiddleware = compose(applyMiddleware(sagaMiddleware), windo
 //Create redux store (holds the state tree of the app)
 const store = createStoreWithMiddleware(rootReducer);
 
-//Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store);
-
 // When the DOM is ready, set up the page skeleton
 domReady.then(function() {
 	createContainers();
 
 	ReactDOM.render(
 		<Provider store={store}>
-			<Router history={history}>
-				<Route path="/index.html" component={AppController} />
-			</Router>
+			<AppController />
 		</Provider>,
 		document.getElementById('app')
 	);
