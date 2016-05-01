@@ -17,10 +17,16 @@ export default function players(state = initialState.players, action) {
 			};
 
 		case actionType.SELECT_PLAYER:            
-            let editingPlayer = (action.state === 'setup-player' || (action.state === 'night' && action.phase === 0)) ? action.id : null; 
+            const editingPlayer = (action.state === 'setup-player' || (action.state === 'night' && action.phase === 0)) ? action.id : null; 
+
+            let selections = state.selections;
+            if (state.activeSelectionType.onlyOne) selections = selections.filter(selection => selection.type !== state.activeSelectionType.name);
+            if (state.activeSelectionType.name) selections.push({ player: action.id, type: state.activeSelectionType.name }); 
+
 			return {
 				...state,
-				editingPlayer
+				editingPlayer,
+                selections
 			};
 
 		case actionType.UPDATE_PLAYER:

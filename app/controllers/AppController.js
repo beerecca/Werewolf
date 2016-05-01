@@ -25,6 +25,10 @@ export class AppController extends Component {
         resizeTimer = window.setTimeout(() => { this.props.dispatch(action.windowResize({ w: window.innerWidth, h: window.innerHeight }))}, 250);
     }
 
+    selectPlayer(id) {
+        this.props.dispatch(action.selectPlayer(id, this.props.app.game.state, this.props.app.game.phase)); 
+    }
+
     render() {
 		let content;
 		const { roles, game, players, windowSize, night } = this.props.app;
@@ -33,6 +37,8 @@ export class AppController extends Component {
 		const playerPanels = players.playerList.map(player => {
 			const pos = ellipsePosition(player.order, players.playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 			const playerRole = roles.find(role => role.id === player.role);
+            const playerSelection = players.selections.find(selection => player.id == selection.player);
+            const selectionType = playerSelection ? playerSelection.type : null; 
 
 			return <Player 
 				key={player.order} 
@@ -41,9 +47,10 @@ export class AppController extends Component {
                 game={game} 
 				name={player.name} 
 				image={(playerRole) ? playerRole.image : null} 
+                selectionType={selectionType}
 				x={pos.x} 
 				y={pos.y} 
-				selectPlayer={(id, game)=>{ dispatch(action.selectPlayer(id, game.state, game.phase))}} />
+				selectPlayer={(id)=>{this.selectPlayer(id)}} />
 		});
         const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 		const moderatorPanel = game.moderator ? <Player name={game.moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
