@@ -24,3 +24,10 @@ export function updatePlayer(id, name, role) {
 		role
 	}
 }
+
+export function setPlayers(players) {
+    return {
+        type: actionType.SET_PLAYERS,
+        players
+    }
+}

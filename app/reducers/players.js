@@ -46,6 +46,12 @@ export default function players(state = initialState.players, action) {
 				editingPlayer: null
 			};
 
+        case actionType.SET_PLAYERS:
+            return {
+                ...state,
+                playerList : action.players
+            }
+
 		default: return state;
 	}
 }

@@ -19,6 +19,19 @@ export default function night(state = initialState.night, action) {
                 activeAction: action.filteredRoles[0]
             }
 
+        case actionType.SELECT_PLAYER:
+            const nightActions = state.nightActions;
+
+            if (action.state == 'night' && action.phase !== 0) {
+                const currentAction = nightActions.find(nightAction => nightAction.id === state.activeAction.id);
+                currentAction.target = action.id;
+            }
+            
+            return {
+                ...state,
+                nightActions
+            }
+
 		default: return state;
 	}
 }

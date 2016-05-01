@@ -18,17 +18,16 @@ export default function gameSetup(state = initialState.game, action) {
                 state: 'day-accuse'
             };
         
-        //TODO: remove this, change of state will have a specific action
-		case actionType.CHANGE_STATE:
-            return {
-                ...state,
-                state: action.state
-            };
-
         case actionType.SET_NIGHT:
             return {
                 ...state,
                 state: 'night'
+            }
+
+        case actionType.SET_DAY_REVIEW:
+            return {
+                ...state,
+                state: 'day-review'
             }
 
         case actionType.SET_GAMEID:

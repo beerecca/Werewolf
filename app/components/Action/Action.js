@@ -20,10 +20,10 @@ export default class Action extends Component {
         const { name, instruction } = activeAction;
         
         const actionPosition = nightActions.findIndex(r => r.id == activeAction.id);
-        const actionsDone = false;
-        const previousClass = cn('btn', 'w-btn', { 'disabled' : actionPosition == 0 });
-        const nextClass = cn('btn', 'w-btn', { 'disabled' : actionPosition === nightActions.length - 1});
-        const saveClass = cn('btn', 'w-btn', 'btn-primary', { 'disabled' : !actionsDone }); //TODO: this isn't complete yet, actionsDone is hardcoded
+        const isLastAction = actionPosition === nightActions.length - 1;
+        const previousClass = cn('btn', 'w-btn', { 'disabled' : actionPosition == 0 });     //TODO: Only show if not the first action
+        const nextClass = cn('btn', 'w-btn', { 'disabled' : isLastAction });                //TODO: don't show this on the last action
+        const saveClass = cn('btn', 'w-btn', 'btn-primary' );                               //TODO: This button should only show up on last action
         
 		return (
 			<span>

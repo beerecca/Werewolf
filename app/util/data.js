@@ -32,7 +32,7 @@ export function saveGame(game) {
 
 export function savePlayers(data) {
 	return fetch(playersServiceEndpoint + '/' + data.gameId, {
-		method: 'POST',
+		method: 'PUT',
 		headers: {
 			'content-type': 'application/json',
 			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
@@ -50,7 +50,7 @@ export function saveActions(data) {
 			'content-type': 'application/json',
 			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
 		},
-        body: JSON.stringify(data.actions)
+        body: JSON.stringify(data.postActions)
     })
         .then(checkStatus)
         .then(response => response.json());

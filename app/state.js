@@ -2,7 +2,7 @@ export const initialState = {
 	game: {
 		name: null,
 		moderator: null,
-        phase: 0,
+        phase: 1,
         id: null,
         state: 'setup-game'
 	},
@@ -15,6 +15,9 @@ export const initialState = {
 		nightActions : [],
 		activeAction : null
 	},
+    day: {
+        lastNightActions: []
+    },
 	roles: [],
 	error: null
 };

@@ -8,13 +8,6 @@ export function createGame(name, moderator) {
 	}
 }
 
-export function changeState(state) {
-	return {
-        type: actionType.CHANGE_STATE,
-		state
-	}
-}
-
 export function setGameId(id) {
     return {
         type: actionType.SET_GAMEID,
