@@ -24,7 +24,9 @@
     "es6-promise-polyfill": "https://github.com/lahmatiy/es6-promise-polyfill.git",
     "fetch": "https://github.com/github/fetch.git",
     "String.prototype.at": "https://github.com/mathiasbynens/String.prototype.at.git",
-    "uuid": "~2.0.2"
+    "uuid": "~2.0.2",
+    "moment": "~2.13.0",
+    "moment-duration-format": "~1.3.0"
   },
   "devDependencies": {
     "mocha": "https://github.com/mochajs/mocha.git",
