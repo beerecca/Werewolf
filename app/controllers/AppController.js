@@ -6,6 +6,7 @@ import PlayerEdit from '../components/PlayerEdit/PlayerEdit';
 import Player from '../components/Player/Player';
 import Setup from '../components/Setup/Setup';
 import Action from '../components/Action/Action';
+import Countdown from '../components/Countdown/Countdown';
 import { ellipsePosition } from '../util/dom';
 //import Loading from '../components/Loading/Loading';
 //import Error from '../components/Error/Error';
@@ -74,6 +75,7 @@ export class AppController extends Component {
         
         return (
             <div className="container-fluid">
+				<Countdown length={300} />
 				{playerPanels}
 				<div className="w-controller">
 					<div className="w-setup col-xs-6 panel panel-default">
