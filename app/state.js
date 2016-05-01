@@ -21,7 +21,7 @@ export const initialState = {
 		activeAction : null
 	},
     day: {
-        lastNightActions: []
+        reviewActions: []
     },
 	roles: [],
 	error: null

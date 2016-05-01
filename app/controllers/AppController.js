@@ -7,6 +7,7 @@ import Player from '../components/Player/Player';
 import Setup from '../components/Setup/Setup';
 import Action from '../components/Action/Action';
 import Countdown from '../components/Countdown/Countdown';
+import Review from '../components/Review/Review';
 import { ellipsePosition } from '../util/dom';
 //import Loading from '../components/Loading/Loading';
 //import Error from '../components/Error/Error';
@@ -32,7 +33,7 @@ export class AppController extends Component {
 
     render() {
 		let content;
-		const { roles, game, players, windowSize, night } = this.props.app;
+		const { roles, game, players, windowSize, night, day } = this.props.app;
 		const { dispatch } = this.props;
 
 		const playerPanels = players.playerList.map(player => {
@@ -44,6 +45,7 @@ export class AppController extends Component {
 			return <Player 
 				key={player.order} 
 				order={player.order} 
+                alive={player.alive}
 				id={player.id}
                 game={game} 
 				name={player.name} 
@@ -67,6 +69,8 @@ export class AppController extends Component {
 				content = <Action activeAction={night.activeAction} nightActions={night.nightActions} changeAction={direction=>{dispatch(action.changeAction(direction))}} saveActions={()=>{dispatch(action.saveActions())}} />
 				break;
 			case 'day-review':
+                content = <Review roles={roles} players={players.playerList} reviewActions={day.reviewActions} startAccusations={()=>{dispatch(action.startAccusations())}} />
+                break;
 			case 'day-accuse':
 			case 'end-game':
 			default:
@@ -105,7 +109,8 @@ export default connect((state) => {
 			roles: state.app.roles,
 			error: state.app.error,
             game: state.app.game,
-            night: state.app.night
+            night: state.app.night,
+            day: state.app.day
 		} 
 	}
 })(AppController);

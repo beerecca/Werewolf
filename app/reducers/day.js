@@ -8,7 +8,7 @@ export default function night(state = initialState.day, action) {
         case actionType.SET_DAY_REVIEW:
             return {
                 ...state,
-                lastNightActions: action.actions
+                reviewActions: action.actions
             };
 
         default:
