@@ -23,9 +23,10 @@ export function* updateSelections() {
 
         yield take([ actions.actionType.SET_NIGHT, actions.actionType.CHANGE_ACTION ]);
         const activeAction = yield select(selectors.getActiveAction); 
-        const selectionType = activeAction.name.toLowerCase();
+        const selectionType = activeAction.name.replace(/\ /, '').toLowerCase();
 
-        yield put(actions.setSelection(selectionType, true));
+        const onlyOne = selectionType != 'mason';
+        yield put(actions.setSelection(selectionType, onlyOne));
     }
 }
 

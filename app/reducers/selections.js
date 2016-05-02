@@ -13,6 +13,7 @@ export default function selections(state = initialState.selections, action) {
             }
 
         case actionType.SELECT_PLAYER:            
+            //TODO if we're selecting a player that is already selected, we need to deselect them
             const activeSelections = filterSelections(state, action);
 			return {
 				...state,
