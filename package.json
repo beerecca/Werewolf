@@ -9,7 +9,7 @@
     "build": "webpack --config build/webpack.config.js --display-error-details --sourceMap --bail",
     "dist": "webpack --config build/webpack.config.js --prod --bail",
     "start": "node server/server.js",
-    "prepublish": "bower install",
+    "prepublish": "./node_modules/.bin/bower install",
     "test": "webpack --config test/webpack-test.config.js --display-error-details --bail && mocha-phantomjs test/index.html",
     "watch": "webpack --config build/webpack.config.js --progress --colors --watch"
   },
@@ -25,6 +25,7 @@
     "babel-preset-es2015": "^6.0.15",
     "babel-preset-react": "^6.0.15",
     "babel-preset-stage-0": "^6.0.15",
+    "bower": "^1.7.9",
     "bower-webpack-plugin": "^0.1.8",
     "css-loader": "^0.17.0",
     "eslint": "^1.3.1",
