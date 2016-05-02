@@ -12,6 +12,7 @@ export const actionType = {
 	CREATE_PLAYER: 'CREATE_PLAYER',
 	SELECT_PLAYER: 'SELECT_PLAYER',
 	UPDATE_PLAYER: 'UPDATE_PLAYER',
+    SET_SELECTION: 'SET_SELECTION',
 	
     //game structure stuff
 	CREATE_GAME: 'CREATE_GAME',

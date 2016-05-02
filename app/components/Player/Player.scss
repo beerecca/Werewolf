@@ -22,3 +22,15 @@
 .w-player-selection--editing .w-player--image {
     border-color: red;
 }
+
+.w-player-selection--werewolf .w-player--image {
+    border-color: black;
+}
+
+.w-player-selection--mason .w-player--image {
+    border-color: grey;
+}
+
+.w-player-selection--spellcaster .w-player--image {
+    border-color: green;
+}

@@ -10,3 +10,4 @@ export const getGamePhase = state => state.app.game.phase;
 export const getPlayers = state => state.app.players.playerList;
 export const getActions = state => state.app.night.nightActions;
 export const getRoles = state => state.app.roles;
+export const getActiveAction = state => state.app.night.activeAction;

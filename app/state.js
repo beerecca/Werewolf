@@ -8,13 +8,13 @@ export const initialState = {
 	},
 	players: {
 		playerList: [],
-		editingPlayer: null,
-        selections: [],
-        activeSelectionType: {
-            name: 'editing',
-            onlyOne: true
-        }
+		editingPlayer: null
 	},
+    selections: {
+        selectionType: 'editing',
+        onlyOne: true,
+        activeSelections: [] 
+    },
 	windowSize: { w: null, h: null },
 	night: {
 		nightActions : [],

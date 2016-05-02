@@ -13,6 +13,20 @@ export default function* rootSaga() {
 	yield fork(startGameSaga);
 	yield fork(updatePlayerSaga);
 	yield fork(saveActionsSaga);
+	yield fork(saveAccusationsSaga);
+    yield fork(updateSelections);
+}
+
+
+export function* updateSelections() {
+    while (true) {
+
+        yield take([ actions.actionType.SET_NIGHT, actions.actionType.CHANGE_ACTION ]);
+        const activeAction = yield select(selectors.getActiveAction); 
+        const selectionType = activeAction.name.toLowerCase();
+
+        yield put(actions.setSelection(selectionType, true));
+    }
 }
 
 export function* getRolesSaga() {

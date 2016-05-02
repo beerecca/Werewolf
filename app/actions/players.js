@@ -31,3 +31,11 @@ export function setPlayers(players) {
         players
     }
 }
+
+export function setSelection(selectionType, onlyOne) {
+    return {
+        type: actionType.SET_SELECTION,
+        selectionType,
+        onlyOne
+    }
+}

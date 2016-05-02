@@ -8,6 +8,7 @@ import night from './night';
 import roles from './roles';
 import error from './error';
 import day from './day';
+import selections from './selections';
 
 const appReducer = combineReducers({
 	game,
@@ -16,7 +17,8 @@ const appReducer = combineReducers({
 	night,
     day,
 	roles,
-	error
+	error,
+    selections
 });
 
 export const rootReducer = combineReducers({

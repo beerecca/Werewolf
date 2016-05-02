@@ -33,13 +33,13 @@ export class AppController extends Component {
 
     render() {
 		let content;
-		const { roles, game, players, windowSize, night, day } = this.props.app;
+		const { roles, game, players, windowSize, night, day, selections } = this.props.app;
 		const { dispatch } = this.props;
 
 		const playerPanels = players.playerList.map(player => {
 			const pos = ellipsePosition(player.order, players.playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
 			const playerRole = roles.find(role => role.id === player.role);
-            const playerSelection = players.selections.find(selection => player.id == selection.player);
+            const playerSelection = selections.activeSelections.find(selection => player.id == selection.player);
             const selectionType = playerSelection ? playerSelection.type : null; 
 
 			return <Player 
@@ -110,7 +110,8 @@ export default connect((state) => {
 			error: state.app.error,
             game: state.app.game,
             night: state.app.night,
-            day: state.app.day
+            day: state.app.day,
+            selections: state.app.selections
 		} 
 	}
 })(AppController);
