@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cn from 'classnames';
 import './Action.scss';
 
 export default class Action extends Component {
@@ -21,17 +20,17 @@ export default class Action extends Component {
         
         const actionPosition = nightActions.findIndex(r => r.id == activeAction.id);
         const isLastAction = actionPosition === nightActions.length - 1;
-        const previousClass = cn('btn', 'w-btn', { 'disabled' : actionPosition == 0 });     //TODO: Only show if not the first action
-        const nextClass = cn('btn', 'w-btn', { 'disabled' : isLastAction });                //TODO: don't show this on the last action
-        const saveClass = cn('btn', 'w-btn', 'btn-primary' );                               //TODO: This button should only show up on last action
+        const prev = actionPosition > 0 ? <button className="btn w-btn" onClick={this.changeAction.bind(this, 'previous')}>Previous</button> : null;
+        const next = !isLastAction ? <button className="btn w-btn" onClick={this.changeAction.bind(this, 'next')}>Next Role</button> : null;
+        const save = isLastAction ? <button className="btn w-btn btn-primary" onClick={saveActions}>Save Actions</button> : null;
         
 		return (
 			<span>
 				<h3>{name}</h3>
 				<p>{instruction}</p>
-                <button className={previousClass} onClick={this.changeAction.bind(this, 'previous')}>Previous Role</button>
-                <button className={nextClass} onClick={this.changeAction.bind(this, 'next')}>Next Role</button>
-                <button className={saveClass} onClick={saveActions}>Save Actions</button>
+                {prev}
+                {next}
+                {save}
 			</span>
 		);
 	}

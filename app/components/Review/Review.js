@@ -22,16 +22,19 @@ export default class Review extends Component {
             allPlayers[player.id] = player;
             return allPlayers;
         }, {});
+
+        const actions = reviewActions.map(action => {
+            const player = playerMap[action.player];
+            const role = roleMap[action.role];
+            const verbage = role.showOnSummary ? <p key={player.id}>{player.name} {role.summaryVerb}</p> : null;
+            return verbage;
+        });
         
 		return (
 			<span>
 				<h1>Day Review</h1>
 				<p>This is what happened last night</p>
-                {reviewActions.map(action => {
-                    return (
-                        <p>{playerMap[action.player].name} was {roleMap[action.role].summaryVerb} by a {roleMap[action.role].name}</p> 
-                    )
-                })}
+                {actions}
                 <button className="btn btn-default w-btn" onClick={startAccusations}>Start Accusations</button>
 			</span>
 		);
