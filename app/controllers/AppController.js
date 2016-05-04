@@ -31,39 +31,51 @@ export class AppController extends Component {
         this.props.dispatch(action.selectPlayer(id, this.props.app.game.state, this.props.app.game.phase)); 
     }
 
-    render() {
-		let content;
-		const { roles, game, players, windowSize, night, day, selections } = this.props.app;
-		const { dispatch } = this.props;
-
-		const playerPanels = players.playerList.map(player => {
-			const pos = ellipsePosition(player.order, players.playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
-			const playerRole = roles.find(role => role.id === player.role);
+    generatePlayerPanels() {
+        const { roles, players, windowSize, selections } = this.props.app;
+        
+        let playerPanels = players.playerList.map(player => {
+            const pos = ellipsePosition(player.order, players.playerList.length + 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
+            const playerRole = roles.find(role => role.id === player.role);
             const playerSelection = selections.activeSelections.find(selection => player.id == selection.player);
             const selectionType = playerSelection ? playerSelection.type : null; 
 
-			return <Player 
-				key={player.order} 
-				order={player.order} 
+            return <Player 
+                key={player.order}
+                order={player.order} 
                 alive={player.alive}
-				id={player.id}
-                game={game} 
-				name={player.name} 
-				image={(playerRole) ? playerRole.image : null} 
+                id={player.id}
+                name={player.name} 
+                image={playerRole ? playerRole.image : null} 
                 selectionType={selectionType}
-				x={pos.x} 
-				y={pos.y} 
-				selectPlayer={(id)=>{this.selectPlayer(id)}} />
-		});
+                x={pos.x} 
+                y={pos.y} 
+                selectPlayer={(id)=>{this.selectPlayer(id)}} />
+        });
+
+        return playerPanels;
+    }
+
+    generateModeratorPanel(moderator) {
+        const { windowSize } = this.props.app;
         const moderatorPos = ellipsePosition(0, 1, windowSize.w/2, windowSize.h/2, windowSize.w*0.8, windowSize.h*0.8);
-		const moderatorPanel = game.moderator ? <Player name={game.moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} /> : null;
+        return <Player name={moderator} image={'https://s3-us-west-2.amazonaws.com/werewolfbucket/moderator.png'} x={moderatorPos.x} y={moderatorPos.y} />;
+    }
+
+    render() {
+        let content;
+        const { roles, game, players, night, day } = this.props.app;
+        const { dispatch } = this.props;
+        
+        const playerPanels = this.generatePlayerPanels();
+        const moderatorPanel = game.moderator ? this.generateModeratorPanel(game.moderator) : null;
 		
         switch (game.state) {
 			case 'setup-game':
 				content = <Setup createGame={(name, moderator)=>{dispatch(action.createGame(name, moderator))}} />
 				break;
 			case 'setup-player':
-				content = <PlayerAdd roles={roles} createPlayer={(player)=>{dispatch(action.createPlayer(player))}} startGame={()=>{dispatch(action.startGame())}} /> 
+				content = <PlayerAdd roles={roles} createPlayer={player=>{dispatch(action.createPlayer(player))}} startGame={()=>{dispatch(action.startGame())}} /> 
 				break;
 			case 'night':
 				content = <Action activeAction={night.activeAction} nightActions={night.nightActions} changeAction={direction=>{dispatch(action.changeAction(direction))}} saveActions={()=>{dispatch(action.saveActions())}} />
@@ -77,10 +89,9 @@ export class AppController extends Component {
 				break; 
 		}
 
-		const playerToEdit = players.playerList.find((player)=>{
-			return player.id === players.editingPlayer;
-		});
 		if (players.editingPlayer) {
+            const playerToEdit = players.playerList.find(player => player.id === players.editingPlayer);
+            
 			content = <PlayerEdit player={playerToEdit} roles={roles} updatePlayer={(id, name, role)=>{dispatch(action.updatePlayer(id, name, role))}} />
 		}
         
@@ -95,7 +106,7 @@ export class AppController extends Component {
 						</div>
 					</div>
 				</div>
-				{moderatorPanel}
+                {moderatorPanel}
 			</div>
 		);
 	}
