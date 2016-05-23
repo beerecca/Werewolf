@@ -9,24 +9,18 @@ export default class Player extends Component {
 		id: PropTypes.string,
 		image: PropTypes.string,
 		name: PropTypes.string.isRequired,
-		x: PropTypes.number.isRequired,
-		y: PropTypes.number.isRequired,
         selectionType: PropTypes.string,
 		selectPlayer: PropTypes.func,
         alive: PropTypes.bool
 	};
 
 	render() {
-		const { name, id, image, x, y, selectPlayer, selectionType, alive } = this.props;
-        const style = {
-            top : y + 'px',
-            left: x + 'px'
-        };
+		const { name, id, image, selectPlayer, selectionType, alive } = this.props;
 
         const classNames = cn('w-player', { 'w-player--alive': alive }, { [`w-player-selection--${selectionType}`] : selectionType });
 
         return (
-			<div className={classNames} style={style} onClick={()=>{selectPlayer(id)}}>
+			<div className={classNames} onClick={()=>{selectPlayer(id)}}>
 				<img className="w-player--image" src={image} />
 				<p>{name}</p>
 			</div>
