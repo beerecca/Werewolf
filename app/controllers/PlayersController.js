@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import Player from '../components/Player/Player';
+import PlayerList from '../components/PlayerList/PlayerList';
 
 export class PlayersController extends Component {
 
@@ -9,35 +10,31 @@ export class PlayersController extends Component {
         this.props.dispatch(action.selectPlayer(id, this.props.app.game.state, this.props.app.game.phase)); 
     }
 
-    generatePlayerPanels() {
-        const { roles, players, selections } = this.props.app;
+    generatePlayer(player) {
+        const { roles, selections } = this.props.app;
         
-        let playerPanels = players.playerList.map(player => {
-            const playerRole = roles.find(role => role.id === player.role);
-            const playerSelection = selections.activeSelections.find(selection => player.id == selection.player);
-            const selectionType = playerSelection ? playerSelection.type : null; 
+        const playerRole = roles.find(role => role.id === player.role);
+        const playerSelection = selections.activeSelections.find(selection => player.id == selection.player);
+        const selectionType = playerSelection ? playerSelection.type : null; 
 
-            return <Player 
-                key={player.order}
-                order={player.order} 
-                alive={player.alive}
-                id={player.id}
-                name={player.name} 
-                image={playerRole ? playerRole.image : null} 
-                selectionType={selectionType}
-                selectPlayer={(id)=>{this.selectPlayer(id)}} />
-        });
-
-        return playerPanels;
+        return <Player 
+            key={player.order}
+            order={player.order} 
+            alive={player.alive}
+            id={player.id}
+            name={player.name} 
+            image={playerRole ? playerRole.image : null} 
+            selectionType={selectionType}
+            selectPlayer={(id)=>{this.selectPlayer(id)}} />
     }
 
 	render() {
-        let playerPanels = this.generatePlayerPanels();
+        const { players } = this.props.app;
 
         return (
-			<ul>
-                {playerPanels}
-            </ul>
+            <PlayerList>    
+                {players.playerList.map(player => this.generatePlayer(player))}
+            </PlayerList>
 		);
 	}
 }
