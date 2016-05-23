@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './PlayerAdd.scss';
 
 export default class PlayerAdd extends Component {
 

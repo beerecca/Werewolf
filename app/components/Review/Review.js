@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './Review.scss';
 
 export default class Review extends Component {
 

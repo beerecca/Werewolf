@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './PlayerEdit.scss';
 
 export default class PlayerEdit extends Component {
 
@@ -39,7 +38,7 @@ export default class PlayerEdit extends Component {
 
 		return (
 			<span>
-				<h3>Edit Player '{player.name}'</h3>
+				<h2>Edit Player '{player.name}'</h2>
 				<div className="form-group form-inline">
 					<label className="w-label" htmlFor="playerName">Name</label>
 					<input type="text" className="form-control" ref="playerName" value={this.state.name} onChange={this.handleNameChange.bind(this)} />

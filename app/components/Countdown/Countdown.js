@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import './Countdown.scss';
-import moment from 'moment';
+import moment from 'moment'; //TODO: only import moment.js not the locale files
 import 'moment-duration-format';
 
 export default class Countdown extends Component {

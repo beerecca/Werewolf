@@ -5,8 +5,10 @@ import PlayersController from './PlayersController';
 import PlayerAdd from '../components/PlayerAdd/PlayerAdd';
 import Setup from '../components/Setup/Setup';
 import Action from '../components/Action/Action';
+import Accusation from '../components/Accusation/Accusation';
 import Countdown from '../components/Countdown/Countdown';
 import Review from '../components/Review/Review';
+import cn from 'classnames';
 //import Loading from '../components/Loading/Loading';
 //import Error from '../components/Error/Error';
 
@@ -36,22 +38,24 @@ export class AppController extends Component {
                 content = <Review roles={roles} players={players.playerList} reviewActions={day.reviewActions} startAccusations={()=>{dispatch(action.startAccusations())}} />
                 break;
 			case 'day-accuse':
+				content = <Accusation cancelAccusation={()=>console.log('cancelAccusation')} saveVote={()=>console.log('saveVote')}/>
+				break;
 			case 'end-game':
 			default:
 				break; 
 		}
 
+		const countdown = (game.state === 'day-accuse') ? <Countdown length={300} /> : null;
+        const style = cn('container', {'body-night': game.state === 'night', 'body-day': game.state === 'day-review' || game.state === 'day-accuse'});
+
+//TODO: state names should be consts
         return (
-            <div className="container-fluid">
-				<Countdown length={300} />
-				<div className="w-controller">
-					<div className="w-setup col-xs-6 panel panel-default">
-						<div className="w-setup--content col-xs-10 col-xs-offset-1">
-							{content}
-						</div>
-					</div>
+            <div className={style}>
+				{countdown}
+				<div className="w-panel">
+					{content}
 				</div>
-                <PlayersController />
+				<PlayersController />
 			</div>
 		);
 	}

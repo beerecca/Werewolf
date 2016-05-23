@@ -1,0 +1,99 @@
+.w-panel {
+	text-align: center;
+	margin-top: 50vh;
+    transform: translateY(-50%);
+    .column {
+    	float: none;
+    }
+}
+
+.w-label {
+	text-transform: uppercase;
+}
+
+.w-input {
+	width: 100%;
+}
+
+.w-btn {
+	margin-right: 10px;
+}
+
+.w-countdown {
+    font-size: 40px;
+    font-weight: 700;
+    color: $primary-color;
+    position: fixed;
+    right: 4%;
+    top: 2%;
+}
+
+.w-player--image {
+	width: 100px;
+    border: 5px solid #FFF;
+    border-radius: 50%;
+	mix-blend-mode: luminosity;
+}
+
+.w-player--vote {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 3px 4px 0px 0px rgba(0,0,0,0.5);
+    margin-bottom: 8px;
+    position: relative;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+}
+
+.w-player {
+    position: fixed;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    transition-property: top, left;
+    transition-duration: 0.5s;
+}
+
+.w-player-selection--editing .w-player--image {
+    border-color: red;
+}
+
+.w-player-selection--werewolf .w-player--image {
+    border-color: black;
+}
+
+.w-player-selection--mason .w-player--image {
+    border-color: grey;
+}
+
+.w-player-selection--spellcaster .w-player--image {
+    border-color: green;
+}
+
+.w-player--kill {
+    background: #A93F46;
+}
+
+.w-player--save {
+    background: #51772B;
+}
+
+.w-playerEdit--role input[type="radio"]:checked + img {
+    outline: 3px solid $primary-color;
+}
+
+.w-playerEdit--role label {
+	margin-bottom: 0;
+}
+
+.w-playerEdit--image {
+	width: 60px;
+	margin: 3px;
+}
+
+.w-playerEdit--radio {
+	display: none;
+}

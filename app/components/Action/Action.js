@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './Action.scss';
 
 export default class Action extends Component {
 
@@ -26,7 +25,7 @@ export default class Action extends Component {
         
 		return (
 			<span>
-				<h3>{name}</h3>
+				<h2>{name}</h2>
 				<p>{instruction}</p>
                 {prev}
                 {next}

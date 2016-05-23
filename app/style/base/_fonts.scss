@@ -1,0 +1,26 @@
+// Fonts
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+@font-face {
+    font-family: 'Edirne';
+    src: url('../fonts/edirne-normal-webfont.woff2') format('woff2'),
+         url('../fonts/edirne-normal-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HellixHeavy';
+    src: url('../fonts/hellix-heavy-webfont.woff2') format('woff2'),
+         url('../fonts/hellix-heavy-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HellixRegular';
+    src: url('../fonts/hellix-regular-webfont.woff2') format('woff2'),
+         url('../fonts/hellix-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

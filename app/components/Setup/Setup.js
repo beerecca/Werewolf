@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './Setup.scss';
 
 export default class Setup extends Component {
 
@@ -16,17 +15,16 @@ export default class Setup extends Component {
 		return (
 			<span>
 				<h1>Werewolf</h1>
-				<p>The Village is your mission: You will attempt to save it or destroy it.</p>
-				<form onSubmit={this.handleSubmit.bind(this)}>
-					<div className="form-group form-inline">
-						<label className="w-label" htmlFor="name">Game Name:</label>
-						<input type="text" ref="name" className="form-control" />
+				<form className="one-half offset-by-three column" onSubmit={this.handleSubmit.bind(this)}>
+					<div>
+						<label className="w-label" htmlFor="name">Game Name</label>
+						<input type="text" ref="name" className="w-input" />
 					</div>
-					<div className="form-group form-inline">
-						<label className="w-label" htmlFor="moderator">Moderator Name:</label>
-						<input type="text" ref="moderator" className="form-control" />
+					<div>
+						<label className="w-label" htmlFor="moderator">Moderator Name</label>
+						<input type="text" ref="moderator" className="w-input" />
 					</div>
-					<button type="submit" className="btn btn-default">Add Players</button>
+					<button type="submit" className="button-primary">Create Game</button>
 				</form>
 			</span>
 		);

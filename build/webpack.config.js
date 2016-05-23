@@ -46,8 +46,8 @@ var config = {
 				test: /\.svg$/, loader: 'file-loader'
 			},
 			{
-				test: /\.(gif|png|jpg|jpeg)$/,
-				loader: 'file?hash=sha512&digest=hex&name=[name][hash].[ext]'
+				test: /\.(gif|png|jpg|jpeg|woff|woff2)$/,
+				loader: 'file?name=dist/[name].[ext]'
 			},
 			{
 				test: /\.js$/,

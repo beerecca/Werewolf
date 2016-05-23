@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
-import './Player.scss';
 
 export default class Player extends Component {
 
