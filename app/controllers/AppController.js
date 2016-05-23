@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import PlayersController from './PlayersController';
-import PlayerAdd from '../components/PlayerAdd/PlayerAdd';
-import Setup from '../components/Setup/Setup';
-import Action from '../components/Action/Action';
-import Accusation from '../components/Accusation/Accusation';
-import Countdown from '../components/Countdown/Countdown';
-import Review from '../components/Review/Review';
+import PlayerAdd from '../components/PlayerAdd';
+import Setup from '../components/Setup';
+import Action from '../components/Action';
+import Accusation from '../components/Accusation';
+import Countdown from '../components/Countdown';
+import Review from '../components/Review';
 import cn from 'classnames';
 //import Loading from '../components/Loading/Loading';
-//import Error from '../components/Error/Error';
 
 export class AppController extends Component {
 

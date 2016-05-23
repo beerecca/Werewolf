@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './PlayerList.scss';
 
 export default class PlayerList extends Component {
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
-import Player from '../components/Player/Player';
-import PlayerList from '../components/PlayerList/PlayerList';
+import Player from '../components/Player';
+import PlayerList from '../components/PlayerList';
 
 export class PlayersController extends Component {
 
