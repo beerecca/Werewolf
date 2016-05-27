@@ -7,17 +7,40 @@
     }
 }
 
+.w-input__container {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    align-items: center;
+    overflow: hidden;
+}
+
 .w-label {
 	text-transform: uppercase;
+    flex-grow: 2;
+    flex-basis: 40%;
+    margin-bottom: 0;
+    color: $label-color;
 }
 
 .w-input {
-	width: 100%;
+    flex-grow: 3;
+    flex-basis: 60%;
+    border: 0 !important;
+    margin-bottom: 0;
+    color: $dark-grey;
 }
 
 .w-btn {
 	margin-right: 10px;
 }
+
+.w-btn__page-action {
+    width: 100%;
+}
+
 
 .w-countdown {
     font-size: 40px;
