@@ -3,6 +3,7 @@ export const actionType = {
     //role stuff
     GET_ROLES: 'GET_ROLES',
 	SET_ROLES: 'SET_ROLES',
+    CHOOSE_ROLES: 'CHOOSE_ROLES',
 
     //generic stuff
 	SET_ERROR: 'SET_ERROR',
@@ -12,6 +13,7 @@ export const actionType = {
 	CREATE_PLAYER: 'CREATE_PLAYER',
 	SELECT_PLAYER: 'SELECT_PLAYER',
 	UPDATE_PLAYER: 'UPDATE_PLAYER',
+    DELETE_PLAYER: 'DELETE_PLAYER',
     SET_SELECTION: 'SET_SELECTION',
 	
     //game structure stuff

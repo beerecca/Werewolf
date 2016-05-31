@@ -23,6 +23,9 @@ export const initialState = {
     day: {
         reviewActions: []
     },
-	roles: [],
+	roles: {
+		allRoles: [],
+		selectedRoles: []
+	},
 	error: null
 };

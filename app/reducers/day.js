@@ -1,7 +1,7 @@
 import { initialState } from '../state';
 import { actionType } from '../actions';
 
-export default function night(state = initialState.day, action) {
+export default function day(state = initialState.day, action) {
     
     switch (action.type) {
         

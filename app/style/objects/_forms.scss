@@ -1,17 +1,33 @@
 // Forms
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
-textarea,
-select {
-  height: 38px;
-  padding: 6px 10px; // The 6px vertically centers text on FF, ignored by Webkit
-  background-color: #fff;
-  border: 1px solid lighten($border-color, 8.8%);
-  box-shadow: none;
-  box-sizing: border-box;
+.input__container {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  overflow: hidden;
 }
 
-// Removes awkward default styles on some inputs for iOS
+.label {
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  flex-basis: 30%;
+  text-align: left;
+  margin-bottom: 0;
+  color: $label-color;
+}
+
+.input {
+  font-size: 1.8rem;
+  font-weight: 600;
+  border: 0;
+  margin-bottom: 0;
+  color: $input-color;
+}
+
 input {
   &[type="email"],
   &[type="number"],
@@ -20,9 +36,32 @@ input {
   &[type="tel"],
   &[type="url"],
   &[type="password"] {
+    height: 38px;
+    padding: 6px 10px; // The 6px vertically centers text on FF, ignored by Webkit
+    background-color: #fff;
+    box-shadow: none;
+    box-sizing: border-box;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
+
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; // The 6px vertically centers text on FF, ignored by Webkit
+  background-color: #fff;
+  box-shadow: none;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: 0;
   }
 }
 
@@ -33,25 +72,6 @@ textarea {
   min-height: 65px;
   padding-top: 6px;
   padding-bottom: 6px;
-}
-
-input {
-  &[type="email"]:focus,
-  &[type="number"]:focus,
-  &[type="search"]:focus,
-  &[type="text"]:focus,
-  &[type="tel"]:focus,
-  &[type="url"]:focus,
-  &[type="password"]:focus {
-    border: 1px solid $primary-color;
-    outline: 0;
-  }
-}
-
-textarea:focus,
-select:focus {
-  border: 1px solid $primary-color;
-  outline: 0;
 }
 
 label,
@@ -71,10 +91,4 @@ input {
   &[type="radio"] {
     display: inline;
   }
-}
-
-label > .label-body {
-  display: inline-block;
-  margin-left: .5rem;
-  font-weight: normal;
 }

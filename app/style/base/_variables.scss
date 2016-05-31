@@ -9,17 +9,16 @@ $bp-larger-than-desktop   : "min-width: 1000px" !default;
 $bp-larger-than-desktophd : "min-width: 1200px" !default;
 
 // Colors
-$light-grey: #e1e1e1 !default;
-$dark-grey: #333 !default;
-$secondary-color: lighten($dark-grey, 13.5%) !default;
-$border-color: #bbb !default;
+$primary-color: #87785d !default; //brown
+$secondary-color: #182128 !default; //dark blue
 
-$link-color: #334654 !default;
-$font-color: #887962 !default;
-$colour-night: #2a343c;
-$primary-color: #182128 !default;
-$label-color: #C2C3C5 !default;
-$input-background: #FFFFFF !default;
+$text-color: #FFF !default;
+$label-color: #C2C3C5 !default; //light grey
+$link-color: $primary-color !default; //brown
+$icon-color: #56768f !default; //light blue
+$input-color: #333 !default; //dark grey
+
+$night-color: #2a343c; //dark blue
 
 // Typography
 $font-heading: "Edirne", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !default;

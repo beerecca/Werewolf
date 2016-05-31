@@ -16,11 +16,11 @@ export default class Player extends Component {
 	render() {
 		const { name, id, image, selectPlayer, selectionType, alive } = this.props;
 
-        const classNames = cn('w-player', { 'w-player--alive': alive }, { [`w-player-selection--${selectionType}`] : selectionType });
+        const classNames = cn('w-player', { 'w-player__alive': alive }, { [`w-player__${selectionType}`] : selectionType });
 
         return (
 			<div className={classNames} onClick={()=>{selectPlayer(id)}}>
-				<img className="w-player--image" src={image} />
+				<img className="w-player__image" src={image} />
 				<p>{name}</p>
 			</div>
 		);

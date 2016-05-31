@@ -1,0 +1,16 @@
+.w-role__label {
+	margin-bottom: 0;
+}
+
+.w-role__image {
+	width: 60px;
+	margin: 3px;
+}
+
+.w-role__checkbox {
+	display: none;
+}
+
+.w-role__checkbox:checked + img {
+    outline: 3px solid $primary-color;
+}

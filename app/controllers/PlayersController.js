@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import Player from '../components/Player';
-import PlayerList from '../components/PlayerList';
+import PlayerPanels from '../components/PlayerPanels';
 
 export class PlayersController extends Component {
 
@@ -13,7 +13,7 @@ export class PlayersController extends Component {
     generatePlayer(player) {
         const { roles, selections } = this.props.app;
         
-        const playerRole = roles.find(role => role.id === player.role);
+        const playerRole = roles.allRoles.find(role => role.id === player.role);
         const playerSelection = selections.activeSelections.find(selection => player.id == selection.player);
         const selectionType = playerSelection ? playerSelection.type : null; 
 
@@ -32,9 +32,9 @@ export class PlayersController extends Component {
         const { players } = this.props.app;
 
         return (
-            <PlayerList>    
+            <PlayerPanels>    
                 {players.playerList.map(player => this.generatePlayer(player))}
-            </PlayerList>
+            </PlayerPanels>
 		);
 	}
 }

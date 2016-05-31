@@ -7,6 +7,13 @@ export function createPlayer(player) {
 	}
 }
 
+export function deletePlayer(id) {
+	return { 
+		type: actionType.DELETE_PLAYER,
+		id
+	}
+}
+
 export function selectPlayer(id, state, phase) {
 	return { 
 		type: actionType.SELECT_PLAYER,

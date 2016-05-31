@@ -1,8 +1,9 @@
 import { actionType } from './actionType';
 
-export function startGame() {
+export function startGame(selectedRoles) {
 	return { 
-		type: actionType.START_GAME
+		type: actionType.START_GAME,
+        selectedRoles
 	}
 }
 

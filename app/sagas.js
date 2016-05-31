@@ -5,7 +5,7 @@
 import { put, fork, take, call, select } from 'redux-saga/effects';
 import * as actions from './actions';
 import * as api from './util/data';
-import * as filters from './util/filters';            
+//import * as filters from './util/filters';            
 import * as selectors from './selectors';
 
 export default function* rootSaga() {
@@ -92,9 +92,11 @@ export function* startGameSaga() {
             yield put(actions.setGameId(gameData.id));
             yield put(actions.setPlayers(gameData.players));
             
-            const roles = yield select(selectors.getRoles);
-            const filteredPlayers = filters.filterNightRoles(gameData.players, roles);
-            yield put(actions.setNight(filteredPlayers));
+            const roles = yield select(selectors.getSelectedRoles);
+            //TODO: move when player/role setup is finished, to phase > 1 action
+            //const filteredPlayers = filters.filterNightRoles(gameData.players, roles);
+            //yield put(actions.setNight(filteredPlayers));
+            yield put(actions.setNight(roles));
 
 		} catch(error) {
 			yield put(actions.setError());

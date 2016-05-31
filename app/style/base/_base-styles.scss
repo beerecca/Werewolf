@@ -13,8 +13,8 @@ body {
   line-height: 1.6;
   font-weight: 400;
   font-family: $font-regular;
-  color: $font-color;
-  background-color: $colour-night;
+  color: $text-color;
+  background-color: $night-color;
 }
 
 // Links
@@ -34,7 +34,7 @@ hr {
   margin-top: 3rem;
   margin-bottom: 3.5rem;
   border-width: 0;
-  border-top: 1px solid $light-grey;
+  border-top: 1px solid $label-color;
 }
 
 * {

@@ -24,6 +24,17 @@ export default function players(state = initialState.players, action) {
 				editingPlayer
 			};
 
+		case actionType.DELETE_PLAYER:
+			const newPlayerList = state.playerList.filter(player=>{
+				return player.id !== action.id;
+			});
+
+			return {
+				...state,
+				playerList: newPlayerList,
+				editingPlayer: null
+			};
+
 		case actionType.UPDATE_PLAYER:
 			let unchangedPlayers = [];
 			let playerToUpdate = {};
@@ -32,7 +43,6 @@ export default function players(state = initialState.players, action) {
 				if (player.id === action.id) {
 					playerToUpdate = player;
 					playerToUpdate.name = action.name;
-					playerToUpdate.role = action.role;
 				} else {
 					unchangedPlayers.push(player);
 				}
@@ -44,7 +54,7 @@ export default function players(state = initialState.players, action) {
 					...unchangedPlayers,
 					playerToUpdate
 				],
-				editingPlayer: null
+				editingPlayer: null //TODO: not needed anymore?
 			};
 
         case actionType.SET_PLAYERS:

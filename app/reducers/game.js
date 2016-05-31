@@ -1,8 +1,14 @@
 import { initialState } from '../state';
 import { actionType } from '../actions';
 
-export default function gameSetup(state = initialState.game, action) {
+export default function game(state = initialState.game, action) {
 	switch(action.type) {
+
+        case actionType.CHOOSE_ROLES:
+            return {
+                ...state,
+                state: 'setup-roles'
+            };
 
 		case actionType.CREATE_GAME:
 			return {
