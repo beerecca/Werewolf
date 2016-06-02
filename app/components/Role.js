@@ -11,10 +11,10 @@ export default class Role extends Component {
 		const { image, roleClick } = this.props;
 
 		return (
-			<label className="w-role__label">
-				<input className="w-role__checkbox" type="checkbox" name="role" onChange={roleClick} />
-				<img className="w-role__image" src={image} />
-			</label>
-		);
+            <label className="w-role__label">
+                <input className="w-role__checkbox" type="checkbox" name="role" onChange={roleClick} />
+                <img className="w-role__image" src={image} />
+            </label>
+        );
 	}
 }

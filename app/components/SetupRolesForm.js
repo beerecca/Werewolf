@@ -33,14 +33,18 @@ export default class SetupRolesForm extends Component {
 
 	render() {
 		const { roles } = this.props;
-
+        //TODO this rolelist should be it's own dumb component
 		return (
 			<span>
-				<div>
+				<ul className="w-rolelist">
 					{roles.map(role => {
-						return <Role key={role.id} image={role.image} roleClick={()=>this.handleRoleClick(role.id)} />
+						return (
+                            <li key={role.id} className="w-rolelist__item">
+                                <Role key={role.id} image={role.image} roleClick={()=>this.handleRoleClick(role.id)} />
+                            </li>
+                        )
 					})}
-				</div>
+				</ul>
 				<Button label="Start Game" buttonClick={this.handleStartClick.bind(this)} />
 			</span>
 		);
