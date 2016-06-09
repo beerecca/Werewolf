@@ -2,13 +2,12 @@ export const initialState = {
 	game: {
 		name: null,
 		moderator: null,
-        phase: 1,
+        phase: 0,
         id: null,
         state: 'setup-game'
 	},
 	players: {
-		playerList: [],
-		editingPlayer: null
+		playerList: []
 	},
     selections: {
         selectionType: 'editing',

@@ -20,17 +20,20 @@ export default function night(state = initialState.night, action) {
             }
 
         case actionType.SELECT_PLAYER:
-            const nightActions = state.nightActions;
-
-            if (action.state == 'night' && action.phase !== 0) {
-                const currentAction = nightActions.find(nightAction => nightAction.id === state.activeAction.id);
-                currentAction.target = action.id;
-            }
             
-            return {
-                ...state,
-                nightActions
+            if (action.state == 'night' && action.phase > 0) {
+                
+                const nightActions = nightActions.map(nightAction => {
+                    if (nightAction.id === state.activeAction.id) nightAction.target = action.id;
+                    return nightAction;
+                }); 
+
+                return {
+                    ...state,
+                    nightActions
+                }
             }
+            return state;
 
 		default: return state;
 	}

@@ -14,11 +14,12 @@ export function deletePlayer(id) {
 	}
 }
 
-export function selectPlayer(id, state, phase) {
+export function selectPlayer(id, state, phase, role) {
 	return { 
 		type: actionType.SELECT_PLAYER,
         state,
         phase,
+        role,
 		id
 	}
 }

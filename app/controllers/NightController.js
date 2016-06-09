@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import Button from '../components/Button';
+import PlayersController from './PlayersController';
 
 export class NightController extends Component {
 
@@ -13,21 +14,21 @@ export class NightController extends Component {
         
         const actionPosition = nightActions.findIndex(r => r.id == activeAction.id);
         const isLastAction = actionPosition === nightActions.length - 1;
-        const prev = actionPosition > 0 ? <Button secondary={true} label="Previous" buttonClick={()=>dispatch(action.changeAction('previous'))} /> : null;
-        const next = !isLastAction ? <Button secondary={true} label="Next" buttonClick={()=>dispatch(action.changeAction('next'))} /> : null;
-        const save = isLastAction ? <Button label="Save" buttonClick={()=>dispatch(action.saveActions())} /> : null;
+        const prev = <Button secondary={true} label="Previous" buttonClick={()=>dispatch(action.changeAction('previous'))} />;
+        const next = <Button secondary={true} label="Next" buttonClick={()=>dispatch(action.changeAction('next'))} />;
+        const save = <Button label="Save" buttonClick={()=>dispatch(action.saveActions())} />;
 		
-		//TODO: for phase 1, rotate through selectedRoles (minus villagers)
-		const title = (game.phase === 1) ? `${name}s, open your eyes` : instruction;
+		//TODO: for phase 0, rotate through selectedRoles (minus villagers)
+		const title = (game.phase === 0) ? `${name}s, open your eyes` : instruction;
 
 		return (
 			<span>
 				<p>{actionPosition + 1}/{nightActions.length}</p>
 				<h2>{title}</h2>
-				<p>players</p>
-				{prev}
-				{next}
-				{save}
+				<PlayersController />
+				{actionPosition > 0 ? prev : null}
+				{!isLastAction ? next : null}
+				{isLastAction ? save : null}
 			</span>
 		);
 	}

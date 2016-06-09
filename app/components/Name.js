@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Button from './Button';
 
-export default class PlayerListItem extends Component {
+export default class Name extends Component {
 
 	static propTypes = {
 		name: PropTypes.string.isRequired,

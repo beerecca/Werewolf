@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
-export default class SetupPlayerForm extends Component {
+export default class SetupNameForm extends Component {
 
 	static propTypes = {
 		createPlayer: PropTypes.func.isRequired

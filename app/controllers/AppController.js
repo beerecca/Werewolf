@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import SetupGameController from './SetupGameController';
-import SetupPlayersController from './SetupPlayersController';
+import SetupNamesController from './SetupNamesController';
 import SetupRolesController from './SetupRolesController';
 import NightController from './NightController';
 import ReviewController from './ReviewController';
@@ -25,7 +25,7 @@ export class AppController extends Component {
 				content = <SetupGameController />
 				break;
 			case 'setup-player':
-				content = <SetupPlayersController /> 
+				content = <SetupNamesController /> 
 				break;
 			case 'setup-roles':
 				content = <SetupRolesController /> 

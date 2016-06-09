@@ -16,14 +16,6 @@ export default function players(state = initialState.players, action) {
 				]
 			};
 
-		case actionType.SELECT_PLAYER:            
-            const editingPlayer = (action.state === 'setup-player' || (action.state === 'night' && action.phase === 0)) ? action.id : null; 
-
-			return {
-				...state,
-				editingPlayer
-			};
-
 		case actionType.DELETE_PLAYER:
 			const newPlayerList = state.playerList.filter(player=>{
 				return player.id !== action.id;
@@ -34,6 +26,23 @@ export default function players(state = initialState.players, action) {
 				playerList: newPlayerList,
 				editingPlayer: null
 			};
+
+        case actionType.SELECT_PLAYER:
+            if (action.phase === 0 && action.state === 'night') {
+                const playerList = state.playerList.map(player => {
+                    if (player.id === action.id) {
+                        player.role = (player.role === action.role) ? null : action.role;
+                    }
+                    return player;
+                });
+
+                return {
+                    ...state,
+                    playerList
+                }
+            }
+
+            return state;
 
 		case actionType.UPDATE_PLAYER:
 			let unchangedPlayers = [];

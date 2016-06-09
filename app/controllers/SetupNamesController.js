@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
-import SetupPlayerForm from '../components/SetupPlayerForm';
-import PlayerListItem from '../components/PlayerListItem';
+import SetupNameForm from '../components/SetupNameForm';
+import Name from '../components/Name';
 import Button from '../components/Button';
 
-export class SetupPlayersController extends Component {
+export class SetupNamesController extends Component {
 
 	render() {
 		const { playerList } = this.props.app.players;
@@ -14,10 +14,10 @@ export class SetupPlayersController extends Component {
 		return (
 			<div className="one-half offset-by-three column">
 				<h2>Add Players</h2>
-				<SetupPlayerForm createPlayer={player=>{dispatch(action.createPlayer(player))}} />
+				<SetupNameForm createPlayer={player=>{dispatch(action.createPlayer(player))}} />
 				<div className="w-playerlist">
 					{playerList && playerList.map(player=>{
-						return <PlayerListItem 
+						return <Name 
 							key={player.id} 
 							name={player.name} 
 							deletePlayer={()=>{dispatch(action.deletePlayer(player.id))}} />
@@ -37,4 +37,4 @@ export default connect((state) => {
 			players: state.app.players
 		} 
 	}
-})(SetupPlayersController);
+})(SetupNamesController);
