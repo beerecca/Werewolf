@@ -10,7 +10,7 @@ export const initialState = {
 		playerList: []
 	},
     selections: {
-        selectionType: 'editing',
+        selectionType: '',
         onlyOne: true,
         activeSelections: [] 
     },

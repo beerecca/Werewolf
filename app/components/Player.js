@@ -8,15 +8,17 @@ export default class Player extends Component {
 		id: PropTypes.string,
 		image: PropTypes.string,
 		name: PropTypes.string.isRequired,
-        selectionType: PropTypes.string,
+        selectionType: PropTypes.array,
 		selectPlayer: PropTypes.func,
         alive: PropTypes.bool
 	};
 
 	render() {
 		const { name, id, image, selectPlayer, selectionType, alive } = this.props;
-
-        const classNames = cn('w-player', { 'w-player__alive': alive }, { [`w-player__${selectionType}`] : selectionType });
+        const selectionClassNames = !selectionType ? [] : selectionType.map(selection => {
+            return 'w-player__' + selection;
+        })
+        const classNames = cn('w-player', { 'w-player__alive': alive }, selectionClassNames );
 
         return (
 			<div className={classNames} onClick={()=>{selectPlayer(id)}}>

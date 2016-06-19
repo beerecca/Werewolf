@@ -14,7 +14,7 @@ export class PlayersController extends Component {
         const { roles, selections } = this.props.app;
         
         const playerRole = roles.allRoles.find(role => role.id === player.role);
-        const playerSelection = selections.activeSelections.find(selection => player.id == selection.player);
+        const playerSelection = selections.activeSelections.find(selection => player.id === selection.player);
         const selectionType = playerSelection ? playerSelection.type : null; 
 
         return <Player 

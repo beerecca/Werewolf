@@ -22,11 +22,15 @@ export function* updateSelections() {
 	while (true) {
 
 		yield take([ actions.actionType.SET_NIGHT, actions.actionType.CHANGE_ACTION ]);
-		const activeAction = yield select(selectors.getActiveAction); 
-		const selectionType = activeAction.name.replace(/\ /, '').toLowerCase();
-
-		const onlyOne = selectionType != 'mason';
-		yield put(actions.setSelection(selectionType, onlyOne));
+        const gamePhase = yield select(selectors.getGamePhase);
+        //only need to run when gamephase isn't 0
+        if (gamePhase != 0) {
+		    const activeAction = yield select(selectors.getActiveAction);
+		    const selectionType = activeAction.name.replace(/\ /, '').toLowerCase();
+		    const onlyOne = selectionType != 'mason';
+		
+            yield put(actions.setSelection(selectionType, onlyOne));
+        }
 	}
 }
 
