@@ -12,9 +12,35 @@ export default function selections(state = initialState.selections, action) {
                 onlyOne: action.onlyOne
             }
 
-        case actionType.SELECT_PLAYER:            
-            //TODO if we're selecting a player that is already selected, we need to deselect them
-            const activeSelections = filterSelections(state, action);
+        case actionType.SELECT_PLAYER:
+            //1. when you select a player that already has a selection of that type, unselect them
+            //2. if a different type, don't unselect them, just add that type
+            //3. if onlyOne is true, remove any player that is not the action player (the selection has been made in 1)
+
+            //a. if player doesn't exist, add it and it's new selection to the array
+
+
+            const activeSelections = state.activeSelections.map(selection => {
+                console.log('thing', selection);
+
+                if (selection.player === action.id) {
+                    let playerSelections;
+                    if (selection.type.includes(action.selectionType)) {
+                        playerSelections = selection.type.filter(selectionType => selectionType !== action.selectionType);
+                    } else {
+                        playerSelections = selection.type.concat(action.selectionType);
+                    }
+                    return { player: action.id, type: playerSelections };
+                }
+
+                if (state.onlyOne) {
+                    const playerSelections = selection.type.filter(selectionType => selectionType !== action.selectionType);
+                    return { player: action.id, type: playerSelections };
+                }
+
+                return selection;
+            });
+
 			return {
 				...state,
                 activeSelections
@@ -31,10 +57,3 @@ export default function selections(state = initialState.selections, action) {
 		default: return state;
 	}
 }
-
-function filterSelections(state, action) {
-    let selections = state.onlyOne ? state.activeSelections.filter(selection => selection.type !== state.selectionType) : state.activeSelections;
-    if (state.selectionType)
-        selections.push({ player: action.id, type: state.selectionType });
-    return selections;
-}   

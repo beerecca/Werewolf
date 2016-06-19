@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 //import * as action from '../actions';
 import Button from '../components/Button';
 import Countdown from '../components/Countdown';
+import PlayersController from './PlayersController';
 //import cn from 'classnames';
 
 export class AccusationController extends Component {
@@ -18,6 +19,7 @@ export class AccusationController extends Component {
 				<p>1. Select the player that has been accused.</p>
 				<p>2. Select the accusers.</p>
 				<p>3. Assign each players vote.</p>
+				<PlayersController />
 				<Button label="Cancel" buttonClick={()=>console.log('cancelAccusation')} secondary={true} />
 				<Button label="Save" buttonClick={()=>console.log('saveVote')} />
 			</span>
