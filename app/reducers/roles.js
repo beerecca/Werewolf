@@ -3,9 +3,13 @@ import { actionType } from '../actions';
 
 export default function roles(state = initialState.roles, action) {
 	switch(action.type) {
-
+        
 		case actionType.SET_ROLES:
-			return {
+			action.roles.sort(function (a,b) {
+                return a.order - b.order;
+            });
+            
+            return {
                 ...state,
                 allRoles: action.roles
             };
