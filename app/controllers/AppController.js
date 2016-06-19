@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as action from '../actions';
 import SetupGameController from './SetupGameController';
 import SetupNamesController from './SetupNamesController';
 import SetupRolesController from './SetupRolesController';
@@ -10,11 +9,7 @@ import AccusationController from './AccusationController';
 import EndGameController from './EndGameController';
 
 export class AppController extends Component {
-
-	componentDidMount() {
-		this.props.dispatch(action.getRoles());
-	}
-
+    
     render() {
         let content;
         const { game } = this.props.app;

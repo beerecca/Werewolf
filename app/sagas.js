@@ -33,7 +33,7 @@ export function* updateSelections() {
 export function* getRolesSaga() {
 	while (true) {
 
-		yield take(actions.actionType.GET_ROLES);
+		yield take(actions.actionType.CREATE_GAME);
 
 		try {
 			const roles = yield call(api.getRolesData);

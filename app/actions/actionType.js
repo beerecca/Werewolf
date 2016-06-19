@@ -1,7 +1,6 @@
 export const actionType = {
 	
     //role stuff
-    GET_ROLES: 'GET_ROLES',
 	SET_ROLES: 'SET_ROLES',
     CHOOSE_ROLES: 'CHOOSE_ROLES',
 
