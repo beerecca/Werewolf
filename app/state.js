@@ -20,7 +20,8 @@ export const initialState = {
 		activeAction : null
 	},
     day: {
-        reviewActions: []
+        reviewActions: [],
+        page: 'accuse'
     },
 	roles: {
 		allRoles: [],

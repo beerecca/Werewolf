@@ -15,3 +15,8 @@ export function setGameId(id) {
     }
 }
 
+export function incrementPhase() {
+    return {
+        type: actionType.INCREMENT_PHASE
+    }
+}

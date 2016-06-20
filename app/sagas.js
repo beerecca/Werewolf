@@ -11,6 +11,7 @@ import * as selectors from './selectors';
 export default function* rootSaga() {
 	yield fork(getRolesSaga);
 	yield fork(startGameSaga);
+	yield fork(setNightRolesSaga);
 	yield fork(updatePlayerSaga);
 	yield fork(saveActionsSaga);
 	yield fork(saveAccusationsSaga);
@@ -96,16 +97,49 @@ export function* startGameSaga() {
 			yield put(actions.setGameId(gameData.id));
 			yield put(actions.setPlayers(gameData.players));
 			
-			const roles = yield select(selectors.getSelectedRoles);
-			//TODO: move when player/role setup is finished, to phase > 1 action
-			//const filteredPlayers = filters.filterNightRoles(gameData.players, roles);
-			//yield put(actions.setNight(filteredPlayers));
-			yield put(actions.setNight(roles));
-
+			yield put(actions.setNight());
 		} catch(error) {
 			yield put(actions.setError());
 		}
 	}
+}
+
+export function* setNightRolesSaga() {
+    while (true) {
+        const payload = yield take(actions.actionType.SET_PLAYERS);
+        //TODO: clean this up a bit 
+        try {
+            const phase = yield select(selectors.getGamePhase);
+            if (phase === 0) {
+                const activeRoles = yield select(selectors.getSelectedRoles);    
+                yield put(actions.setNightRoles(activeRoles));
+        
+            } else {
+            
+                const allRoles = yield select(selectors.getAllRoles);
+            
+                const roleMap = allRoles.reduce((roles, role) => {
+                    roles[role] = role;
+                    return roles;
+                }, {})
+
+                const rolesToSelect = payload.players.map(player => {
+                    if (phase === 0) return player.role;
+                    return player.alive ? player.role : null;
+                });
+
+                const activeRoles = rolesToSelect.reduce((roles, role) => {
+                    if (!role || roles.includes(role)) return roles;
+                    return roles.concat(roleMap[role]);
+                }, []);
+
+                yield put(actions.setNightRoles(activeRoles));
+            }
+    
+        } catch(error) {
+            yield put(actions.setError());
+        }
+    }
 }
 
 export function* saveActionsSaga() {

@@ -20,9 +20,15 @@ export function saveActions() {
     }
 }
 
-export function setNight(filteredRoles) {
+export function setNightRoles(filteredRoles) {
     return {
-        type: actionType.SET_NIGHT,
+        type: actionType.SET_NIGHT_ROLES,
         filteredRoles
+    }
+}
+
+export function setNight() {
+    return {
+        type: actionType.SET_NIGHT
     }
 }

@@ -42,6 +42,12 @@ export default function game(state = initialState.game, action) {
                 id : action.id
             };
 
+        case actionType.INCREMENT_PHASE:
+            return {
+                ...state,
+                phase: state.phase + 1
+            };
+
 		default: return state;
 	}
 }

@@ -10,6 +10,12 @@ export default function day(state = initialState.day, action) {
                 ...state,
                 reviewActions: action.actions
             };
+        
+        case actionType.START_ACCUSATIONS:
+            return {
+                ...state,
+                page: 'accuse'
+            };
 
         default:
             return state;

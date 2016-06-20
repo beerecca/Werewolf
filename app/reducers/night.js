@@ -12,7 +12,7 @@ export default function night(state = initialState.night, action) {
 				activeAction: state.nightActions[newPosition]
 			}
 
-        case actionType.SET_NIGHT:
+        case actionType.SET_NIGHT_ROLES:
             return {
                 ...state,
                 nightActions: action.filteredRoles,
