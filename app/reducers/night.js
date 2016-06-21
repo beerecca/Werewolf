@@ -23,7 +23,7 @@ export default function night(state = initialState.night, action) {
             
             if (action.state == 'night' && action.phase > 0) {
                 
-                const nightActions = nightActions.map(nightAction => {
+                const nightActions = state.nightActions.map(nightAction => {
                     if (nightAction.id === state.activeAction.id) nightAction.target = action.id;
                     return nightAction;
                 }); 
