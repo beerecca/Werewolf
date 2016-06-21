@@ -28,7 +28,7 @@ export default class SetupNameForm extends Component {
 		return (
 			<form className="row">
 				<div className="nine columns">
-					<Input label="Name" inputChange={(value)=>this.nameInputChange(value)} value={this.state.name} />
+					<Input label="Name" inputChange={(value)=>this.nameInputChange(value)} value={this.state.name} autoFocus={true} />
 				</div>
 				<div className="three columns">
 					<Button label="Add" buttonClick={this.handleSubmit.bind(this)} secondary={true} />
