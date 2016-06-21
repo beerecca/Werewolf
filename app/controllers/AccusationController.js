@@ -13,9 +13,20 @@ export class AccusationController extends Component {
         this.props.dispatch(action.setNight());
     }
 
+    updatePage(page) {
+        this.props.dispatch(action.updatePage(page));
+        this.props.dispatch(action.setSelection(page, false));
+    }
+
+    sendVote() {
+        this.props.dispatch(action.saveAccusations());
+    }
+
 	render() {
 		const { page } = this.props.app.day;
-		//const { dispatch } = this.props;
+        const { selectionType, activeSelections } = this.props.app.selections;
+        const { dispatch } = this.props;
+        const skipDisabled = selectionType === 'accused' && activeSelections.length > 0;
               
         let title;
         let footer;
@@ -26,8 +37,8 @@ export class AccusationController extends Component {
                 title = 'Select Accused';
                 footer = (
                     <footer>
-                        <Button label="Skip to next night" buttonClick={()=>this.setNextNight()} />
-                        <Button label="Next" buttonClick={()=>console.log('next')} />
+                    <Button label="Skip to next night" disabled={skipDisabled} buttonClick={()=>this.setNextNight()} />
+                    <Button label="Next" buttonClick={()=>this.updatePage('accusers')} />
                     </footer>
                 );
                 break;
@@ -35,8 +46,8 @@ export class AccusationController extends Component {
                 title = 'Select Accusers';
                 footer = (
                     <footer>
-                        <Button label="Cancel" buttonClick={()=>console.log('next night')} />
-                        <Button label="Next" buttonClick={()=>console.log('next')} />
+                    <Button label="Cancel" buttonClick={()=>dispatch(action.saveAccusations())} />
+                    <Button label="Next" buttonClick={()=>this.updatePage('vote')} />
                     </footer>
                 );
                 break;
@@ -44,7 +55,7 @@ export class AccusationController extends Component {
                 title = 'Vote';
                 footer = (
                     <footer>
-                        <Button label="Next" buttonClick={()=>console.log('next night')} />
+                    <Button label="Next" buttonClick={()=>this.sendVote()} />
                     </footer>
                 );
                 break;

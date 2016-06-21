@@ -40,3 +40,15 @@
 .w-player__save {
     background: #51772B;
 }
+
+.w-player__accused .w-player__image {
+    outline: 3px solid #8c1414;
+}
+
+.w-player__accusers .w-player__image {
+    outline: 3px solid #1d68a7;
+}
+
+.w-player__vote .w-player__image {
+    outline: 3px solid #1da721;
+}

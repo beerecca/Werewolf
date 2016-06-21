@@ -15,11 +15,10 @@ export default function* rootSaga() {
 	yield fork(updatePlayerSaga);
 	yield fork(saveActionsSaga);
 	yield fork(saveAccusationsSaga);
-	yield fork(updateSelections);
+	yield fork(updateSelectionsSaga);
 }
 
-
-export function* updateSelections() {
+export function* updateSelectionsSaga() {
 	while (true) {
 
 		yield take([ actions.actionType.SET_NIGHT, actions.actionType.CHANGE_ACTION ]);

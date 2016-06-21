@@ -17,6 +17,12 @@ export default function day(state = initialState.day, action) {
                 page: 'accuse'
             };
 
+        case actionType.UPDATE_PAGE:
+            return {
+                ...state,
+                page: action.page
+            };
+
         default:
             return state;
     }
