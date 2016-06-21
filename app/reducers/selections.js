@@ -20,6 +20,7 @@ export default function selections(state = initialState.selections, action) {
 
             //a. if player doesn't exist, add it and it's new selection to the array
             let foundPlayer = false;
+            let removePlayer = false;
 
             const adjustedSelections = state.activeSelections.map(selection => {
                 if (selection.player === action.id) {
@@ -30,6 +31,7 @@ export default function selections(state = initialState.selections, action) {
                     } else {
                         playerSelections = selection.type.concat(state.selectionType);
                     }
+                    if (playerSelections.length === 0) removePlayer = true;
                     return { player: action.id, type: playerSelections };
                 }
 
@@ -41,7 +43,8 @@ export default function selections(state = initialState.selections, action) {
                 return selection;
             });
             
-            const activeSelections = foundPlayer ? adjustedSelections : adjustedSelections.concat({ player: action.id, type: [ state.selectionType ] });
+            const filteredSelections = removePlayer ? adjustedSelections.filter(selection => selection.player !== action.id) : adjustedSelections;
+            const activeSelections = foundPlayer ? filteredSelections : adjustedSelections.concat({ player: action.id, type: [ state.selectionType ] });
 
 			return {
 				...state,
