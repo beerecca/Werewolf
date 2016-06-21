@@ -184,11 +184,10 @@ export function* saveAccusationsSaga() {
 		try {
 			const gameId = yield select(selectors.getGameId);
 			const phase = yield select(selectors.getGamePhase);
-			const accusations = yield select(selectors.getAccusations);
-			const data = { gameId, phase, accusations };
+			const accusation = yield select(selectors.getAccusation);
+			const data = { gameId, phase, accusation };
 			
-			yield call(api.saveAccusations, data);
-			yield put(actions.changeState('night'));
+			yield call(api.saveAccusation, data);
 		
 		} catch(error) {
 			yield put(actions.setError());

@@ -56,14 +56,14 @@ export function saveActions(data) {
         .then(response => response.json());
 }
 
-export function saveAccusations(data) {
+export function saveAccusation(data) {
     return fetch(accusationServiceEndpoint + '/' + data.gameId + '/' + data.phase, {
         method: 'POST',
 		headers: {
 			'content-type': 'application/json',
 			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
 		},
-        body: JSON.stringify(data.accusations)
+        body: JSON.stringify(data.accusation)
     })
         .then(checkStatus)
         .then(response => response.json());
