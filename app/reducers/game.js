@@ -23,8 +23,8 @@ export default function game(state = initialState.game, action) {
                 ...state,
                 state: 'day-accuse'
             };
-        
-        case actionType.SET_NIGHT:
+
+        case actionType.SET_NIGHT_ROLES:
             return {
                 ...state,
                 state: 'night'
