@@ -64,7 +64,8 @@ var config = {
 			new Webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
 		], ["normal", "loader"]),
 		new ExtractTextPlugin('app.css'),
-		new Webpack.HotModuleReplacementPlugin()
+		new Webpack.HotModuleReplacementPlugin(),
+		new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 	],
 	resolve: {
 		modulesDirectories: ['node_modules'],

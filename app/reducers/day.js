@@ -25,11 +25,15 @@ export default function day(state = initialState.day, action) {
 
         case actionType.SELECT_PLAYER:
             if (action.state === 'day-accuse' && state.page === 'accuse') {
+                const accused = (state.accusation.accused === action.id)
+                    ? null
+                    : action.id;
+
                 return {
                     ...state,
                     accusation : {
                         ...state.accusation,
-                        accused: action.id
+                        accused: accused
                     }
                 }
             }

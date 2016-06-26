@@ -40,10 +40,11 @@ export function setPlayers(players) {
     }
 }
 
-export function setSelection(selectionType, onlyOne) {
+export function setSelection(selectionType, onlyOne, playerIds = []) {
     return {
         type: actionType.SET_SELECTION,
         selectionType,
-        onlyOne
+        onlyOne,
+        playerIds
     }
 }
