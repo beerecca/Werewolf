@@ -171,6 +171,7 @@ export function* saveActionsSaga() {
 	}
 }
 
+//TODO: once cancel is clicked, get the game from this api call, put it in the state and go back to start of day phase
 export function* saveAccusationsSaga() {
 	while (true) {
 

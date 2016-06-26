@@ -9,6 +9,7 @@ export default function selections(state = initialState.selections, action) {
 
             if (action.selectionType === 'vote') {
                 const existingSelections = state.activeSelections.map(selection=>{
+                    if (selection.type.includes('accused')) return selection;
                     return {
                         ...selection,
                         type: selection.type.concat('voteSave')
@@ -45,7 +46,7 @@ export default function selections(state = initialState.selections, action) {
             if (state.selectionType === 'vote') {
                 
                 const activeSelections = state.activeSelections.map(selection=>{
-                    if (selection.player === action.id) {
+                    if (selection.player === action.id && !selection.type.includes('accused')) {
                         const typeList = (selection.type.includes('voteSave')) 
                             ? selection.type.filter(type=>type !== 'voteSave').concat('voteKill')
                             : selection.type.filter(type=>type !== 'voteKill').concat('voteSave');
