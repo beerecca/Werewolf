@@ -18,7 +18,7 @@ export default class Player extends Component {
         const selectionClassNames = !selectionType ? [] : selectionType.map(selection => {
             return 'w-player__' + selection;
         })
-        const classNames = cn('w-player', { 'w-player__alive': alive }, selectionClassNames );
+        const classNames = cn('w-player', { 'w-player__dead': !alive }, selectionClassNames );
 
         return (
 			<div className={classNames} onClick={()=>{selectPlayer(id)}}>

@@ -17,6 +17,10 @@
     background-color: #FFF;
 }
 
+.w-player__dead {
+    opacity: 0.3;
+}
+
 .w-player__werewolf .w-player__image {
     outline: 3px solid cadetblue;
 }
@@ -51,14 +55,6 @@
 
 .w-player__hunter .w-player__image {
     outline: 3px solid dodgerblue;
-}
-
-.w-player__kill {
-    background: #A93F46;
-}
-
-.w-player__save {
-    background: #51772B;
 }
 
 .w-player__accused .w-player__image {
