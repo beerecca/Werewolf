@@ -181,9 +181,35 @@ export function* saveAccusationsSaga() {
 			const gameId = yield select(selectors.getGameId);
 			const phase = yield select(selectors.getGamePhase);
 			const accusation = yield select(selectors.getAccusation);
+			const roles = yield select(selectors.getAllRoles);
 			const data = { gameId, phase, accusation };
 			
-			yield call(api.saveAccusation, data);
+			const gameData = yield call(api.saveAccusation, data);
+
+			//Werewolves win if numWolves >= numVillagers
+			//Villagers win if all werewolves die
+			const werewolves = gameData.game.players.filter(player=>{
+				const playerRole = roles.find(role=> {
+					return role.id === player.role;
+				});   
+				return playerRole.name === 'Werewolf';
+			});
+			
+			const villagers = gameData.game.players.filter(player=>{
+				return !werewolves.some(werewolf=> werewolf.id === player.id);
+			});
+
+			const numAliveWerewolves = werewolves.filter(wolf=>wolf.alive).length;
+			const numAliveVillagers = villagers.filter(villager=>villager.alive).length;
+
+			const werewolvesWin = numAliveWerewolves >= numAliveVillagers;
+			const villagersWin = werewolves.every(werewolf=>!werewolf.alive);
+
+			if (villagersWin) {
+				yield put(actions.werewolvesWin(false));
+			} else if (werewolvesWin) {
+				yield put(actions.werewolvesWin(true));
+			}
 		
 		} catch(error) {
 			yield put(actions.setError());

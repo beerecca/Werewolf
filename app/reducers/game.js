@@ -36,6 +36,13 @@ export default function game(state = initialState.game, action) {
                 state: 'day-review'
             }
 
+        case actionType.WEREWOLVES_WIN:
+            return {
+                ...state,
+                state: 'end-game',
+                werewolvesWin: action.win
+            }
+
         case actionType.SET_GAMEID:
             return {
                 ...state,

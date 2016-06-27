@@ -4,7 +4,8 @@ export const initialState = {
 		moderator: null,
 		phase: 0,
 		id: null,
-		state: 'setup-game'
+		state: 'setup-game',
+		werewolvesWin: null
 	},
 	players: {
 		playerList: []

@@ -15,6 +15,13 @@ export function setGameId(id) {
     }
 }
 
+export function werewolvesWin(win) {
+    return {
+        type: actionType.WEREWOLVES_WIN,
+        win
+    }
+}
+
 export function incrementPhase() {
     return {
         type: actionType.INCREMENT_PHASE

@@ -21,6 +21,7 @@ export const actionType = {
     SET_GAMEID: 'SET_GAMEID',
     SET_PLAYERS: 'SET_PLAYERS',
     INCREMENT_PHASE: 'INCREMENT_PHASE',
+    WEREWOLVES_WIN: 'WEREWOLVES_WIN',
     
     //night stuff
     SET_NIGHT: 'SET_NIGHT',
