@@ -17,20 +17,40 @@
     background-color: #FFF;
 }
 
-.w-player__editing .w-player__image {
-    border-color: red;
-}
-
 .w-player__werewolf .w-player__image {
-    border-color: black;
+    outline: 3px solid cadetblue;
 }
 
 .w-player__mason .w-player__image {
-    border-color: grey;
+    outline: 3px solid chartreuse;
 }
 
 .w-player__spellcaster .w-player__image {
-    border-color: green;
+    outline: 3px solid chocolate;
+}
+
+.w-player__sorceress .w-player__image {
+    outline: 3px solid coral;
+}
+
+.w-player__bodyguard .w-player__image {
+    outline: 3px solid cornflowerblue;
+}
+
+.w-player__seer .w-player__image {
+    outline: 3px solid cornsilk;
+}
+
+.w-player__witch .w-player__image {
+    outline: 3px solid crimson;
+}
+
+.w-player__wolfcub .w-player__image {
+    outline: 3px solid cyan;
+}
+
+.w-player__hunter .w-player__image {
+    outline: 3px solid dodgerblue;
 }
 
 .w-player__kill {
