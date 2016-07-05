@@ -27,8 +27,9 @@ export class AccusationController extends Component {
         const { page, accusation } = this.props.app.day;
         const { dispatch } = this.props;
         const skipDisabled = accusation.accused !== null;
+        const nextAccusersDisabled = accusation.accused === null;
         const cancelDisabled = accusation.accusedBy.length === 0;
-        const nextDisabled = accusation.accusedBy.length < 2;
+        const nextVoteDisabled = accusation.accusedBy.length < 2;
         
         let title;
         let footer;
@@ -40,7 +41,7 @@ export class AccusationController extends Component {
             footer = (
                 <footer>
                     <Button label="Skip to next night" disabled={skipDisabled} buttonClick={()=>this.setNextNight()} />
-                    <Button label="Next" buttonClick={()=>this.updatePage('accusers')} />
+                    <Button label="Next" disabled={nextAccusersDisabled} buttonClick={()=>this.updatePage('accusers')} />
                 </footer>
                 );
             break;
@@ -49,7 +50,7 @@ export class AccusationController extends Component {
             footer = (
                 <footer>
                     <Button label="Cancel" disabled={cancelDisabled} buttonClick={()=>dispatch(action.saveAccusations())} />
-                    <Button label="Next" disabled={nextDisabled} buttonClick={()=>this.updatePage('vote')} />
+                    <Button label="Next" disabled={nextVoteDisabled} buttonClick={()=>this.updatePage('vote')} />
                 </footer>
                 );
             break;
