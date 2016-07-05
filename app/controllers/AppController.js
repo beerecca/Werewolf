@@ -41,6 +41,9 @@ export class AppController extends Component {
 				break; 
 		}
 
+		document.body.className = '';
+		document.body.classList.add(`w-${game.state}`); 
+
         return (
             <div className="container">
 				<div className="w-panel">
