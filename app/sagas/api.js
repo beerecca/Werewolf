@@ -140,11 +140,19 @@ export function* saveAccusationsSaga() {
 
 			const werewolvesWin = numAliveWerewolves >= numAliveVillagers;
 			const villagersWin = werewolves.every(werewolf=>!werewolf.alive);
+			const voteKilledSomeone = gameData.message === 'Vote succeeded';
 
 			if (villagersWin) {
 				yield put(actions.werewolvesWin(false));
 			} else if (werewolvesWin) {
 				yield put(actions.werewolvesWin(true));
+			} else if (voteKilledSomeone) {
+				yield put(actions.incrementPhase());
+				yield put(actions.setNight());
+			} else { //either no-one died in the vote, or cancel was pressed
+				yield put(actions.updatePage('accuse'));
+				yield put(actions.resetAccusations());
+				yield put(actions.startAccusations());
 			}
 
 		} catch(error) {
