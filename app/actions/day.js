@@ -13,6 +13,12 @@ export function startAccusations() {
     }
 }
 
+export function resetAccusations() {
+    return {
+        type: actionType.RESET_ACCUSATIONS
+    }
+}
+
 export function updatePage(page) {
     return {
         type: actionType.UPDATE_PAGE,

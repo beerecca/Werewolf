@@ -17,6 +17,16 @@ export default function day(state = initialState.day, action) {
                 page: 'accuse'
             };
 
+        case actionType.RESET_ACCUSATIONS:
+            return {
+                ...state,
+                accusation: {
+                    accused: null,
+                    accusedBy: [],
+                    votes: []
+                }
+            };
+
         case actionType.UPDATE_PAGE:
             return {
                 ...state,
