@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 //App Setup
 import { rootReducer } from './app/reducers';
 import { domReady } from './app/util/dom';
-import rootSaga from './app/sagas';
+import rootSaga from './app/sagas/sagas';
 import './app/style/style.scss';
 //App Controllers
 import AppController from './app/controllers/AppController';
