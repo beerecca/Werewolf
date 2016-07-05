@@ -1,38 +1,8 @@
-/**
- * Sagas are es6 generator functions that describe and run async side-effects of the redux actions in a tidy and testable way.
- */
+import { put, take, call, select } from 'redux-saga/effects';
+import * as actions from '../actions';
+import * as selectors from '../selectors';
 
-import { put, fork, take, call, select } from 'redux-saga/effects';
-import * as actions from './actions';
-import * as api from './util/data';
-//import * as filters from './util/filters';
-import * as selectors from './selectors';
-
-export default function* rootSaga() {
-	yield fork(getRolesSaga);
-	yield fork(startGameSaga);
-	yield fork(setNightRolesSaga);
-	yield fork(updatePlayerSaga);
-	yield fork(saveActionsSaga);
-	yield fork(saveAccusationsSaga);
-	yield fork(updateSelectionsSaga);
-}
-
-export function* updateSelectionsSaga() {
-	while (true) {
-
-		yield take([ actions.actionType.SET_NIGHT, actions.actionType.CHANGE_ACTION ]);
-        const gamePhase = yield select(selectors.getGamePhase);
-        //only need to run when gamephase isn't 0
-        if (gamePhase != 0) {
-		    const activeAction = yield select(selectors.getActiveAction);
-		    const selectionType = activeAction.name.replace(/\ /, '').toLowerCase();
-		    const onlyOne = selectionType != 'mason';
-
-            yield put(actions.setSelection(selectionType, onlyOne));
-        }
-	}
-}
+import * as api from '../util/data';
 
 export function* getRolesSaga() {
 	while (true) {
@@ -102,40 +72,6 @@ export function* startGameSaga() {
 	}
 }
 
-export function* setNightRolesSaga() {
-    while (true) {
-        yield take(actions.actionType.SET_NIGHT);
-        try {
-            const phase = yield select(selectors.getGamePhase);
-            //if phase === 9, we select all the game selected roles (we need to assign them)
-            //else, get the roles from active players that have night actions
-            if (phase === 0) {
-                //select all roles
-                const activeRoles = yield select(selectors.getSelectedRoles);
-                yield put(actions.setNightRoles(activeRoles));
-                continue;
-            }
-
-			const players = yield select(selectors.getPlayers);
-            const allRoles = yield select(selectors.getAllRoles);
-            const roleMap = allRoles.reduce((roles, role) => {
-                roles[role.id] = role;
-                return roles;
-            }, {});
-            const allAliveRoles = players.map(player => {
-                return player.alive ? player.role : null;
-            });
-            const activeRoles = allAliveRoles.reduce((roles, role) => {
-                if (!role || roles.includes(role) || !roleMap[role].hasNightAction) return roles;
-                return roles.concat(roleMap[role]);
-            }, []);
-            yield put(actions.setNightRoles(activeRoles));
-        } catch(error) {
-            yield put(actions.setError());
-        }
-    }
-}
-
 export function* saveActionsSaga() {
 	while (true) {
 
@@ -183,7 +119,7 @@ export function* saveAccusationsSaga() {
 			const accusation = yield select(selectors.getAccusation);
 			const roles = yield select(selectors.getAllRoles);
 			const data = { gameId, phase, accusation };
-			
+
 			const gameData = yield call(api.saveAccusation, data);
 
 			//Werewolves win if numWolves >= numVillagers
@@ -191,10 +127,10 @@ export function* saveAccusationsSaga() {
 			const werewolves = gameData.game.players.filter(player=>{
 				const playerRole = roles.find(role=> {
 					return role.id === player.role;
-				});   
+				});
 				return playerRole.name === 'Werewolf';
 			});
-			
+
 			const villagers = gameData.game.players.filter(player=>{
 				return !werewolves.some(werewolf=> werewolf.id === player.id);
 			});
@@ -218,7 +154,7 @@ export function* saveAccusationsSaga() {
 				yield put(actions.resetAccusations());
 				yield put(actions.startAccusations());
 			}
-		
+
 		} catch(error) {
 			yield put(actions.setError());
 		}

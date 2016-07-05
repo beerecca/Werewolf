@@ -24,5 +24,3 @@ export default class Input extends Component {
 		);
 	}
 }
-
-//TODO: name and label accessible?
