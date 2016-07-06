@@ -1,21 +1,21 @@
 import { actionType } from './actionType';
 
 export function createPlayer(player) {
-	return { 
+	return {
 		type: actionType.CREATE_PLAYER,
 		player
 	}
 }
 
 export function deletePlayer(id) {
-	return { 
+	return {
 		type: actionType.DELETE_PLAYER,
 		id
 	}
 }
 
 export function selectPlayer(id, state, phase, role) {
-	return { 
+	return {
 		type: actionType.SELECT_PLAYER,
         state,
         phase,
@@ -25,7 +25,7 @@ export function selectPlayer(id, state, phase, role) {
 }
 
 export function updatePlayer(id, name, role) {
-	return { 
+	return {
 		type: actionType.UPDATE_PLAYER,
 		id,
 		name,
@@ -47,4 +47,11 @@ export function setSelection(selectionType, onlyOne, playerIds = []) {
         onlyOne,
         playerIds
     }
+}
+
+export function setSelections(selections) {
+	return {
+		type: actionType.SET_SELECTIONS,
+		selections
+	}
 }

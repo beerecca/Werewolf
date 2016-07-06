@@ -16,5 +16,7 @@ export default function* rootSaga() {
 
 	yield fork(logic.setNightRolesSaga);
 	yield fork(logic.updateSelectionsSaga);
+	yield fork(logic.setSelectionsSaga);
+	yield fork(logic.createAccusationSaga);
 }
 

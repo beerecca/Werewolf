@@ -52,3 +52,131 @@ export function* setNightRolesSaga() {
         }
     }
 }
+
+export function* setSelectionsSaga() {
+	while (true) {
+		const action = yield take(actions.actionType.SELECT_PLAYER);
+		try {
+			const state = yield select(selectors.getSelections);
+
+			if (!state.selectionType) continue;
+
+			let selections;
+			switch (state.selectionType) {
+				case 'vote':
+					selections = computeVoteSelections(state, action);
+					break;
+				default:
+					selections = computeNormalSelections(state, action);
+					break;
+			}
+			yield put(actions.setSelections(selections));
+		} catch (error) {
+			yield put(actions.setError());
+		}
+	}
+}
+
+export function* createAccusationSaga() {
+	while (true) {
+		const action = yield take(actions.actionType.SELECT_PLAYER);
+		try {
+			if (action.state !== 'day-accuse') continue;
+
+			const stateAccusation = yield select(selectors.getAccusation);
+			const page = yield select(selectors.getDayPage);
+
+			let accusation;
+
+			switch (page) {
+				case 'accuse':
+					accusation = {
+						...stateAccusation,
+						accused : (stateAccusation.accused === action.id) ? null : action.id
+					};
+					break;
+				case 'accusers':
+					accusation = {
+						...stateAccusation,
+						accusedBy : (stateAccusation.accusedBy.includes(action.id))
+							? stateAccusation.accusedBy.filter(id => id !== action.id)
+							: stateAccusation.accusedBy.concat(action.id)
+					};
+					break;
+				case 'vote':
+					accusation = {
+						...stateAccusation,
+						votes : stateAccusation.votes.map(vote=>{
+							if (vote.player === action.id) {
+								return {
+									player: vote.player,
+									die: !vote.die
+								}
+							}
+							return vote;
+						})
+					};
+					break;
+				default:
+			}
+
+			yield put(actions.setAccusation(accusation));
+
+		} catch (error) {
+			yield put(actions.setError());
+		}
+	}
+}
+
+
+
+function computeVoteSelections(state, action) {
+	return state.activeSelections.map(selection=>{
+		if (selection.player === action.id && !selection.type.includes('accused')) {
+			const typeList = (selection.type.includes('voteSave'))
+				? selection.type.filter(type=>type !== 'voteSave').concat('voteKill')
+				: selection.type.filter(type=>type !== 'voteKill').concat('voteSave');
+
+			return {
+				...selection,
+				type: typeList
+			}
+		}
+
+		return selection;
+	});
+}
+
+function computeNormalSelections(state, action) {
+
+	//1. when you select a player that already has a selection of that type, unselect them
+	//2. if a different type, don't unselect them, just add that type
+	//3. if onlyOne is true, remove any player that is not the action player (the selection has been made in 1)
+	//a. if player doesn't exist, add it and it's new selection to the array
+	let foundPlayer = false;
+
+	const adjustedSelections = state.activeSelections.map(selection => {
+		if (selection.player === action.id) {
+			foundPlayer = true;
+			let playerSelections;
+			if (selection.type.includes(state.selectionType)) {
+				playerSelections = selection.type.filter(selectionType => selectionType !== state.selectionType);
+			} else {
+				playerSelections = selection.type.concat(state.selectionType);
+			}
+			return { player: action.id, type: playerSelections };
+		}
+
+		if (state.onlyOne) {
+			const playerSelections = selection.type.filter(selectionType => selectionType !== state.selectionType);
+			return { player: selection.player, type: playerSelections };
+		}
+
+		return selection;
+	});
+
+	const filteredSelections = adjustedSelections.filter(selection => selection.type.length !== 0);
+	const activeSelections = foundPlayer ? filteredSelections : filteredSelections.concat({ player: action.id, type: [ state.selectionType ] });
+
+	return activeSelections;
+}

@@ -13,3 +13,5 @@ export const getActiveAction = state => state.app.night.activeAction;
 export const getAllRoles = state => state.app.roles.allRoles;
 export const getSelectedRoles = state => state.app.roles.selectedRoles;
 export const getAccusation = state => state.app.day.accusation;
+export const getDayPage = state => state.app.day.page;
+export const getSelections = state => state.app.selections;

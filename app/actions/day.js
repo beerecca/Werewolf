@@ -19,6 +19,13 @@ export function resetAccusations() {
     }
 }
 
+export function setAccusation(accusation) {
+	return {
+		type: actionType.SET_ACCUSATION,
+		accusation
+	}
+}
+
 export function updatePage(page) {
     return {
         type: actionType.UPDATE_PAGE,

@@ -40,65 +40,11 @@ export default function selections(state = initialState.selections, action) {
                 onlyOne: action.onlyOne
             }
 
-        case actionType.SELECT_PLAYER:
-            if (!state.selectionType) return state;
-
-            if (state.selectionType === 'vote') {
-
-                const activeSelections = state.activeSelections.map(selection=>{
-                    if (selection.player === action.id && !selection.type.includes('accused')) {
-                        const typeList = (selection.type.includes('voteSave'))
-                            ? selection.type.filter(type=>type !== 'voteSave').concat('voteKill')
-                            : selection.type.filter(type=>type !== 'voteKill').concat('voteSave');
-
-                        return {
-                            ...selection,
-                            type: typeList
-                        }
-                    }
-
-                    return selection;
-                });
-
-                return  {
-                    ...state,
-                    activeSelections
-                }
-            }
-
-            //1. when you select a player that already has a selection of that type, unselect them
-            //2. if a different type, don't unselect them, just add that type
-            //3. if onlyOne is true, remove any player that is not the action player (the selection has been made in 1)
-            //a. if player doesn't exist, add it and it's new selection to the array
-            let foundPlayer = false;
-
-            const adjustedSelections = state.activeSelections.map(selection => {
-                if (selection.player === action.id) {
-                    foundPlayer = true;
-                    let playerSelections;
-                    if (selection.type.includes(state.selectionType)) {
-                        playerSelections = selection.type.filter(selectionType => selectionType !== state.selectionType);
-                    } else {
-                        playerSelections = selection.type.concat(state.selectionType);
-                    }
-                    return { player: action.id, type: playerSelections };
-                }
-
-                if (state.onlyOne) {
-                    const playerSelections = selection.type.filter(selectionType => selectionType !== state.selectionType);
-                    return { player: selection.player, type: playerSelections };
-                }
-
-                return selection;
-            });
-
-            const filteredSelections = adjustedSelections.filter(selection => selection.type.length !== 0);
-            const activeSelections = foundPlayer ? filteredSelections : filteredSelections.concat({ player: action.id, type: [ state.selectionType ] });
-
+		case actionType.SET_SELECTIONS:
 			return {
 				...state,
-                activeSelections
-			};
+				activeSelections: action.selections
+			}
 
 		case actionType.UPDATE_PLAYER:
         case actionType.SET_NIGHT:
