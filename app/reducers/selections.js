@@ -2,9 +2,9 @@ import { initialState } from '../state';
 import { actionType } from '../actions';
 
 export default function selections(state = initialState.selections, action) {
-    
+
     switch (action.type) {
-        
+
         case actionType.SET_SELECTION:
 
             if (action.selectionType === 'vote') {
@@ -44,10 +44,10 @@ export default function selections(state = initialState.selections, action) {
             if (!state.selectionType) return state;
 
             if (state.selectionType === 'vote') {
-                
+
                 const activeSelections = state.activeSelections.map(selection=>{
                     if (selection.player === action.id && !selection.type.includes('accused')) {
-                        const typeList = (selection.type.includes('voteSave')) 
+                        const typeList = (selection.type.includes('voteSave'))
                             ? selection.type.filter(type=>type !== 'voteSave').concat('voteKill')
                             : selection.type.filter(type=>type !== 'voteKill').concat('voteSave');
 
@@ -71,8 +71,6 @@ export default function selections(state = initialState.selections, action) {
             //3. if onlyOne is true, remove any player that is not the action player (the selection has been made in 1)
             //a. if player doesn't exist, add it and it's new selection to the array
             let foundPlayer = false;
-            let removePlayer = false;
-            let removeAllOtherPlayers = false;
 
             const adjustedSelections = state.activeSelections.map(selection => {
                 if (selection.player === action.id) {
@@ -83,21 +81,18 @@ export default function selections(state = initialState.selections, action) {
                     } else {
                         playerSelections = selection.type.concat(state.selectionType);
                     }
-                    if (playerSelections.length === 0) removePlayer = true;
                     return { player: action.id, type: playerSelections };
                 }
 
                 if (state.onlyOne) {
                     const playerSelections = selection.type.filter(selectionType => selectionType !== state.selectionType);
-                    if (playerSelections.length === 0) removeAllOtherPlayers = true;
                     return { player: selection.player, type: playerSelections };
                 }
 
                 return selection;
             });
-            
-            const firstFilteredSelections = removeAllOtherPlayers ? adjustedSelections.filter(selection => selection.player === action.id) : adjustedSelections;
-            const filteredSelections = removePlayer ? firstFilteredSelections.filter(selection => selection.player !== action.id) : firstFilteredSelections;
+
+            const filteredSelections = adjustedSelections.filter(selection => selection.type.length !== 0);
             const activeSelections = foundPlayer ? filteredSelections : filteredSelections.concat({ player: action.id, type: [ state.selectionType ] });
 
 			return {
@@ -112,7 +107,7 @@ export default function selections(state = initialState.selections, action) {
                 ...state,
                 activeSelections: []
             }
-        
+
         case actionType.START_ACCUSATIONS:
 			return {
                 ...state,
