@@ -40,7 +40,7 @@ export default class SetupRolesForm extends Component {
 					{roles.map(role => {
 						return (
                             <li key={role.id} className="w-rolelist__item">
-                                <Role key={role.id} image={role.image} roleClick={()=>this.handleRoleClick(role.id)} />
+                                <Role key={role.id} image={role.image} name={role.name} roleClick={()=>this.handleRoleClick(role.id)} />
                             </li>
                         )
 					})}

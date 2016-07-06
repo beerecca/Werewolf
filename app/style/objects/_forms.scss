@@ -85,10 +85,3 @@ fieldset {
   padding: 0;
   border-width: 0;
 }
-
-input {
-  &[type="checkbox"],
-  &[type="radio"] {
-    display: inline;
-  }
-}

@@ -31,7 +31,7 @@ export default class SetupGameForm extends Component {
 			<form className="one-half offset-by-three column">
 				<Input label="Game Name" inputChange={(value)=>this.nameInputChange(value)} autoFocus={true} />
 				<Input label="Moderator" inputChange={(value)=>this.moderatorInputChange(value)} />
-				<Button label="Create Game" buttonClick={this.handleSubmit.bind(this)} />
+				<Button label="Create Game" fullWidth={true} buttonClick={this.handleSubmit.bind(this)} />
 			</form>
 		);
 	}

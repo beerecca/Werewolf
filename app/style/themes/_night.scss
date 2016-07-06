@@ -1,3 +1,5 @@
 .w-night {
 	background-color: $night-color;
+	background-size: 80% 110%;
+	transition: background-color 1s ease, background-size 1s ease;
 }
