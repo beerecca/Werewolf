@@ -14,8 +14,9 @@ body {
   font-weight: 400;
   font-family: $font-regular;
   color: $text-color;
-  background-color: $night-color;
-  transition: background-color 1s ease;
+  background-image: url('https://s3-us-west-2.amazonaws.com/werewolfbucket/background.jpg');
+  background-repeat: no-repeat;
+  background-blend-mode: darken;
 }
 
 // Links

@@ -6,7 +6,6 @@ import { fork } from 'redux-saga/effects';
 import * as api from './api';
 import * as logic from './logic';
 
-
 export default function* rootSaga() {
 	yield fork(api.getRolesSaga);
 	yield fork(api.startGameSaga);
