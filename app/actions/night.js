@@ -1,34 +1,8 @@
 import { actionType } from './actionType';
+import { createAction } from 'redux-actions';
 
-export function startGame(selectedRoles) {
-	return { 
-		type: actionType.START_GAME,
-        selectedRoles
-	}
-}
-
-export function changeAction(direction) {
-    return {
-        type: actionType.CHANGE_ACTION,
-        direction
-    }
-}
-
-export function saveActions() {
-    return {
-        type: actionType.SAVE_ACTIONS
-    }
-}
-
-export function setNightRoles(filteredRoles) {
-    return {
-        type: actionType.SET_NIGHT_ROLES,
-        filteredRoles
-    }
-}
-
-export function setNight() {
-    return {
-        type: actionType.SET_NIGHT
-    }
-}
+export const startGame = createAction(actionType.START_GAME, selectedRoles => ({selectedRoles}));
+export const changeAction = createAction(actionType.CHANGE_ACTION, direction => ({direction}));
+export const saveActions = createAction(actionType.SAVE_ACTIONS);
+export const setNightRoles = createAction(actionType.SET_NIGHT_ROLES, filteredRoles => ({filteredRoles}));
+export const setNight = createAction(actionType.SET_NIGHT);

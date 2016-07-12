@@ -1,15 +1,9 @@
+import { handleActions } from 'redux-actions';
 import { initialState } from '../state';
-import { actionType } from '../actions';
 
-export default function error(state = initialState.error, action) {
-	switch(action.type) {
-
-		case actionType.SET_ERROR:
-			return {
-				...state,
-				error: true
-			};
-
-		default: return state;
-	}
-}
+export const error = handleActions({
+	SET_ERROR : (state, action) => ({
+		...state,
+		error: true
+	})
+}, initialState.error);

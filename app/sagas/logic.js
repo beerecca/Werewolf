@@ -5,7 +5,7 @@ import * as selectors from '../selectors';
 export function* updateSelectionsSaga() {
 	while (true) {
 
-		yield take([ actions.actionType.SET_NIGHT, actions.actionType.CHANGE_ACTION ]);
+		yield take([ actions.actionType.SET_NIGHT_ROLES, actions.actionType.CHANGE_ACTION ]);
         const gamePhase = yield select(selectors.getGamePhase);
         //only need to run when gamephase isn't 0
         if (gamePhase != 0) {
@@ -48,6 +48,7 @@ export function* setNightRolesSaga() {
             }, []);
             yield put(actions.setNightRoles(activeRoles));
         } catch(error) {
+			console.log(error);
             yield put(actions.setError());
         }
     }
@@ -80,11 +81,14 @@ export function* setSelectionsSaga() {
 export function* createAccusationSaga() {
 	while (true) {
 		const action = yield take(actions.actionType.SELECT_PLAYER);
+		const { stage, id } = action.payload;
 		try {
-			if (action.state !== 'day-accuse') continue;
+			if (stage !== 'day-accuse') continue;
 
 			const stateAccusation = yield select(selectors.getAccusation);
 			const page = yield select(selectors.getDayPage);
+
+			console.log(page);
 
 			let accusation;
 
@@ -92,22 +96,22 @@ export function* createAccusationSaga() {
 				case 'accuse':
 					accusation = {
 						...stateAccusation,
-						accused : (stateAccusation.accused === action.id) ? null : action.id
+						accused : (stateAccusation.accused === id) ? null : id
 					};
 					break;
 				case 'accusers':
 					accusation = {
 						...stateAccusation,
-						accusedBy : (stateAccusation.accusedBy.includes(action.id))
-							? stateAccusation.accusedBy.filter(id => id !== action.id)
-							: stateAccusation.accusedBy.concat(action.id)
+						accusedBy : (stateAccusation.accusedBy.includes(id))
+							? stateAccusation.accusedBy.filter(accusedId => accusedId !== id)
+							: stateAccusation.accusedBy.concat(id)
 					};
 					break;
 				case 'vote':
 					accusation = {
 						...stateAccusation,
 						votes : stateAccusation.votes.map(vote=>{
-							if (vote.player === action.id) {
+							if (vote.player === id) {
 								return {
 									player: vote.player,
 									die: !vote.die
@@ -119,6 +123,7 @@ export function* createAccusationSaga() {
 					break;
 				default:
 			}
+			console.log(accusation);
 
 			yield put(actions.setAccusation(accusation));
 
@@ -131,8 +136,9 @@ export function* createAccusationSaga() {
 
 
 function computeVoteSelections(state, action) {
+	const { id } = action.payload;
 	return state.activeSelections.map(selection=>{
-		if (selection.player === action.id && !selection.type.includes('accused')) {
+		if (selection.player === id && !selection.type.includes('accused')) {
 			const typeList = (selection.type.includes('voteSave'))
 				? selection.type.filter(type=>type !== 'voteSave').concat('voteKill')
 				: selection.type.filter(type=>type !== 'voteKill').concat('voteSave');
@@ -148,7 +154,7 @@ function computeVoteSelections(state, action) {
 }
 
 function computeNormalSelections(state, action) {
-
+	const { id } = action.payload;
 	//1. when you select a player that already has a selection of that type, unselect them
 	//2. if a different type, don't unselect them, just add that type
 	//3. if onlyOne is true, remove any player that is not the action player (the selection has been made in 1)
@@ -156,7 +162,7 @@ function computeNormalSelections(state, action) {
 	let foundPlayer = false;
 
 	const adjustedSelections = state.activeSelections.map(selection => {
-		if (selection.player === action.id) {
+		if (selection.player === id) {
 			foundPlayer = true;
 			let playerSelections;
 			if (selection.type.includes(state.selectionType)) {
@@ -164,7 +170,7 @@ function computeNormalSelections(state, action) {
 			} else {
 				playerSelections = selection.type.concat(state.selectionType);
 			}
-			return { player: action.id, type: playerSelections };
+			return { player: id, type: playerSelections };
 		}
 
 		if (state.onlyOne) {
@@ -176,7 +182,7 @@ function computeNormalSelections(state, action) {
 	});
 
 	const filteredSelections = adjustedSelections.filter(selection => selection.type.length !== 0);
-	const activeSelections = foundPlayer ? filteredSelections : filteredSelections.concat({ player: action.id, type: [ state.selectionType ] });
+	const activeSelections = foundPlayer ? filteredSelections : filteredSelections.concat({ player: id, type: [ state.selectionType ] });
 
 	return activeSelections;
 }

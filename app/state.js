@@ -4,7 +4,7 @@ export const initialState = {
 		moderator: null,
 		phase: 0,
 		id: null,
-		state: 'setup-game',
+		stage: 'setup-game',
 		werewolvesWin: null
 	},
 	players: {
@@ -13,9 +13,8 @@ export const initialState = {
 	selections: {
 		selectionType: '',
 		onlyOne: true,
-		activeSelections: [] 
+		activeSelections: []
 	},
-	windowSize: { w: null, h: null },
 	night: {
 		nightActions : [],
 		activeAction : null
@@ -27,7 +26,7 @@ export const initialState = {
 			accused: null,
 			accusedBy: [],
 			votes: []
-		} 
+		}
 	},
 	roles: {
 		allRoles: [],

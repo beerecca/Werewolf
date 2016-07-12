@@ -1,60 +1,49 @@
+import { handleActions } from 'redux-actions';
 import { initialState } from '../state';
-import { actionType } from '../actions';
 
-export default function game(state = initialState.game, action) {
-	switch(action.type) {
+export const game = handleActions({
 
-        case actionType.CHOOSE_ROLES:
-            return {
-                ...state,
-                state: 'setup-roles'
-            };
+	CHOOSE_ROLES : (state, action) => ({
+		...state,
+		stage: 'setup-roles'
+	}),
 
-		case actionType.CREATE_GAME:
-			return {
-				...state,
-				name: action.name,
-				moderator: action.moderator,
-                state: 'setup-player'
-			};
+	CREATE_GAME : (state, action) => ({
+		...state,
+		name : action.payload.name,
+		moderator : action.payload.moderator,
+		stage: 'setup-player'
+	}),
 
-		case actionType.START_ACCUSATIONS:
-			return {
-                ...state,
-                state: 'day-accuse'
-            };
+	START_ACCUSATIONS : (state, action) => ({
+		...state,
+		stage: 'day-accuse'
+	}),
 
-        case actionType.SET_NIGHT_ROLES:
-            return {
-                ...state,
-                state: 'night'
-            }
+	SET_NIGHT_ROLES : (state, action) => ({
+		...state,
+		stage: 'night'
+	}),
 
-        case actionType.SET_DAY_REVIEW:
-            return {
-                ...state,
-                state: 'day-review'
-            }
+	SET_DAY_REVIEW : (state, action) => ({
+		...state,
+		stage: 'day-review'
+	}),
 
-        case actionType.WEREWOLVES_WIN:
-            return {
-                ...state,
-                state: 'end-game',
-                werewolvesWin: action.win
-            }
+	WEREWOLVES_WIN : (state, action) => ({
+		...state,
+		stage: 'end-game',
+		werewolvesWin: action.payload.win
+	}),
 
-        case actionType.SET_GAMEID:
-            return {
-                ...state,
-                id : action.id
-            };
+	SET_GAMEID : (state, action) => ({
+		...state,
+		id : action.payload.id
+	}),
 
-        case actionType.INCREMENT_PHASE:
-            return {
-                ...state,
-                phase: state.phase + 1
-            };
+	INCREMENT_PHASE : (state, action) => ({
+		...state,
+		phase : state.phase + 1
+	})
 
-		default: return state;
-	}
-}
+}, initialState.game);

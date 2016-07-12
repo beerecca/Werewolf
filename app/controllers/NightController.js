@@ -11,13 +11,13 @@ export class NightController extends Component {
 		const { night, game } = this.props.app;
 		const { activeAction, nightActions } = night;
 		const { name, instruction } = activeAction;
-        
+
         const actionPosition = nightActions.findIndex(r => r.id == activeAction.id);
         const isLastAction = actionPosition === nightActions.length - 1;
         const prev = <Button secondary={true} label="Previous" buttonClick={()=>dispatch(action.changeAction('previous'))} />;
         const next = <Button secondary={true} label="Next" buttonClick={()=>dispatch(action.changeAction('next'))} />;
         const save = <Button label="Save" buttonClick={()=>dispatch(action.saveActions())} />;
-		
+
 		//TODO: for phase 0, rotate through selectedRoles (minus villagers)
 		const title = (game.phase === 0) ? `${name}s, open your eyes` : instruction;
 
@@ -38,13 +38,12 @@ export default connect((state) => {
 	return {
 		app: {
 			players: state.app.players,
-			windowSize: state.app.windowSize,
 			roles: state.app.roles,
 			error: state.app.error,
 			game: state.app.game,
 			night: state.app.night,
 			day: state.app.day,
 			selections: state.app.selections
-		} 
+		}
 	}
 })(NightController);

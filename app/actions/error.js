@@ -1,7 +1,4 @@
 import { actionType } from './actionType';
+import { createAction } from 'redux-actions';
 
-export function setError() {
-	return {
-		type: actionType.SET_ERROR
-	}
-}
+export const setError = createAction(actionType.SET_ERROR);

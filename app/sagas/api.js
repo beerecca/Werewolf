@@ -95,8 +95,9 @@ export function* saveActionsSaga() {
 				});
 
 				const data = { gameId, phase, postActions };
-
+				console.log(data);
 				const gameData = yield call(api.saveActions, data);
+				console.log(gameData);
 				yield put(actions.setPlayers(gameData.players));
 				yield put(actions.setDayReview(gameData.phases['' + phase].actions));
 			}

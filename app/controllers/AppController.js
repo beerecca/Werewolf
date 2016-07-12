@@ -9,21 +9,21 @@ import AccusationController from './AccusationController';
 import EndGameController from './EndGameController';
 
 export class AppController extends Component {
-    
+
     render() {
         let content;
         const { game } = this.props.app;
 
-		//TODO: state names should be consts
-        switch (game.state) {
+		//TODO: stage names should be consts
+        switch (game.stage) {
 			case 'setup-game':
 				content = <SetupGameController />
 				break;
 			case 'setup-player':
-				content = <SetupNamesController /> 
+				content = <SetupNamesController />
 				break;
 			case 'setup-roles':
-				content = <SetupRolesController /> 
+				content = <SetupRolesController />
 				break;
 			case 'night':
 				content = <NightController />
@@ -38,11 +38,11 @@ export class AppController extends Component {
 				content = <EndGameController />
 				break;
 			default:
-				break; 
+				break;
 		}
 
 		document.body.className = '';
-		document.body.classList.add(`w-${game.state}`); 
+		document.body.classList.add(`w-${game.stage}`);
 
         return (
             <div className="container">
@@ -59,6 +59,6 @@ export default connect((state) => {
 		app: {
 			error: state.app.error,
             game: state.app.game
-		} 
+		}
 	}
 })(AppController);

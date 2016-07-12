@@ -14,6 +14,7 @@ export class AccusationController extends Component {
     }
 
     updatePage(page) {
+		console.log('accusation page', page);
         const playerIds = this.props.app.players.playerList.map(player=>player.id);
         this.props.dispatch(action.updatePage(page));
         this.props.dispatch(action.setSelection(page, false, playerIds));
@@ -30,12 +31,12 @@ export class AccusationController extends Component {
         const nextAccusersDisabled = accusation.accused === null;
         const cancelDisabled = accusation.accusedBy.length === 0;
         const nextVoteDisabled = accusation.accusedBy.length < 2;
-        
+
         let title;
         let footer;
 
         switch (page) {
-            
+
             case 'accuse':
             title = 'Select Accused';
             footer = (
@@ -82,6 +83,6 @@ export default connect((state) => {
         app: {
             day: state.app.day,
             players: state.app.players
-        } 
+        }
     }
 })(AccusationController);
