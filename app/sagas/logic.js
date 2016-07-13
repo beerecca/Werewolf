@@ -87,9 +87,12 @@ export function* setDefaultVotesSaga() {
 				}
 			});
 			//create array of player ids that don't exist in activeSelections
-			const otherPlayers = alivePlayers.filter(player => !activeSelections.some(selection=>selection.player === player.id) );
-			const newSelections = otherPlayers.map(id=> ({
-				player: id,
+			const otherPlayers = alivePlayers.filter(player => {
+				return !activeSelections.some(selection => selection.player === player.id);
+			});
+
+			const newSelections = otherPlayers.map(player => ({
+				player: player.id,
 				type: ['voteSave']
 			}));
 
