@@ -26,29 +26,13 @@ export const day = handleActions({
 		page: action.payload.page
 	}),
 
-
-    SET_SELECTION : (state, action) => {
-		const { selectionType, playerIds } = action.payload;
-		if (selectionType === 'vote') {
-			const votingPlayers = playerIds.filter(id=>id !== state.accusation.accused);
-			const votes = votingPlayers.map(id=>{
-				return {
-					player: id,
-					die: false
-				}
-			});
-
-			return {
-				...state,
-				accusation: {
-					...state.accusation,
-					votes: votes
-				}
-			}
+	SET_VOTES : (state, action) => ({
+		...state,
+		accusation: {
+			...state.accusation,
+			votes: action.payload.votes
 		}
-
-		return state;
-	},
+	}),
 
 	SET_ACCUSATION : (state, action) => ({
 		...state,

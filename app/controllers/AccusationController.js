@@ -14,9 +14,8 @@ export class AccusationController extends Component {
     }
 
     updatePage(page) {
-        const playerIds = this.props.app.players.playerList.map(player=>player.id);
         this.props.dispatch(action.updatePage(page));
-        this.props.dispatch(action.setSelection(page, false, playerIds));
+        this.props.dispatch(action.setSelection(page, false));
     }
 
     sendVote() {

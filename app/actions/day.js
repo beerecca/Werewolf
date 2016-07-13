@@ -9,3 +9,5 @@ export const saveAccusations = createAction(actionType.SAVE_ACCUSATIONS);
 
 export const setAccusation = createAction(actionType.SET_ACCUSATION, accusation => ({accusation}));
 export const updatePage = createAction(actionType.UPDATE_PAGE, page => ({page}));
+
+export const setVotes = createAction(actionType.SET_VOTES, votes => ({votes}));

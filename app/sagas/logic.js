@@ -53,13 +53,65 @@ export function* setNightRolesSaga() {
     }
 }
 
+export function* setDefaultVotesSaga() {
+	while (true) {
+		const action = yield take(actions.actionType.SET_SELECTION);
+		const { selectionType } = action.payload;
+		try {
+			if (selectionType !== 'vote') continue;
+			const players = yield select(selectors.getPlayers);
+			const alivePlayers = players.reduce((collection, player) => player.alive ? collection.concat(player) : collection, []);
+
+			//set up the day accusation with appropriate votes
+			const accusation = yield select(selectors.getAccusation);
+			const votes = alivePlayers.reduce((collection, player) => {
+				if (player.id !== accusation.accused) {
+					return collection.concat({
+						player: player.id,
+						die: false
+					});
+				}
+				return collection;
+			}, []);
+
+			yield put(actions.setVotes(votes));
+
+			const selections = yield select(selectors.getSelections);
+			const { activeSelections } = selections;
+
+			const existingSelections = activeSelections.map(selection=>{
+				if (selection.type.includes('accused')) return selection;
+				return {
+					...selection,
+					type: selection.type.concat('voteSave')
+				}
+			});
+			//create array of player ids that don't exist in activeSelections
+			const otherPlayers = alivePlayers.filter(player => !activeSelections.some(selection=>selection.player === player.id) );
+			const newSelections = otherPlayers.map(id=> ({
+				player: id,
+				type: ['voteSave']
+			}));
+
+			yield put(actions.setSelections(existingSelections.concat(newSelections)));
+
+		} catch (error) {
+			console.log(error);
+            yield put(actions.setError());
+		}
+	}
+}
+
 export function* setSelectionsSaga() {
 	while (true) {
 		const action = yield take(actions.actionType.SELECT_PLAYER);
 		try {
 			const state = yield select(selectors.getSelections);
-
 			if (!state.selectionType) continue;
+
+			const players = yield select(selectors.getPlayers);
+			const selectedPlayer = players.filter(player => player.id === action.payload.id);
+			if (!selectedPlayer[0].alive) continue;
 
 			let selections;
 			switch (state.selectionType) {
@@ -83,6 +135,10 @@ export function* createAccusationSaga() {
 		const { stage, id } = action.payload;
 		try {
 			if (stage !== 'day-accuse') continue;
+
+			const players = yield select(selectors.getPlayers);
+			const selectedPlayer = players.filter(player => player.id === id);
+			if (!selectedPlayer[0].alive) continue;
 
 			const stateAccusation = yield select(selectors.getAccusation);
 			const page = yield select(selectors.getDayPage);
