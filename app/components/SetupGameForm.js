@@ -10,7 +10,7 @@ export default class SetupGameForm extends Component {
 
 	constructor() {
 		super();
-		this.state = { name: null, moderator: null };
+		this.state = { name: '', moderator: '' };
 	}
 
 	handleSubmit(e) {
@@ -27,11 +27,12 @@ export default class SetupGameForm extends Component {
 	}
 
 	render() {
+		const createDisabled = this.state.name === '' || this.state.moderator === '';
 		return (
 			<form className="one-half offset-by-three column">
 				<Input label="Game Name" inputChange={(value)=>this.nameInputChange(value)} autoFocus={true} />
 				<Input label="Moderator" inputChange={(value)=>this.moderatorInputChange(value)} />
-				<Button label="Create Game" fullWidth={true} buttonClick={this.handleSubmit.bind(this)} />
+				<Button label="Create Game" disabled={createDisabled} fullWidth={true} buttonClick={this.handleSubmit.bind(this)} />
 			</form>
 		);
 	}

@@ -13,7 +13,7 @@ export default class Button extends Component {
 
 	render() {
 		const { label, buttonClick, secondary, fullWidth, disabled } = this.props;
-		const buttonClass = cn({'u-full-width': fullWidth}, {'button-secondary': secondary});
+		const buttonClass = cn('button', {'u-full-width': fullWidth}, {'button-secondary': secondary});
 
 		return (
 			<button onClick={buttonClick} type="submit" className={buttonClass} disabled={disabled}>{label}</button>

@@ -13,7 +13,7 @@ export default class Name extends Component {
 
 		return (
 			<div>
-				<p className="w-playerlist__item">{name}</p>
+				<div className="w-playerlist__item"><span>{name}</span></div>
 				<Button label="Delete" buttonClick={deletePlayer} secondary={true} />
 			</div>
 		);

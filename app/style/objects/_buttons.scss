@@ -23,13 +23,17 @@ input[type="button"] {
 
     &:hover,
     &:focus {
-    color: $text-color;
-    background-color: lighten($primary-color, 10%);
-    outline: 0;
+        color: $text-color;
+        background-color: lighten($primary-color, 10%);
+        outline: 0;
     }
     &:disabled {
-        opacity: 0.3;
+        opacity: 0.4;
     }
+    + .button,
+    + .button-secondary {
+        margin-left: 30px;
+    } 
 }
 
 .button-secondary {
@@ -41,4 +45,8 @@ input[type="button"] {
     color: $icon-color;
     background-color: lighten($secondary-color, 3%);
   }
+  + .button-secondary,
+  + .button {
+    margin-left: 30px;
+  } 
 }
