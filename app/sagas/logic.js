@@ -48,7 +48,6 @@ export function* setNightRolesSaga() {
             }, []);
             yield put(actions.setNightRoles(activeRoles));
         } catch(error) {
-			console.log(error);
             yield put(actions.setError());
         }
     }
@@ -88,8 +87,6 @@ export function* createAccusationSaga() {
 			const stateAccusation = yield select(selectors.getAccusation);
 			const page = yield select(selectors.getDayPage);
 
-			console.log(page);
-
 			let accusation;
 
 			switch (page) {
@@ -123,8 +120,6 @@ export function* createAccusationSaga() {
 					break;
 				default:
 			}
-			console.log(accusation);
-
 			yield put(actions.setAccusation(accusation));
 
 		} catch (error) {

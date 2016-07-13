@@ -14,7 +14,6 @@ export class AccusationController extends Component {
     }
 
     updatePage(page) {
-		console.log('accusation page', page);
         const playerIds = this.props.app.players.playerList.map(player=>player.id);
         this.props.dispatch(action.updatePage(page));
         this.props.dispatch(action.setSelection(page, false, playerIds));
