@@ -1,57 +1,10 @@
 import { actionType } from './actionType';
+import { createAction } from 'redux-actions';
 
-export function createPlayer(player) {
-	return {
-		type: actionType.CREATE_PLAYER,
-		player
-	}
-}
-
-export function deletePlayer(id) {
-	return {
-		type: actionType.DELETE_PLAYER,
-		id
-	}
-}
-
-export function selectPlayer(id, state, phase, role) {
-	return {
-		type: actionType.SELECT_PLAYER,
-        state,
-        phase,
-        role,
-		id
-	}
-}
-
-export function updatePlayer(id, name, role) {
-	return {
-		type: actionType.UPDATE_PLAYER,
-		id,
-		name,
-		role
-	}
-}
-
-export function setPlayers(players) {
-    return {
-        type: actionType.SET_PLAYERS,
-        players
-    }
-}
-
-export function setSelection(selectionType, onlyOne, playerIds = []) {
-    return {
-        type: actionType.SET_SELECTION,
-        selectionType,
-        onlyOne,
-        playerIds
-    }
-}
-
-export function setSelections(selections) {
-	return {
-		type: actionType.SET_SELECTIONS,
-		selections
-	}
-}
+export const createPlayer = createAction(actionType.CREATE_PLAYER, player => ({player}));
+export const deletePlayer = createAction(actionType.DELETE_PLAYER, id => ({id}));
+export const selectPlayer = createAction(actionType.SELECT_PLAYER, (id, stage, phase, role) => ({id, stage, phase, role}));
+export const updatePlayer = createAction(actionType.UPDATE_PLAYER, (id, name, role) => ({id, name, role}));
+export const setPlayers = createAction(actionType.SET_PLAYERS, players => ({players}));
+export const setSelection = createAction(actionType.SET_SELECTION, (selectionType, onlyOne, playerIds) => ({selectionType, onlyOne, playerIds}));
+export const setSelections = createAction(actionType.SET_SELECTIONS, selections => ({selections}));

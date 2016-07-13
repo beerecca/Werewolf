@@ -1,40 +1,11 @@
 import { actionType } from './actionType';
+import { createAction } from 'redux-actions';
 
-export function setDayReview(actions) {
-    return {
-        type: actionType.SET_DAY_REVIEW,
-        actions
-    }
-}
+export const setDayReview = createAction(actionType.SET_DAY_REVIEW, actions => ({actions}));
 
-export function startAccusations() {
-    return {
-        type: actionType.START_ACCUSATIONS
-    }
-}
+export const startAccusations = createAction(actionType.START_ACCUSATIONS);
+export const resetAccusations = createAction(actionType.RESET_ACCUSATIONS);
+export const saveAccusations = createAction(actionType.SAVE_ACCUSATIONS);
 
-export function resetAccusations() {
-    return {
-        type: actionType.RESET_ACCUSATIONS
-    }
-}
-
-export function setAccusation(accusation) {
-	return {
-		type: actionType.SET_ACCUSATION,
-		accusation
-	}
-}
-
-export function updatePage(page) {
-    return {
-        type: actionType.UPDATE_PAGE,
-        page
-    }
-}
-
-export function saveAccusations() {
-    return {
-        type: actionType.SAVE_ACCUSATIONS
-    }
-}
+export const setAccusation = createAction(actionType.SET_ACCUSATION, accusation => ({accusation}));
+export const updatePage = createAction(actionType.UPDATE_PAGE, page => ({page}));

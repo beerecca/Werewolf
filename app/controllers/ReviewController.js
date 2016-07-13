@@ -42,7 +42,6 @@ export default connect((state) => {
 	return {
 		app: {
 			players: state.app.players,
-			windowSize: state.app.windowSize,
 			roles: state.app.roles,
 			error: state.app.error,
 			game: state.app.game,

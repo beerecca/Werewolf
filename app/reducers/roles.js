@@ -1,35 +1,34 @@
+import { handleActions } from 'redux-actions';
 import { initialState } from '../state';
-import { actionType } from '../actions';
 
-export default function roles(state = initialState.roles, action) {
-	switch(action.type) {
-        
-		case actionType.SET_ROLES:
-			action.roles.sort(function (a,b) {
-                return a.order - b.order;
-            });
-            
-            return {
-                ...state,
-                allRoles: action.roles
-            };
+export const roles = handleActions({
+	SET_ROLES : (state, action) => {
+		const { roles } = action.payload;
+		roles.sort(function (a,b) {
+			return a.order - b.order;
+		});
 
-        case actionType.START_GAME:
+		return {
+			...state,
+			allRoles: roles
+		};
+	},
 
-            const roleMap = state.allRoles.reduce((map, role)=>{
-                map[role.id] = role;
-                return map;
-            }, {});
+	START_GAME : (state, action) => {
 
-            const selectedRoles = action.selectedRoles.map(roleId=>{
-                return roleMap[roleId];
-            });
+		const roleMap = state.allRoles.reduce((map, role)=>{
+			map[role.id] = role;
+			return map;
+		}, {});
 
-			return {
-                ...state,
-                selectedRoles
-            };
+		const selectedRoles = action.payload.selectedRoles.map(roleId=>{
+			return roleMap[roleId];
+		});
 
-		default: return state;
+		return {
+			...state,
+			selectedRoles
+		};
 	}
-}
+
+}, initialState.roles)

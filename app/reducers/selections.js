@@ -1,66 +1,69 @@
+import { handleActions } from 'redux-actions';
 import { initialState } from '../state';
-import { actionType } from '../actions';
 
-export default function selections(state = initialState.selections, action) {
+export const selections = handleActions({
+	SET_SELECTION : (state, action) => {
 
-    switch (action.type) {
+		const { selectionType, playerIds, onlyOne } = action.payload;
 
-        case actionType.SET_SELECTION:
+		if (selectionType === 'vote') {
+			const existingSelections = state.activeSelections.map(selection=>{
+				if (selection.type.includes('accused')) return selection;
+				return {
+					...selection,
+					type: selection.type.concat('voteSave')
+				}
+			});
+			//create array of player ids that don't exist in activeSelections
+			const otherPlayers = playerIds.filter(id=>{
+				return !state.activeSelections.some(selection=>selection.player === id)
+			});
+			const newSelections = otherPlayers.map(id=> {
+				return {
+					player: id,
+					type: ['voteSave']
+				}
+			});
 
-            if (action.selectionType === 'vote') {
-                const existingSelections = state.activeSelections.map(selection=>{
-                    if (selection.type.includes('accused')) return selection;
-                    return {
-                        ...selection,
-                        type: selection.type.concat('voteSave')
-                    }
-                });
-                //create array of player ids that don't exist in activeSelections
-                const otherPlayers = action.playerIds.filter(id=>{
-                    return !state.activeSelections.some(selection=>selection.player === id)
-                });
-                const newSelections = otherPlayers.map(id=> {
-                    return {
-                        player: id,
-                        type: ['voteSave']
-                    }
-                });
-
-                return {
-                    ...state,
-                    selectionType: action.selectionType,
-                    onlyOne: action.onlyOne,
-                    activeSelections: existingSelections.concat(newSelections)
-                }
-            }
-
-            return {
-                ...state,
-                selectionType: action.selectionType,
-                onlyOne: action.onlyOne
-            }
-
-		case actionType.SET_SELECTIONS:
 			return {
 				...state,
-				activeSelections: action.selections
+				selectionType,
+				onlyOne,
+				activeSelections: existingSelections.concat(newSelections)
 			}
+		}
 
-		case actionType.UPDATE_PLAYER:
-        case actionType.SET_NIGHT:
-        case actionType.SET_DAY_REVIEW:
-            return {
-                ...state,
-                activeSelections: []
-            }
+		return {
+			...state,
+			selectionType,
+			onlyOne
+		}
+	},
 
-        case actionType.START_ACCUSATIONS:
-			return {
-                ...state,
-                activeSelections: [],
-                selectionType: 'accused'
-            };
+	SET_SELECTIONS : (state, action) => ({
+		...state,
+		activeSelections : action.payload.selections
+	}),
 
-		default: return state;
-	}
-}
+	UPDATE_PLAYER : (state, action) => ({
+		...state,
+		activeSelections : []
+	}),
+
+	SET_NIGHT : (state, action) => ({
+		...state,
+		activeSelections : []
+	}),
+
+	SET_DAY_REVIEW : (state, action) => ({
+		...state,
+		activeSelections : []
+	}),
+
+	START_ACCUSATIONS : (state, action) => ({
+		...state,
+		activeSelections: [],
+		selectionType: 'accused'
+	})
+
+}, initialState.selections);

@@ -6,7 +6,6 @@ export const actionType = {
 
     //generic stuff
 	SET_ERROR: 'SET_ERROR',
-    WINDOW_RESIZE: 'WINDOW_RESIZE',
 
     //player stuff
 	CREATE_PLAYER: 'CREATE_PLAYER',

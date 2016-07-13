@@ -3,7 +3,6 @@
  */
 
 export const getGameName = state => state.app.game.name;
-export const getGameState = state => state.app.game.state;
 export const getGameModerator = state => state.app.game.moderator;
 export const getGameId = state => state.app.game.id;
 export const getGamePhase = state => state.app.game.phase;
