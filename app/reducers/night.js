@@ -19,24 +19,9 @@ export const night = handleActions({
 		activeAction : action.payload.filteredRoles[0]
 	}),
 
-	SELECT_PLAYER : (state, action) => {
-		const { stage, phase, id } = action.payload;
-		if (stage == 'night' && phase > 0) {
+	SET_NIGHT_ACTIONS : (state, action) => ({
+		...state,
+		nightActions : action.payload.nightActions
+	})
 
-			const nightActions = state.nightActions.map(nightAction => {
-				if (nightAction.id !== state.activeAction.id) return nightAction;
-
-				return {
-					...nightAction,
-					target : nightAction.target === id ? null : id
-				}
-			});
-
-			return {
-				...state,
-				nightActions
-			}
-		}
-		return state;
-	}
 }, initialState.night);

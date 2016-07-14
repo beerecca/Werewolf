@@ -6,6 +6,7 @@ export const getGameName = state => state.app.game.name;
 export const getGameModerator = state => state.app.game.moderator;
 export const getGameId = state => state.app.game.id;
 export const getGamePhase = state => state.app.game.phase;
+export const getGameStage = state => state.app.game.stage;
 export const getPlayers = state => state.app.players.playerList;
 export const getActions = state => state.app.night.nightActions;
 export const getActiveAction = state => state.app.night.activeAction;

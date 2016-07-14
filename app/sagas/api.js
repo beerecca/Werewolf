@@ -120,7 +120,7 @@ export function* saveAccusationsSaga() {
 			const data = { gameId, phase, accusation };
 
 			const gameData = yield call(api.saveAccusation, data);
-
+			yield put(actions.setPlayers(gameData.game.players));
 			//Werewolves win if numWolves >= numVillagers
 			//Villagers win if all werewolves die
 			const werewolves = gameData.game.players.filter(player=>{

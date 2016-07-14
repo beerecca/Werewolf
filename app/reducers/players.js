@@ -20,56 +20,32 @@ export const players = handleActions({
 
 	DELETE_PLAYER : (state, action) => {
 		const { id } = action.payload;
-		const newPlayerList = state.playerList.filter(player=>{
+		const playerList = state.playerList.filter(player=>{
 			return player.id !== id;
 		});
 
 		return {
 			...state,
-			playerList: newPlayerList
+			playerList
 		};
 	},
 
-	SELECT_PLAYER : (state, action) => {
-		const { id, phase, stage, role } = action.payload;
-		if (phase === 0 && stage === 'night') {
-			const playerList = state.playerList.map(player => {
-				if (player.id === id) {
-					player.role = (player.role === role) ? null : role;
-				}
-				return player;
-			});
-
-			return {
-				...state,
-				playerList
-			}
-		}
-
-		return state;
-	},
-
-	UPDATE_PLAYER : (state, action) => {
-		const { id, name } = action.payload;
-		let unchangedPlayers = [];
-		let playerToUpdate = {};
-
-		state.playerList.forEach((player)=>{
+	SET_PLAYER_ROLE : (state, action) => {
+		const { id, role } = action.payload;
+		const playerList = state.playerList.map(player => {
 			if (player.id === id) {
-				playerToUpdate = player;
-				playerToUpdate.name = name;
-			} else {
-				unchangedPlayers.push(player);
+				return {
+					...player,
+					role
+				}
 			}
+			return { ...player };
 		});
 
 		return {
 			...state,
-			playerList: [
-				...unchangedPlayers,
-				playerToUpdate
-			]
-		};
+			playerList
+		}
 	},
 
 	SET_PLAYERS : (state, action) => ({
