@@ -13,11 +13,6 @@ export const selections = handleActions({
 		activeSelections : action.payload.selections
 	}),
 
-	/*UPDATE_PLAYER : (state, action) => ({
-		...state,
-		activeSelections : []
-	}),*/
-
 	SET_NIGHT : (state, action) => ({
 		...state,
 		activeSelections : []

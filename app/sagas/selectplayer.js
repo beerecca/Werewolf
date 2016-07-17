@@ -39,9 +39,7 @@ function* setSelections(id) {
 	const selections = yield select(selectors.getSelections);
 	if (!selections.selectionType) return;
 
-	let newSelections;
-	if (selections.selectionType === 'vote') newSelections = yield computeVoteSelections(selections, id);
-	else newSelections = yield computeNormalSelections(selections, id);
+	const newSelections = selections.selectionType === 'vote' ? yield computeVoteSelections(selections, id) : yield computeNormalSelections(selections, id);
 
 	yield put(actions.setSelections(newSelections));
 }

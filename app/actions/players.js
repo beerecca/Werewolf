@@ -8,3 +8,4 @@ export const setPlayers = createAction(actionType.SET_PLAYERS, players => ({play
 export const setSelection = createAction(actionType.SET_SELECTION, (selectionType, onlyOne ) => ({selectionType, onlyOne }));
 export const setSelections = createAction(actionType.SET_SELECTIONS, selections => ({selections}));
 export const setPlayerRole = createAction(actionType.SET_PLAYER_ROLE, (id, role) => ({ id, role }));
+export const updatePlayers = createAction(actionType.UPDATE_PLAYERS, (players) => ({ players }));

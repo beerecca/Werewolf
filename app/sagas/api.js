@@ -19,26 +19,22 @@ export function* getRolesSaga() {
 	}
 }
 
-export function* updatePlayerSaga() {
+export function* updatePlayersSaga() {
 	while (true) {
 
-		yield take(actions.actionType.SAVE_ACTIONS);
+		const action = yield take(actions.actionType.UPDATE_PLAYERS);
 
 		try {
-			const phase = yield select(selectors.getGamePhase);
+			const { players } = action.payload;
 			const gameId = yield select(selectors.getGameId);
-			const players = yield select(selectors.getPlayers);
-			//If we're in the first night phase, we can post to the api to save players
-			//If we're in any other phase, you can't edit players anymore
-			if (phase === 0) {
-				const data = {
-					gameId,
-					players
-				};
-				const gameData = yield call(api.savePlayers, data);
-				yield put(actions.setPlayers(gameData.players));
-				yield put(actions.startAccusations());
-			}
+
+			const data = {
+				gameId,
+				players
+			};
+			const gameData = yield call(api.savePlayers, data);
+			yield put(actions.setPlayers(gameData.players));
+			yield put(actions.startAccusations());
 
 		} catch(error) {
 			yield put(actions.setError());
@@ -72,33 +68,21 @@ export function* startGameSaga() {
 	}
 }
 
-export function* saveActionsSaga() {
+export function* saveNightActionsSaga() {
 	while (true) {
 
-		yield take(actions.actionType.SAVE_ACTIONS);
+		const action = yield take(actions.actionType.SAVE_NIGHT_ACTIONS);
 
 		try {
+			const { postActions } = action.payload;
+			const gameId = yield select(selectors.getGameId);
 			const phase = yield select(selectors.getGamePhase);
 
-			if (phase !== 0) {
-				const gameId = yield select(selectors.getGameId);
-				const nightActions = yield select(selectors.getActions);
+			const data = { gameId, phase, postActions };
+			const gameData = yield call(api.saveActions, data);
+			yield put(actions.setPlayers(gameData.players));
+			yield put(actions.setDayReview(gameData.phases['' + phase].actions));
 
-				const postActions = [];
-				nightActions.forEach(action => {
-					if (action.target) {
-						postActions.push({
-							role: action.id,
-							player: action.target
-						});
-					}
-				});
-
-				const data = { gameId, phase, postActions };
-				const gameData = yield call(api.saveActions, data);
-				yield put(actions.setPlayers(gameData.players));
-				yield put(actions.setDayReview(gameData.phases['' + phase].actions));
-			}
 		} catch(error) {
 			yield put(actions.setError());
 		}
