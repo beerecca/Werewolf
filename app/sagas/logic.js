@@ -34,11 +34,7 @@ export function* setNightRolesSaga() {
             }
 
 			const players = yield select(selectors.getPlayers);
-            const allRoles = yield select(selectors.getAllRoles);
-            const roleMap = allRoles.reduce((roles, role) => {
-                roles[role.id] = role;
-                return roles;
-            }, {});
+            const roleMap = yield select(selectors.getAllRoles);
             const allAliveRoles = players.map(player => {
                 return player.alive ? player.role : null;
             });

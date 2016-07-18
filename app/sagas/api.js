@@ -10,8 +10,14 @@ export function* getRolesSaga() {
 		yield take(actions.actionType.CREATE_GAME);
 
 		try {
-			const roles = yield call(api.getRolesData);
-			yield put(actions.setRoles(roles.Items));
+			const data = yield call(api.getRolesData);
+
+			const roles = data.Items.reduce((collection, role) => {
+				collection[role.id] = role;
+				return collection;
+			}, {});
+
+			yield put(actions.setRoles(roles));
 
 		} catch(error) {
 			yield put(actions.setError());
@@ -107,12 +113,7 @@ export function* saveAccusationsSaga() {
 			yield put(actions.setPlayers(gameData.game.players));
 			//Werewolves win if numWolves >= numVillagers
 			//Villagers win if all werewolves die
-			const werewolves = gameData.game.players.filter(player=>{
-				const playerRole = roles.find(role=> {
-					return role.id === player.role;
-				});
-				return playerRole.name === 'Werewolf';
-			});
+			const werewolves = gameData.game.players.filter(player => roles[player.role].name === 'Werewolf');
 
 			const villagers = gameData.game.players.filter(player=>{
 				return !werewolves.some(werewolf=> werewolf.id === player.id);

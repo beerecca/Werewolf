@@ -10,10 +10,10 @@ export class ReviewController extends Component {
 		const { reviewActions } = day;
 		const { dispatch } = this.props;
 
-        const roleMap = roles.allRoles.reduce((allRoles, role) => {
+        /*const roleMap = roles.allRoles.reduce((allRoles, role) => {
             allRoles[role.id] = role;
             return allRoles;
-        }, {});
+        }, {});*/
 
         const playerMap = players.playerList.reduce((allPlayers, player) => {
             allPlayers[player.id] = player;
@@ -22,7 +22,7 @@ export class ReviewController extends Component {
 
         const actions = reviewActions.map((action, index) => {
             const player = playerMap[action.player];
-            const role = roleMap[action.role];
+            const role = roles[action.role];
             const verbage = role.showOnSummary ? <p key={index}>{player.name} {role.summaryVerb}</p> : null;
             return verbage;
         });

@@ -7,7 +7,7 @@ export class SetupRolesController extends Component {
 
 	render() {
 		const { dispatch } = this.props;
-		const { allRoles } = this.props.app.roles;
+		const { allRoles } = this.props.app;
 		const roles = allRoles.filter(role => !role.isDefaultRole);
 
 		return (
@@ -20,11 +20,18 @@ export class SetupRolesController extends Component {
 }
 
 export default connect((state) => {
+	const roleArray = Object.values(state.app.roles.allRoles);
+	const allRoles = roleArray.sort(roleSort);
+
 	return {
 		app: {
-			roles: state.app.roles,
+			allRoles,
 			error: state.app.error,
 			players: state.app.players
 		}
 	}
 })(SetupRolesController);
+
+const roleSort = function(a,b) {
+	return a.order - b.order;
+}

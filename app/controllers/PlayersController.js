@@ -13,7 +13,8 @@ export class PlayersController extends Component {
     generatePlayer(player) {
         const { roles, selections } = this.props.app;
 
-        const playerRole = roles.allRoles.find(role => role.id === player.role);
+        //const playerRole = roles.allRoles.find(role => role.id === player.role);
+		const playerRole = roles.allRoles[player.role];
         const playerSelection = selections.activeSelections.find(selection => player.id === selection.player);
         const selectionType = playerSelection ? playerSelection.type : null;
 
