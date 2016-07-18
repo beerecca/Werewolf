@@ -22,7 +22,7 @@ export class ReviewController extends Component {
 
         const actions = reviewActions.map((action, index) => {
             const player = playerMap[action.player];
-            const role = roles[action.role];
+            const role = roles.allRoles[action.role];
             const verbage = role.showOnSummary ? <p key={index}>{player.name} {role.summaryVerb}</p> : null;
             return verbage;
         });
