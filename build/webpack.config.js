@@ -12,8 +12,6 @@ var config = {
 	context: rootDir,
 	devtool: 'eval',
 	entry: [
-		'webpack-dev-server/client?http://localhost:3003',
-    	'webpack/hot/only-dev-server',
 		'./app.js'
 	],
 	output: {
@@ -97,6 +95,10 @@ if (!prod) {
 
 if(includeSourceMap) {
 	config.plugins.push(new Webpack.SourceMapDevToolPlugin());
+	config.entry.push([
+		'webpack-dev-server/client?http://localhost:3003',
+    	'webpack/hot/only-dev-server'
+	]);
 }
 
 module.exports = config;
