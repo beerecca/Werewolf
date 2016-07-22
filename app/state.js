@@ -29,7 +29,7 @@ export const initialState = {
 		}
 	},
 	roles: {
-		allRoles: [],
+		allRoles: {},
 		selectedRoles: []
 	},
 	error: null

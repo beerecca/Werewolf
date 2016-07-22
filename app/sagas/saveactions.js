@@ -26,7 +26,7 @@ function* updatePlayers() {
 	const roles = yield select(selectors.getAllRoles);
 	const players = yield select(selectors.getPlayers);
 
-	const defaultRole = roles.filter(role => role.isDefaultRole);
+	const defaultRole = Object.values(roles).filter(role => role.isDefaultRole);
 
 	const filledPlayers = players.map(player => ({
 		...player,

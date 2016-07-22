@@ -8,9 +8,9 @@ export class NightContainer extends Component {
 
 	render() {
 		const { dispatch } = this.props;
-		const { night, game } = this.props.app;
+		const { night, game, players } = this.props.app;
 		const { activeAction, nightActions } = night;
-		const { name, instruction } = activeAction;
+		const { name, namePlural, instruction } = activeAction;
 
         const actionPosition = nightActions.findIndex(r => r.id == activeAction.id);
         const isLastAction = actionPosition === nightActions.length - 1;
@@ -18,8 +18,10 @@ export class NightContainer extends Component {
         const next = <Button secondary={true} label="Next" buttonClick={()=>dispatch(action.changeAction('next'))} />;
         const save = <Button label="Save" buttonClick={()=>dispatch(action.saveActions())} />;
 
-		//TODO: for phase 0, rotate through selectedRoles (minus villagers)
-		const title = (game.phase === 0) ? `${name}s, open your eyes` : instruction;
+		const playersWithActiveAction = players.playerList.filter(player => (player.alive && player.role === activeAction.id));
+		const titleName = playersWithActiveAction.length === 1 ? name : namePlural;
+
+		const title = (game.phase === 0) ? `${namePlural}, open your eyes` : `${titleName}, ${instruction}`;
 
 		return (
 			<span>

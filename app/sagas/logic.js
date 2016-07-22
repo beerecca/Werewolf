@@ -34,16 +34,13 @@ export function* setNightRolesSaga() {
             }
 
 			const players = yield select(selectors.getPlayers);
-            const allRoles = yield select(selectors.getAllRoles);
-            const roleMap = allRoles.reduce((roles, role) => {
-                roles[role.id] = role;
-                return roles;
-            }, {});
+            const roleMap = yield select(selectors.getAllRoles);
             const allAliveRoles = players.map(player => {
                 return player.alive ? player.role : null;
             });
             const activeRoles = allAliveRoles.reduce((roles, role) => {
-                if (!role || roles.includes(role) || !roleMap[role].hasNightAction) return roles;
+				const hasRole = roles.some(r => r.id === role);
+                if (!role || hasRole || !roleMap[role].hasNightAction) return roles;
                 return roles.concat(roleMap[role]);
             }, []);
             yield put(actions.setNightRoles(activeRoles));
