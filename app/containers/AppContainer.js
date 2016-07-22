@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SetupGameController from './SetupGameController';
-import SetupNamesController from './SetupNamesController';
-import SetupRolesController from './SetupRolesController';
-import NightController from './NightController';
-import ReviewController from './ReviewController';
-import AccusationController from './AccusationController';
-import EndGameController from './EndGameController';
+import SetupGameContainer from './SetupGameContainer';
+import SetupNamesContainer from './SetupNamesContainer';
+import SetupRolesContainer from './SetupRolesContainer';
+import NightContainer from './NightContainer';
+import ReviewContainer from './ReviewContainer';
+import AccusationContainer from './AccusationContainer';
+import EndGameContainer from './EndGameContainer';
 
-export class AppController extends Component {
+export class AppContainer extends Component {
 
     render() {
         let content;
@@ -17,25 +17,25 @@ export class AppController extends Component {
 		//TODO: stage names should be consts
         switch (game.stage) {
 			case 'setup-game':
-				content = <SetupGameController />
+				content = <SetupGameContainer />
 				break;
 			case 'setup-player':
-				content = <SetupNamesController />
+				content = <SetupNamesContainer />
 				break;
 			case 'setup-roles':
-				content = <SetupRolesController />
+				content = <SetupRolesContainer />
 				break;
 			case 'night':
-				content = <NightController />
+				content = <NightContainer />
 				break;
 			case 'day-review':
-                content = <ReviewController />
+                content = <ReviewContainer />
                 break;
 			case 'day-accuse':
-				content = <AccusationController />
+				content = <AccusationContainer />
 				break;
 			case 'end-game':
-				content = <EndGameController />
+				content = <EndGameContainer />
 				break;
 			default:
 				break;
@@ -61,4 +61,4 @@ export default connect((state) => {
             game: state.app.game
 		}
 	}
-})(AppController);
+})(AppContainer);

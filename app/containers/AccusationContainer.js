@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import * as action from '../actions';
 import Button from '../components/Button';
 import Countdown from '../components/Countdown';
-import PlayersController from './PlayersController';
-//import cn from 'classnames';
+import PlayersContainer from './PlayersContainer';
 
-export class AccusationController extends Component {
+export class AccusationContainer extends Component {
 
     setNextNight() {
         this.props.dispatch(action.incrementPhase());
@@ -69,7 +68,7 @@ export class AccusationController extends Component {
             <span>
             <Countdown length={300} />
             <h2>{title}</h2>
-            <PlayersController />
+            <PlayersContainer />
             {footer}
             </span>
             );
@@ -83,4 +82,4 @@ export default connect((state) => {
             players: state.app.players
         }
     }
-})(AccusationController);
+})(AccusationContainer);

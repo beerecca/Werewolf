@@ -4,7 +4,7 @@ import * as action from '../actions';
 import Player from '../components/Player';
 import PlayerList from '../components/PlayerList';
 
-export class PlayersController extends Component {
+export class PlayersContainer extends Component {
 
     selectPlayer(id) {
         this.props.dispatch(action.selectPlayer(id, this.props.app.game.stage, this.props.app.game.phase, this.props.app.night.activeAction.id));
@@ -49,4 +49,4 @@ export default connect((state) => {
             night: state.app.night
 		}
 	}
-})(PlayersController);
+})(PlayersContainer);

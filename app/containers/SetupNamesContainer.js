@@ -5,7 +5,7 @@ import SetupNameForm from '../components/SetupNameForm';
 import Name from '../components/Name';
 import Button from '../components/Button';
 
-export class SetupNamesController extends Component {
+export class SetupNamesContainer extends Component {
 
 	render() {
 		const { playerList } = this.props.app.players;
@@ -37,4 +37,4 @@ export default connect((state) => {
 			players: state.app.players
 		} 
 	}
-})(SetupNamesController);
+})(SetupNamesContainer);

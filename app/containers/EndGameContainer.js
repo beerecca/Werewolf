@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export class EndGameController extends Component {
+export class EndGameContainer extends Component {
 
 	render() {
 		const { werewolvesWin } = this.props.app.game;
@@ -19,4 +19,4 @@ export default connect((state) => {
 			game: state.app.game
 		} 
 	}
-})(EndGameController);
+})(EndGameContainer);

@@ -5,8 +5,8 @@
 import { fork } from 'redux-saga/effects';
 import * as api from './api';
 import * as logic from './logic';
-import * as selectplayer from './selectplayer';
-import * as saveactions from './saveactions';
+import * as selectPlayer from './selectPlayer';
+import * as saveActions from './saveActions';
 
 export default function* rootSaga() {
 	yield fork(api.getRolesSaga);
@@ -19,7 +19,7 @@ export default function* rootSaga() {
 	yield fork(logic.setNightRolesSaga);
 	yield fork(logic.setDefaultVotesSaga);
 
-	yield fork(saveactions.saveActionsSaga);
-	yield fork(selectplayer.selectPlayerSaga);
+	yield fork(saveActions.saveActionsSaga);
+	yield fork(selectPlayer.selectPlayerSaga);
 }
 

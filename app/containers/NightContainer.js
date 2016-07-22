@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import Button from '../components/Button';
-import PlayersController from './PlayersController';
+import PlayersContainer from './PlayersContainer';
 
-export class NightController extends Component {
+export class NightContainer extends Component {
 
 	render() {
 		const { dispatch } = this.props;
@@ -25,7 +25,7 @@ export class NightController extends Component {
 			<span>
 				<p>{actionPosition + 1}/{nightActions.length}</p>
 				<h2>{title}</h2>
-				<PlayersController />
+				<PlayersContainer />
 				{actionPosition > 0 ? prev : null}
 				{!isLastAction ? next : null}
 				{isLastAction ? save : null}
@@ -46,4 +46,4 @@ export default connect((state) => {
 			selections: state.app.selections
 		}
 	}
-})(NightController);
+})(NightContainer);

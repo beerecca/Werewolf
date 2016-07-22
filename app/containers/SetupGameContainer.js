@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as action from '../actions';
 import SetupGameForm from '../components/SetupGameForm';
 
-export class SetupGameController extends Component {
+export class SetupGameContainer extends Component {
 
 	render() {
 		const { dispatch } = this.props;
@@ -17,4 +17,4 @@ export class SetupGameController extends Component {
 	}
 }
 
-export default connect((state) => state)(SetupGameController);
+export default connect((state) => state)(SetupGameContainer);

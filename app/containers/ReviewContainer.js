@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as action from '../actions';
 import Button from '../components/Button'
 
-export class ReviewController extends Component {
+export class ReviewContainer extends Component {
 
 	render() {
 		const { roles, players, day } = this.props.app;
@@ -50,4 +50,4 @@ export default connect((state) => {
 			selections: state.app.selections
 		}
 	}
-})(ReviewController);
+})(ReviewContainer);

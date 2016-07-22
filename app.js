@@ -10,8 +10,7 @@ import { rootReducer } from './app/reducers';
 import { domReady } from './app/util/dom';
 import rootSaga from './app/sagas/sagas';
 import './app/style/style.scss';
-//App Controllers
-import AppController from './app/controllers/AppController';
+import AppContainer from './app/containers/AppContainer';
 
 //Create saga middleware (keeps API logic in one place)
 const sagaMiddleware = createSagaMiddleware(rootSaga);
@@ -28,7 +27,7 @@ domReady.then(function() {
 
 	ReactDOM.render(
 		<Provider store={store}>
-			<AppController />
+			<AppContainer />
 		</Provider>,
 		document.getElementById('app')
 	);

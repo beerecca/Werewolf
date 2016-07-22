@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as action from '../actions';
 import SetupRolesForm from '../components/SetupRolesForm';
 
-export class SetupRolesController extends Component {
+export class SetupRolesContainer extends Component {
 
 	render() {
 		const { dispatch } = this.props;
@@ -27,4 +27,4 @@ export default connect((state) => {
 			players: state.app.players
 		}
 	}
-})(SetupRolesController);
+})(SetupRolesContainer);
