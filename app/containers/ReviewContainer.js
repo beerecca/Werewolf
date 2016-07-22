@@ -10,11 +10,6 @@ export class ReviewContainer extends Component {
 		const { reviewActions } = day;
 		const { dispatch } = this.props;
 
-        /*const roleMap = roles.allRoles.reduce((allRoles, role) => {
-            allRoles[role.id] = role;
-            return allRoles;
-        }, {});*/
-
         const playerMap = players.playerList.reduce((allPlayers, player) => {
             allPlayers[player.id] = player;
             return allPlayers;
