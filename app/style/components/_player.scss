@@ -51,3 +51,22 @@
     fill: $night-color;
     height: 70%;
 }
+
+.w-setup-player .w-player__icon {
+    fill: $setup-color;
+    height: 70%;
+}
+
+.w-player__delete:after {
+    content: 'x';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    height: 18px;
+    width: 17px;
+    background-color: $setup-color;
+    line-height: 1em;
+    font-size: 15px;
+    cursor: pointer;
+    color: $primary-color;
+}

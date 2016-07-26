@@ -11,13 +11,20 @@ export default class Player extends Component {
 		name: PropTypes.string.isRequired,
 		selectionType: PropTypes.array,
 		selectPlayer: PropTypes.func,
+		deletePlayer: PropTypes.func,
 		activeSelectionType: PropTypes.string,
 		alive: PropTypes.bool
 	};
 
+	handleClick() {
+		const { selectPlayer, deletePlayer, id } = this.props;
+		if (selectPlayer) selectPlayer(id);
+		if (deletePlayer) deletePlayer(id);
+	}
+
 	render() {
-		const { name, id, image, selectPlayer, selectionType, activeSelectionType, alive } = this.props;
-		const classNames = cn('w-player', { 'w-player__dead': !alive });
+		const { name, image, deletePlayer, selectionType, activeSelectionType, alive } = this.props;
+		const classNames = cn('w-player', { 'w-player__dead': !alive, 'w-player__delete': deletePlayer });
 
 		const img = (image) ? <img className="w-player__image" src={image} /> : null;
 		const iconType = (!selectionType)
@@ -42,7 +49,7 @@ export default class Player extends Component {
 			: <div className={classNames}>{img}{icon}</div>
 
 		return (
-			<span onClick={()=>{selectPlayer(id)}}>
+			<span onClick={this.handleClick.bind(this)}>
 				{playerBlock}
 				<p className="w-player__name">{name}</p>
 			</span>

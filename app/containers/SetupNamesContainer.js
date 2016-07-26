@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../actions';
 import SetupNameForm from '../components/SetupNameForm';
-import Name from '../components/Name';
+import PlayerList from '../components/PlayerList';
+import Player from '../components/Player';
 import Button from '../components/Button';
 
 export class SetupNamesContainer extends Component {
@@ -12,19 +13,22 @@ export class SetupNamesContainer extends Component {
 		const { dispatch } = this.props;
 
 		return (
-			<div className="one-half offset-by-three column">
+			<span>
 				<h2>Add Players</h2>
-				<SetupNameForm createPlayer={player=>{dispatch(action.createPlayer(player))}} />
+				<div className="one-half offset-by-three column">
+					<SetupNameForm createPlayer={player=>{dispatch(action.createPlayer(player))}} />
+				</div>
 				<div className="w-playerlist">
-					{playerList && playerList.map(player=>{
-						return <Name 
+					<PlayerList>
+						{playerList.map(player => <Player 
 							key={player.id} 
 							name={player.name} 
-							deletePlayer={()=>{dispatch(action.deletePlayer(player.id))}} />
-					})}
+							alive={true}
+							deletePlayer={()=>{dispatch(action.deletePlayer(player.id))}} />)}
+					</PlayerList>
 				</div>
 				<Button label="Next" buttonClick={()=>dispatch(action.chooseRoles())} />
-			</div>
+			</span>
 		);
 	}
 }
