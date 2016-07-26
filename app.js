@@ -1,5 +1,5 @@
 import './app/util/polyfills';
-//React, Redux, Router, Sagas
+//React, Redux, Sagas
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore, compose } from 'redux';

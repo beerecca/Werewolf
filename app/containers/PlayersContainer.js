@@ -25,6 +25,7 @@ export class PlayersContainer extends Component {
             name={player.name}
             image={playerRole ? playerRole.image : null}
             selectionType={selectionType}
+            activeSelectionType={selections.selectionType}
             selectPlayer={(id)=>{this.selectPlayer(id)}} />
     }
 

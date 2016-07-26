@@ -13,8 +13,13 @@ export function* selectPlayerSaga() {
 			const selectedPlayer = players.filter(player => player.id === id);
 			if (!selectedPlayer[0].alive) continue;
 
+			//if the player is accused, they shouldn't be able to be selected
+			const selections = yield select(selectors.getSelections);
+			const selectedPlayerSelections = selections.activeSelections.find(activeSelection => activeSelection.player === id)
+			if (selectedPlayerSelections && selectedPlayerSelections.type.includes('accused') && selections.selectionType !== 'accused') continue;
+
 			//based on the active selection type, we need to do some selection:
-			yield setSelections(id);
+			yield setSelections(id, selections);
 
 			const stage = yield select(selectors.getGameStage);
 			const phase = yield select(selectors.getGamePhase);
@@ -35,8 +40,7 @@ export function* selectPlayerSaga() {
 	}
 }
 
-function* setSelections(id) {
-	const selections = yield select(selectors.getSelections);
+function* setSelections(id, selections) {
 	if (!selections.selectionType) return;
 
 	const newSelections = selections.selectionType === 'vote' ? yield computeVoteSelections(selections, id) : yield computeNormalSelections(selections, id);

@@ -1,5 +1,7 @@
 .w-player {
-    text-align: center;
+    position: relative;
+    width: 100px;
+    height: 100px;
 }
 
 .w-player__list {
@@ -11,65 +13,41 @@
     margin: 10px;
 }
 
+.w-player__name {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
 .w-player__image {
 	width: 100px;
     height: 100px;
-    background-color: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.w-player__overlay {
+    background-color: transparentize(#fff, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .w-player__dead {
     opacity: 0.3;
 }
 
-.w-player__werewolf .w-player__image {
-    outline: 3px solid cadetblue;
+.w-day-review .w-player__icon, 
+.w-day-accuse .w-player__icon {
+    fill: $day-color;
+    height: 70%;
 }
 
-.w-player__mason .w-player__image {
-    outline: 3px solid chartreuse;
+.w-night .w-player__icon {
+    fill: $night-color;
+    height: 70%;
 }
-
-.w-player__spellcaster .w-player__image {
-    outline: 3px solid chocolate;
-}
-
-.w-player__sorceress .w-player__image {
-    outline: 3px solid coral;
-}
-
-.w-player__bodyguard .w-player__image {
-    outline: 3px solid cornflowerblue;
-}
-
-.w-player__seer .w-player__image {
-    outline: 3px solid cornsilk;
-}
-
-.w-player__witch .w-player__image {
-    outline: 3px solid crimson;
-}
-
-.w-player__wolfcub .w-player__image {
-    outline: 3px solid cyan;
-}
-
-.w-player__hunter .w-player__image {
-    outline: 3px solid dodgerblue;
-}
-
-.w-player__accused .w-player__image {
-    outline: 3px solid #8c1414;
-}
-
-.w-player__accusers .w-player__image {
-    outline: 3px solid #1d68a7;
-}
-
-.w-player__voteSave .w-player__image {
-    outline: 3px solid #1da721;
-}
-
-.w-player__voteKill .w-player__image {
-    outline: 3px solid #ff0;
-}
-

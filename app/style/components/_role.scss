@@ -1,17 +1,36 @@
-.w-role__label {
-	margin-bottom: 0;
-}
-
 .w-role__image {
 	width: 90px;
-	margin: 10px;
-    display: list-item;
+	height: 90px;
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .w-role__checkbox {
 	display: none;
 }
 
-.w-role__checkbox:checked + img {
-    outline: 3px solid $primary-color;
+.w-role__checkbox:checked + .w-role__imagecontainer {
+	opacity: 1;
+}
+
+.w-role__checkbox:checked + .w-role__imagecontainer .w-role__overlay {
+	background-color: transparent;
+}
+
+.w-role__overlay {
+	background-color: $setup-color;
+	mix-blend-mode: color;
+    position: absolute;
+    margin-top: 0;
+}
+
+.w-role__imagecontainer {
+	opacity: 0.5;
+	width: 90px;
+    height: 90px;
+    margin: 10px;
+    display: list-item;
+    position: relative;
 }
