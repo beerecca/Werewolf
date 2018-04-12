@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getWerewolvesWin } from '../selectors';
 
 export class EndGameContainer extends Component {
 
 	render() {
-		const { werewolvesWin } = this.props.app.game;
+		const { werewolvesWin } = this.props;
 		const message = (werewolvesWin) ? 'Werewolves Win!' : 'Villagers Win!';
 
 		return (
@@ -13,10 +14,6 @@ export class EndGameContainer extends Component {
 	}
 }
 
-export default connect((state) => {
-	return {
-		app: {
-			game: state.app.game
-		} 
-	}
-})(EndGameContainer);
+export default connect((state) => ({
+	werewolvesWin: getWerewolvesWin(state)
+}))(EndGameContainer);

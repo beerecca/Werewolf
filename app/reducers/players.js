@@ -17,7 +17,6 @@ export const players = handleActions({
 		]
 	}),
 
-
 	DELETE_PLAYER : (state, action) => {
 		const { id } = action.payload;
 		const playerList = state.playerList.filter(player=>{

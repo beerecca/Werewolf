@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as action from '../actions';
+import { incrementPhase, setNight, updatePage, setSelection, saveAccusations } from '../actions';
+import * as selector from '../selectors';
 import Button from '../components/Button';
 import Countdown from '../components/Countdown';
 import PlayersContainer from './PlayersContainer';
@@ -8,78 +9,76 @@ import PlayersContainer from './PlayersContainer';
 export class AccusationContainer extends Component {
 
     setNextNight() {
-        this.props.dispatch(action.incrementPhase());
-        this.props.dispatch(action.setNight());
+        this.props.incrementPhase();
+        this.props.setNight();
     }
 
     updatePage(page) {
-        this.props.dispatch(action.updatePage(page));
-        this.props.dispatch(action.setSelection(page, false));
-    }
-
-    sendVote() {
-        this.props.dispatch(action.saveAccusations());
+        this.props.updatePage(page);
+        this.props.setSelection(page, false);
     }
 
     render() {
-        const { page, accusation } = this.props.app.day;
-        const { dispatch } = this.props;
-        const skipDisabled = accusation.accused !== null;
-        const nextAccusersDisabled = accusation.accused === null;
-        const cancelDisabled = accusation.accusedBy.length === 0;
-        const nextVoteDisabled = accusation.accusedBy.length < 2;
+        const { 
+            page, 
+            skipDisabled, 
+            nextAccusersDisabled, 
+            cancelDisabled, 
+            nextVoteDisabled,
+            saveAccusations 
+        } = this.props;
 
-        let title;
-        let footer;
-
-        switch (page) {
-
-            case 'accuse':
-            title = 'Select Accused';
-            footer = (
-                <footer>
-                    <Button label="Skip to next night" disabled={skipDisabled} buttonClick={()=>this.setNextNight()} />
-                    <Button label="Next" disabled={nextAccusersDisabled} buttonClick={()=>this.updatePage('accusers')} />
-                </footer>
-                );
-            break;
-            case 'accusers':
-            title = 'Select Accusers';
-            footer = (
-                <footer>
-                    <Button label="Cancel" disabled={cancelDisabled} buttonClick={()=>dispatch(action.saveAccusations())} />
-                    <Button label="Next" disabled={nextVoteDisabled} buttonClick={()=>this.updatePage('vote')} />
-                </footer>
-                );
-            break;
-            case 'vote':
-            title = 'Vote';
-            footer = (
-                <footer>
-                    <Button label="Next" buttonClick={()=>this.sendVote()} />
-                </footer>
-                );
-            break;
-            default:
-            break;
+        const pageOptions = {
+            accuse: {
+                title: 'Select Accused',
+                footer: (
+                    <footer>
+                        <Button label="Skip to next night" disabled={skipDisabled} buttonClick={()=>this.setNextNight()} />
+                        <Button label="Next" disabled={nextAccusersDisabled} buttonClick={()=>this.updatePage('accusers')} />
+                    </footer>
+                )
+            },
+            accusers: {
+                title: 'Select Accusers',
+                footer: (
+                    <footer>
+                        <Button label="Cancel" disabled={cancelDisabled} buttonClick={()=>saveAccusations()} />
+                        <Button label="Next" disabled={nextVoteDisabled} buttonClick={()=>this.updatePage('vote')} />
+                    </footer>
+                )
+            },
+            vote: {
+                title: 'Vote',
+                footer: (
+                    <footer>
+                        <Button label="Next" buttonClick={()=>saveAccusations()} />
+                    </footer>
+                )
+            }
         }
 
         return (
             <span>
-            <Countdown length={300} />
-            <h2>{title}</h2>
-            <PlayersContainer />
-            {footer}
+                <Countdown length={300} />
+                <h2>{pageOptions[page].title}</h2>
+                <PlayersContainer />
+                <footer>
+                    {pageOptions[page].footer}
+                </footer>
             </span>
-            );
+        );
     }
 }
 
-export default connect((state) => {
-    return {
-        app: {
-            day: state.app.day,
-            players: state.app.players
-        }
-    }
-})(AccusationContainer);
+const mapStateToProps = (state) => ({
+    page: selector.getDayPage(state),
+    skipDisabled: selector.getSkipDisabled(state),
+    nextAccusersDisabled: selector.getNextAccusersDisabled(state),
+    cancelDisabled: selector.getCancelDisabled(state),
+    nextVoteDisabled: selector.getNextVoteDisabled(state)
+});
+
+export default connect(
+    mapStateToProps, 
+    { incrementPhase, setNight, updatePage, setSelection, saveAccusations }
+)(AccusationContainer);

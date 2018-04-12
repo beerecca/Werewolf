@@ -1,37 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as action from '../actions';
+import { startGame } from '../actions';
+import { getSortedFilteredRoles } from '../selectors';
 import SetupRolesForm from '../components/SetupRolesForm';
 
 export class SetupRolesContainer extends Component {
 
 	render() {
-		const { dispatch } = this.props;
-		const { allRoles } = this.props.app;
-		const roles = allRoles.filter(role => !role.isDefaultRole);
+		const { roles, startGame } = this.props;
 
 		return (
 			<span>
 				<h2>Select Roles</h2>
-				<SetupRolesForm roles={roles} startGame={(selectedRoles)=>{dispatch(action.startGame(selectedRoles))}} />
+				<SetupRolesForm roles={roles} startGame={selectedRoles=>startGame(selectedRoles)} />
 			</span>
 		);
 	}
 }
 
-export default connect((state) => {
-	const roleArray = Object.values(state.app.roles.allRoles);
-	const allRoles = roleArray.sort(roleSort);
-
-	return {
-		app: {
-			allRoles,
-			error: state.app.error,
-			players: state.app.players
-		}
-	}
-})(SetupRolesContainer);
-
-const roleSort = function(a,b) {
-	return a.order - b.order;
-}
+export default connect((state) => ({
+	roles: getSortedFilteredRoles(state)
+}), { startGame })(SetupRolesContainer);

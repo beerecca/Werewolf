@@ -9,7 +9,6 @@ export const roles = handleActions({
 	}),
 
 	START_GAME : (state, action) => {
-
 		const selectedRoles = action.payload.selectedRoles.map(roleId=>{
 			return state.allRoles[roleId];
 		});

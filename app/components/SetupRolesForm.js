@@ -33,7 +33,7 @@ export default class SetupRolesForm extends Component {
 
 	render() {
 		const { roles } = this.props;
-        //TODO this rolelist should be it's own dumb component
+		
 		return (
 			<span>
 				<ul className="w-rolelist">

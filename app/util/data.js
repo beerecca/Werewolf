@@ -1,8 +1,10 @@
-const rolesServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/roles';
-const gamesServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/games';
-const playersServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/players';
-const actionServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/actions';
-const accusationServiceEndpoint = 'https://ykvwnx9xib.execute-api.us-west-2.amazonaws.com/prod/accusations';
+const apiKey = null;
+const urlRoot = null;
+const rolesServiceEndpoint = urlRoot + '/roles';
+const gamesServiceEndpoint = urlRoot + '/games';
+const playersServiceEndpoint = urlRoot + '/players';
+const actionServiceEndpoint = urlRoot + '/actions';
+const accusationServiceEndpoint = '/accusations';
 
 //Data util. Responsible for getting/posting data to and from endpoints.
 
@@ -10,7 +12,7 @@ export function getRolesData() {
 	return fetch(rolesServiceEndpoint, {
 		method: 'GET',
 		headers: {
-			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
+			'x-api-key': apiKey
 		}
 	})
 		.then(checkStatus)
@@ -22,7 +24,7 @@ export function saveGame(game) {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',
-			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
+			'x-api-key': apiKey
 		},
 		body: JSON.stringify(game)
 	})
@@ -35,7 +37,7 @@ export function savePlayers(data) {
 		method: 'PUT',
 		headers: {
 			'content-type': 'application/json',
-			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
+			'x-api-key': apiKey
 		},
 		body: JSON.stringify(data.players)
 	})
@@ -48,7 +50,7 @@ export function saveActions(data) {
         method: 'POST',
 		headers: {
 			'content-type': 'application/json',
-			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
+			'x-api-key': apiKey //env!
 		},
         body: JSON.stringify(data.postActions)
     })
@@ -61,7 +63,7 @@ export function saveAccusation(data) {
         method: 'POST',
 		headers: {
 			'content-type': 'application/json',
-			'x-api-key': '8qKfgKuERL9FuHU40x15k32ytM0Tl5nI33Z1Cq5f'
+			'x-api-key': apiKey
 		},
         body: JSON.stringify(data.accusation)
     })

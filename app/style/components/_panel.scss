@@ -1,5 +1,13 @@
 .w-panel {
 	text-align: center;
+	margin-top: 10vh;
+    .column {
+    	float: none;
+    }
+}
+
+.w-panel__center {
+	text-align: center;
 	margin-top: 50vh;
     transform: translateY(-50%);
     .column {

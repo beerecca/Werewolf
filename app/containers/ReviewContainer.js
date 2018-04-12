@@ -1,48 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as action from '../actions';
+import { startAccusations } from '../actions';
 import Button from '../components/Button'
+import { getReviewSummary } from '../selectors';
 
 export class ReviewContainer extends Component {
 
 	render() {
-		const { roles, players, day } = this.props.app;
-		const { reviewActions } = day;
-		const { dispatch } = this.props;
-
-        const playerMap = players.playerList.reduce((allPlayers, player) => {
-            allPlayers[player.id] = player;
-            return allPlayers;
-        }, {});
-
-        const actions = reviewActions.map((action, index) => {
-            const player = playerMap[action.player];
-            const role = roles.allRoles[action.role];
-            const verbage = role.showOnSummary ? <p key={index}>{player.name} {role.summaryVerb}</p> : null;
-            return verbage;
-        });
+		const { reviewSummary, startAccusations } = this.props;
+        const summaryEls = reviewSummary.map(({id, name, verb}) => <p key={id}>{name} {verb}</p>);
 
 		return (
 			<span>
 				<h1>Day Review</h1>
 				<p>This is what happened last night:</p>
-                {actions}
-                <Button label="Start Accusations" buttonClick={()=>{dispatch(action.startAccusations())}} />
+                {summaryEls}
+                <Button label="Start Accusations" buttonClick={()=>startAccusations()} />
 			</span>
 		);
 	}
 }
 
-export default connect((state) => {
-	return {
-		app: {
-			players: state.app.players,
-			roles: state.app.roles,
-			error: state.app.error,
-			game: state.app.game,
-			night: state.app.night,
-			day: state.app.day,
-			selections: state.app.selections
-		}
-	}
-})(ReviewContainer);
+export default connect((state) => ({
+    reviewSummary: getReviewSummary(state)
+}), { startAccusations })(ReviewContainer);

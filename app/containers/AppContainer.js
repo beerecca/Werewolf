@@ -7,58 +7,36 @@ import NightContainer from './NightContainer';
 import ReviewContainer from './ReviewContainer';
 import AccusationContainer from './AccusationContainer';
 import EndGameContainer from './EndGameContainer';
+import { getGameStage } from '../selectors';
 
 export class AppContainer extends Component {
 
     render() {
-        let content;
-        const { game } = this.props.app;
+        const { stage } = this.props;
 
-		//TODO: stage names should be consts
-        switch (game.stage) {
-			case 'setup-game':
-				content = <SetupGameContainer />
-				break;
-			case 'setup-player':
-				content = <SetupNamesContainer />
-				break;
-			case 'setup-roles':
-				content = <SetupRolesContainer />
-				break;
-			case 'night':
-				content = <NightContainer />
-				break;
-			case 'day-review':
-                content = <ReviewContainer />
-                break;
-			case 'day-accuse':
-				content = <AccusationContainer />
-				break;
-			case 'end-game':
-				content = <EndGameContainer />
-				break;
-			default:
-				break;
+		const stageContent = {
+			'setup-game': <div className="w-panel__center"><SetupGameContainer /></div>,
+			'setup-player': <div className="w-panel"><SetupNamesContainer /></div>,
+			'setup-roles': <div className="w-panel"><SetupRolesContainer /></div>,
+			'night': <div className="w-panel"><NightContainer /></div>,
+			'day-review': <div className="w-panel"><ReviewContainer /></div>,
+			'day-accuse': <div className="w-panel"><AccusationContainer /></div>,
+			'end-game': <div className="w-panel__center"><EndGameContainer /></div>
 		}
 
 		document.body.className = '';
-		document.body.classList.add(`w-${game.stage}`);
+		document.body.classList.add(`w-${stage}`);
 
         return (
             <div className="container">
 				<div className="w-panel">
-					{content}
+					{stageContent[stage]}
 				</div>
 			</div>
 		);
 	}
 }
 
-export default connect((state) => {
-	return {
-		app: {
-			error: state.app.error,
-            game: state.app.game
-		}
-	}
-})(AppContainer);
+export default connect((state) => ({
+    stage: getGameStage(state)
+}))(AppContainer);
